@@ -1,4 +1,111 @@
-body{
-    background-color: #f1f1f1;
-    color: red;
-}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  
+  }
+  
+  .navbar {
+    background-color: #79B4A9!important;
+  }
+  
+  .container {
+    padding: 0;
+  }
+  
+  main {
+    max-width: 500px;
+    height: 100vh;
+    margin: 0 auto;
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+  
+  footer {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 1rem;
+    padding-bottom: .05rem;
+  }
+  
+  /* Själva anteckningen
+  */
+  .note {
+   padding: .7rem 1rem 1rem;
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   background-color: #feff9c;
+   margin-bottom: 2rem;
+  }
+  
+  .note textarea {
+    background-color: inherit;
+    border: none;
+    resize: none;
+    padding: 1rem;
+  }
+  
+  .note textarea:focus {
+    outline: none;
+  }
+  
+  .note textarea:active {
+    filter: opacity(70%);
+  }
+  
+  .note-buttons-top {
+    display: flex; 
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  
+  .note-button {
+  
+    font-size: 27px;
+    
+    border: none;
+    background-color: inherit;
+    color: rgba(0,0,0,.5);;
+  
+  }
+  
+  .note-button-bottom {
+    margin-left: auto;
+  }
+  
+  .note-button:focus {
+    outline: none;
+  }
+  
+  .note-button:hover {
+    filter: opacity(70%);
+  
+  }
+  
+  #list-button {
+    margin-right: .2rem;
+    margin-left: .5rem;
+  }
+  
+  #close-button {
+    margin-right: .3rem;
+  }
+  
+  #date {
+    color: rgba(0,0,0,.5);
+  }
+  
+  
+  /*Ny anteckning*/
+  #new-note-button {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    font-size: 50px;
+    border: none;
+    background-color: inherit;
+    color: rgba(0,0,0,.5);;
+  
+  }
