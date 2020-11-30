@@ -51,10 +51,6 @@
     outline: none;
   }
   
-  .note textarea:active {
-    filter: opacity(70%);
-  }
-  
   .note-buttons-top {
     display: flex; 
     justify-content: space-between;
@@ -106,6 +102,10 @@
     font-size: 50px;
     border: none;
     background-color: inherit;
-    color: rgba(0,0,0,.5);;
+    color: rgba(0,0,0,.5);
   
+  }
+
+  #new-note-button:focus {
+    outline: none;
   }
