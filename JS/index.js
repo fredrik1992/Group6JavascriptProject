@@ -1,4 +1,7 @@
-
+function menuToggle(){
+    var menu = document.querySelector('.menuIcon');
+    menu.classList.toggle('active')
+}
 
 
 
