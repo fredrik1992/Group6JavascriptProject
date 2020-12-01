@@ -1,6 +1,7 @@
 
 
 
+
 function createElementType(type/*  1 for note 2 for list*/){//creates a element with values depending on the type and adds to page 'Fredrik
     
     var mainWindow = document.getElementById("placeholder");// add div wich is gonna hold all elements
