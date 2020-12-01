@@ -22,3 +22,18 @@ function createElementType(type/*  1 for note 2 for list*/){//creates a element 
 
     
 }
+
+//Skapar ett nytt datum-objekt och lägger till dagens datum till en ny anteckning i formatet yyyy-mm-dd
+//OBS! än så länge ändrar den bara på prototyp-anteckningen
+function addDate () {
+  let date = document.getElementById("date");
+  let noteDate = new Date();
+  let year = noteDate.getFullYear();
+  let month = noteDate.getMonth();
+  let day = noteDate.getDay();
+  if (day < 10) {
+      day = `0${day}`
+  }
+  date.innerText = `${year}-${month}-${day}`
+  
+}
