@@ -11,11 +11,10 @@ function createElementType(type/*  1 for note 2 for list*/){//creates a element 
     var newElement = document.createElement("div");
     
     
-    newElement.setAttribute("class","newElement")
+    newElement.setAttribute("class","note")
     
     if(type ==1){
         var text = document.createElement("textarea")
-        text.setAttribute("class","textAreaToNewElement")
         newElement.appendChild(text)
     }
 

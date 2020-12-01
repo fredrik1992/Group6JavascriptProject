@@ -15,7 +15,7 @@
   
   main {
     max-width: 500px;
-    height: 100vh;
+  
     margin: 0 auto;
     margin-top: 1rem;
     padding: 1rem;
@@ -24,9 +24,11 @@
   footer {
     width: 100%;
     margin: 0 auto;
+    margin-top: 1rem;
     text-align: center;
     padding: 1rem;
     padding-bottom: .05rem;
+   
   }
   
   /* Själva anteckningen
@@ -34,6 +36,7 @@
   .note {
    padding: .7rem 1rem 1rem;
    width: 100%;
+   height: fit-content;
    display: flex;
    flex-direction: column;
    background-color: #feff9c;
@@ -44,6 +47,12 @@
     background-color: inherit;
     border: none;
     resize: none;
+    min-height: 300px;
+    overflow: auto;
+    scroll-behavior: smooth;
+    height: 100%;
+    width: 100%;
+    
     padding: 1rem;
   }
   
