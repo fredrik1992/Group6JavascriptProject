@@ -37,7 +37,7 @@
    display: flex;
    flex-direction: column;
    background-color: #feff9c;
-   margin-bottom: 2rem;
+   margin-bottom: 1rem;
   }
   
   .note textarea {
