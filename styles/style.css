@@ -111,3 +111,19 @@
     outline: none;
   }
 
+.newElement{
+  background-color: yellow;
+  height: 200px;
+  width: 200px;
+  margin: 200px;
+  text-align: center;
+
+}
+.textAreaToNewElement{
+  background-color: yellow;
+  height: 100%;
+  width: 100%;
+  resize: none;
+
+}
+
