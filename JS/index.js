@@ -14,8 +14,9 @@ function createElementType(type/*  1 for note 2 for list*/){//creates a element 
     
 
     if(type ==1){
-        var text = prompt("add text here")
-        newElement.textContent = text;
+        var text = document.createElement("textarea")
+        text.setAttribute("style","background-color: yellow; height:100%; width:100% ")
+        newElement.appendChild(text)
     }
 
 
