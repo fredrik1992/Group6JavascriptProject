@@ -40,3 +40,26 @@ function addDate () {
   date.innerText = `${year}-${month}-${day}`
   
 }
+
+
+
+
+
+function saveNote(){
+    var inputValue = document.getElementById("input-text").value;    
+ ///   console.log(inputValue);
+    }
+    
+
+
+
+    function closeNote(){
+        var x = document.getElementById("note-article");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+
