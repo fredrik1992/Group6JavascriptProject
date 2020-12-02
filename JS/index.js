@@ -19,6 +19,14 @@ function createElementType(type/*  1 for note 2 for list*/){//creates a element 
         var text = document.createElement("textarea")
         newElement.appendChild(text)
     }
+    
+    if(type ==2) {
+    let node = document.createElement("ul");
+    let node_li = document.createElement("li"); // Create a <li> node
+    let textnode = document.createTextNode(""); // Create a text node
+    node_li.appendChild(textnode);
+    node.appendChild(node_li);
+    }
 
 
     mainWindow.appendChild(newElement);
