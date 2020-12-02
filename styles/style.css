@@ -15,6 +15,7 @@
   
   main {
     max-width: 500px;
+    min-height: 90vh;
   
     margin: 0 auto;
     margin-top: 1rem;
@@ -37,6 +38,7 @@
    padding: .7rem 1rem 1rem;
    width: 100%;
    height: fit-content;
+   min-height: 300px;
    display: flex;
    flex-direction: column;
    background-color: #feff9c;
@@ -53,6 +55,8 @@
     height: 100%;
     width: 100%;
     
+    
+    
     padding: 1rem;
   }
   
@@ -67,12 +71,9 @@
   }
   
   .note-button {
-  
-    font-size: 27px;
-    
     border: none;
     background-color: inherit;
-    color: rgba(0,0,0,.5);;
+    filter: opacity(70%);
   
   }
   
@@ -85,7 +86,7 @@
   }
   
   .note-button:hover {
-    filter: opacity(70%);
+    filter: opacity(40%);
   
   }
   
@@ -94,12 +95,14 @@
     margin-left: .5rem;
   }
   
-  #close-button {
+  #delete-button {
     margin-right: .3rem;
   }
+
   
   #date {
     color: rgba(0,0,0,.5);
+    margin: 0 auto;
   }
   
   
@@ -112,7 +115,6 @@
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    color: rgba(0,0,0,.5);
   }
 
   .menuIcon span{
@@ -151,19 +153,3 @@
     height: 50px;
     font-size: 50px;
   }
-
-.newElement{
-  background-color: yellow;
-  height: 200px;
-  width: 200px;
-  margin: 200px;
-  text-align: center;
-
-}
-.textAreaToNewElement{
-  background-color: yellow;
-  height: 100%;
-  width: 100%;
-  resize: none;
-
-}

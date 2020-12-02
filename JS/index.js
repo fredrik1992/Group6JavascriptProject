@@ -1,3 +1,5 @@
+"use strict";
+
 function menuToggle(){
     var menu = document.querySelector('.menuIcon');
     menu.classList.toggle('active')
@@ -32,12 +34,14 @@ function addDate () {
   let noteDate = new Date();
   let year = noteDate.getFullYear();
   let month = noteDate.getMonth();
+  if (month < 10) {
+    month = `0${month}`;
+  }
   let day = noteDate.getDay();
   if (day < 10) {
-      day = `0${day}`
+      day = `0${day}`;
   }
-  date.innerText = `${year}-${month}-${day}`
-  
+  date.innerText = `${year}-${month}-${day}`;
 }
 
 
