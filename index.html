@@ -74,14 +74,14 @@
 
 
 <!-- NOTE --> 
-        <article class="note">
+        <article  id="note-article"  class="note">
           <div class="note-buttons-top">
             <p id="date">xxxx-xx-xx</p>
 
-            <button id="delete-button" class="note-button"><img src="/media/x.svg" alt="delete-button" width="32" height="32" title="Delete"></button>
+            <button id="delete-button" class="note-button" onclick="closeNote()"><img src="/media/x.svg" alt="delete-button" width="32" height="32" title="Delete"></button>
           </div>
           <textarea name="input-text" id="input-text" ></textarea>
-          <button id="confirm-button" class="note-button note-button-bottom">
+          <button id="confirm-button" class="note-button note-button-bottom" onclick="saveNote()">
             <img src="/media/check.svg" alt="confirm-button" width="32" height="32" title="Confirm">
           </button>
         </article>
