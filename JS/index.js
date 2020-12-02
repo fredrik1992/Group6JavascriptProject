@@ -1,22 +1,36 @@
 "use strict";
 
-function menuToggle(){
-    var menu = document.querySelector('.menuIcon');
+document.getElementById("new-note-button").addEventListener("click", function(){
+  let menu = document.querySelector('.menuIcon');
     menu.classList.toggle('active')
-}
+});
+document.getElementById("list-button").addEventListener("click", function(){
+  createElementType(2)
+});
+document.getElementById("text-button").addEventListener("click", function(){
+  createElementType(1)
+});
+document.getElementById("delete-button").addEventListener("click", function(){
+  closeNote()
+});
+document.getElementById("confirm-button").addEventListener("click", function(){
+  saveNote()
+});
+
+
 
 
 
 function createElementType(type/*  1 for note 2 for list*/){//creates a element with values depending on the type and adds to page 'Fredrik
     
-    var mainWindow = document.getElementById("placeholder");// add div wich is gonna hold all elements
-    var newElement = document.createElement("div");
+    let mainWindow = document.getElementById("placeholder");// add div wich is gonna hold all elements
+    let newElement = document.createElement("div");
     
     
     newElement.setAttribute("class","note")
     
     if(type ==1){
-        var text = document.createElement("textarea")
+        let text = document.createElement("textarea")
         newElement.appendChild(text)
     }
     
@@ -57,7 +71,7 @@ function addDate () {
 
 
 function saveNote(){
-    var inputValue = document.getElementById("input-text").value;    
+    let inputValue = document.getElementById("input-text").value;    
  ///   console.log(inputValue);
     }
     
@@ -65,7 +79,7 @@ function saveNote(){
 
 
     function closeNote(){
-        var x = document.getElementById("note-article");
+        let x = document.getElementById("note-article");
         if (x.style.display === "none") {
           x.style.display = "block";
         } else {

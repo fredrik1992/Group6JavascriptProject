@@ -78,10 +78,10 @@
           <div class="note-buttons-top">
             <p id="date">xxxx-xx-xx</p>
 
-            <button id="delete-button" class="note-button" onclick="closeNote()"><img src="/media/x.svg" alt="delete-button" width="32" height="32" title="Delete"></button>
+            <button id="delete-button" class="note-button"><img src="/media/x.svg" alt="delete-button" width="32" height="32" title="Delete"></button>
           </div>
           <textarea name="input-text" id="input-text" ></textarea>
-          <button id="confirm-button" class="note-button note-button-bottom" onclick="saveNote()">
+          <button id="confirm-button" class="note-button note-button-bottom">
             <img src="/media/check.svg" alt="confirm-button" width="32" height="32" title="Confirm">
           </button>
         </article>
@@ -93,15 +93,15 @@
 
 
 <!-- NEW NOTE BUTTON-->
-    <div id="new-note-button" class="menuIcon" onclick="menuToggle()">
+    <div id="new-note-button" class="menuIcon">
       <span>
         <img src="/media/plus-circle.svg" alt="new note-button" width="50" height="50" title="New note">
       </span>
           <ul>
-            <li id="text-button" class="note-button" value="1" onclick="createElementType(2)">
+            <li id="list-button" class="note-button" value="1">
               <img src="/media/card-list.svg" alt="list-button" width="50" height="50" title="List">
             </li>
-            <li id="text-button" class="note-button" onclick="createElementType(1)">
+            <li id="text-button" class="note-button">
               <img src="/media/card-text.svg" alt="text-button" width="50" height="50" title="Text">
             </li>
           </ul> 
