@@ -66,6 +66,7 @@ function createElementType(type /*  1 for note 2 for list*/) {
   imgConfirm.setAttribute("height", "32");
   imgConfirm.setAttribute("title", "Confirm");
   btnConfirm.appendChild(imgConfirm);
+  ghuihgidushguodsjggs
 
   if (type == 1) {
     let textarea = document.createElement("textarea");
