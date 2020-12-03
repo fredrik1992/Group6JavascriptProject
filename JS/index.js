@@ -77,6 +77,7 @@ function createElementType(type /*  1 for note 2 for list*/) {
     let node_li = document.createElement("li"); // Create a <li> node
     let textnode = document.createTextNode(""); // Create a text node
     node_li.appendChild(textnode);
+    node_li.appendChild(textnode);
     node.appendChild(node_li);
     div2.appendChild(node);
   }
