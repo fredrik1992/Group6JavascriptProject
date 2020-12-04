@@ -87,17 +87,16 @@ function createElementType(type /*  1 for note 2 for list*/) {
 
 //Skapar ett nytt datum-objekt och lägger till dagens datum till en ny anteckning i formatet yyyy-mm-dd
 function addDate() {
-  let noteDate = new Date();
-  let year = noteDate.getFullYear();
-  let month = noteDate.getMonth();
+  const noteDate = new Date();
+  let month = noteDate.getMonth() + 1;
   if (month < 10) {
     month = `0${month}`;
   }
-  let day = noteDate.getDay();
+  let day = noteDate.getDate();
   if (day < 10) {
     day = `0${day}`;
   }
-  return `${year}-${month}-${day}`;
+  return `${noteDate.getFullYear()}-${month}-${day}`;
 }
 
 
