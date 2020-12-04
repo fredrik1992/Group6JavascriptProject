@@ -83,8 +83,7 @@ footer {
 
 .note-button-bottom {
   margin-left: auto;
-  position: relative;
-  bottom: 0;
+  margin-top: auto;
 }
 
 .note-button:focus {
@@ -109,6 +108,12 @@ footer {
 .date {
   color: rgba(0,0,0,.5);
   margin: 0 auto;
+}
+
+
+.list {
+  padding: 1rem;
+  padding-left: 2rem;
 }
 
 
