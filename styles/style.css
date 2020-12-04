@@ -1,4 +1,168 @@
-body{
-    background-color: #f1f1f1;
-    color: blue;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+.navbar {
+  background-color: #79B4A9!important;
+}
+
+.container {
+  padding: 0;
+}
+
+main {
+  max-width: 500px;
+  min-height: 90vh;
+
+  margin: 0 auto;
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+footer {
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 1rem;
+  text-align: center;
+  padding: 1rem;
+  padding-bottom: .05rem;
+ 
+}
+
+/* Själva anteckningen
+*/
+.note {
+ padding: .7rem 1rem 1rem;
+ width: 100%;
+ height: fit-content;
+ min-height: 300px;
+ display: flex;
+ flex-direction: column;
+ background-color: #feff9c;
+ margin-bottom: 2rem;
+}
+
+.note textarea {
+  background-color: inherit;
+  border: none;
+  resize: none;
+  min-height: 300px;
+  overflow: auto;
+  scroll-behavior: smooth;
+  height: 100%;
+  width: 100%;
+  
+  
+  
+  padding: 1rem;
+}
+
+.note textarea:focus {
+  outline: none;
+}
+
+.content {
+  min-height: 100px;
+}
+
+.note-buttons-top {
+  display: flex; 
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.note-button {
+  border: none;
+  background-color: inherit;
+  filter: opacity(70%);
+
+}
+
+.note-button-bottom {
+  margin-left: auto;
+  margin-top: auto;
+}
+
+.note-button:focus {
+  outline: none;
+}
+
+.note-button:hover {
+  filter: opacity(40%);
+
+}
+
+#list-button {
+  margin-right: .2rem;
+  margin-left: .5rem;
+}
+
+#delete-button {
+  margin-right: .3rem;
+}
+
+
+.date {
+  color: rgba(0,0,0,.5);
+  margin: 0 auto;
+}
+
+
+.list {
+  padding: 1rem;
+  padding-left: 2rem;
+}
+
+
+
+
+/*Ny anteckning*/
+.menuIcon {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  font-size: 50px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.menuIcon span{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: 0.3s ease-in-out;
+}
+
+.menuIcon.active span{
+  transform: rotate(45deg);
+}
+
+
+.menuIcon ul{
+  position: absolute;
+  bottom: 55px;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.menuIcon.active ul{
+  visibility: visible;
+  opacity: 1;
+}
+
+.menuIcon ul li{
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.menuIcon ul svg{
+  height: 50px;
+  font-size: 50px;
 }
