@@ -5,12 +5,19 @@
 
 }
 
+header {
+  width: 100%;
+  position: fixed;
+}
+
 .navbar {
   background-color: #79B4A9!important;
 }
 
 .container {
   padding: 0;
+
+  
 }
 
 main {
@@ -37,6 +44,7 @@ footer {
 .note {
  padding: .7rem 1rem 1rem;
  width: 100%;
+ max-width: 450px;
  height: fit-content;
  min-height: 300px;
  display: flex;
