@@ -1,21 +1,58 @@
 "use strict";
 
-document.getElementById("new-note-button").addEventListener("click", function(){
+let noteButton
+
+function initButton(){
+createButton();
+buttonContains();
+}
+
+function createButton(){
+  noteButton = document.createElement("div")
+  noteButton.className = "menuIcon"
+document.body.appendChild(noteButton)
+let span = document.createElement("span")
+noteButton.appendChild(span)
+let icon = document.createElement("img")
+icon.src = "/media/plus-circle.svg"
+icon.width ="50"
+icon.height ="50"
+span.appendChild(icon)
+noteButton.addEventListener("click", function(){
   let menu = document.querySelector('.menuIcon');
     menu.classList.toggle('active')
 });
-document.getElementById("list-button").addEventListener("click", function(){
+}
+
+function buttonContains(){
+let listButtons = document.createElement("ul")
+noteButton.appendChild(listButtons)
+
+let b1 = document.createElement("li")
+let b1img = document.createElement("img")
+b1img.src = "/media/card-list.svg"
+b1img.height = "50"
+b1img.width = "50"
+listButtons.appendChild(b1)
+b1.appendChild(b1img)
+b1.addEventListener("click", function(){
   createElementType(2)
 });
-document.getElementById("text-button").addEventListener("click", function(){
+
+let b2 = document.createElement("li")
+let b2img = document.createElement("img")
+b2img.src = "/media/card-text.svg"
+b2img.width = "50"
+b2img.height = "50"
+listButtons.appendChild(b2)
+b2.appendChild(b2img)
+b2.addEventListener("click", function(){
   createElementType(1)
 });
-document.getElementById("delete-button").addEventListener("click", function(){
-  closeNote()
-});
-document.getElementById("confirm-button").addEventListener("click", function(){
-  saveNote()
-});
+}
+
+
+
 
 
 function createElementType(type /*  1 for note 2 for list*/) {
@@ -38,6 +75,9 @@ function createElementType(type /*  1 for note 2 for list*/) {
   let btnDelete = document.createElement("button");
   btnDelete.setAttribute("id", "delete-button");
   btnDelete.setAttribute("class", "note-button");
+  btnDelete.addEventListener("click", function(){
+    closeNote()
+  });
   div1.appendChild(btnDelete);
 
   let imgDelete = document.createElement("img");
@@ -56,6 +96,9 @@ function createElementType(type /*  1 for note 2 for list*/) {
   let btnConfirm = document.createElement("button");
   btnConfirm.setAttribute("id", "confirm-button");
   btnConfirm.setAttribute("class", "note-button note-button-bottom");
+  btnConfirm.addEventListener("click", function(){
+    saveNote()
+  });
   article.appendChild(btnConfirm);
 
   let imgConfirm = document.createElement("img");
@@ -87,17 +130,16 @@ function createElementType(type /*  1 for note 2 for list*/) {
 
 //Skapar ett nytt datum-objekt och lägger till dagens datum till en ny anteckning i formatet yyyy-mm-dd
 function addDate() {
-  let noteDate = new Date();
-  let year = noteDate.getFullYear();
-  let month = noteDate.getMonth();
+  const noteDate = new Date();
+  let month = noteDate.getMonth() + 1;
   if (month < 10) {
     month = `0${month}`;
   }
-  let day = noteDate.getDay();
+  let day = noteDate.getDate();
   if (day < 10) {
     day = `0${day}`;
   }
-  return `${year}-${month}-${day}`;
+  return `${noteDate.getFullYear()}-${month}-${day}`;
 }
 
 
@@ -117,3 +159,5 @@ function saveNote(){
           x.style.display = "none";
         }
       }
+
+window.addEventListener("DOMContentLoaded", initButton());
