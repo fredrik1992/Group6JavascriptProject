@@ -53,7 +53,7 @@ footer {
  margin-bottom: 2rem;
 }
 
-.note textarea {
+.note .textArea {
   background-color: inherit;
   border: none;
   resize: none;
