@@ -6,7 +6,118 @@ let main = document.getElementById("main");
 function initButton() {
   createButton();
   buttonContains();
+  createAddNoteBookButton();
 }
+//---create noteBookStarts
+
+function createAddNoteBookButton(){ 
+
+  //skapa div element med flex  som en dropdown item
+  // lägga till knapp samt input
+  let getDropdownMenu =  document.getElementsByClassName("dropdown-menu")[0]
+  let boxForContent = document.createElement("div")
+  let noteBookName = document.createElement("input")
+  let button = document.createElement("button")
+  
+  
+  boxForContent.className = " addNoteBookFlexBox"
+  button.textContent = "Add"
+  button.className = "addNoteButton"
+  noteBookName.className = "noteBookTitle"
+  
+  getDropdownMenu.appendChild(boxForContent)
+  boxForContent.appendChild(button)
+  boxForContent.appendChild(noteBookName)
+
+  button.addEventListener("click",function(){
+    
+    let title = noteBookName.value
+    
+    
+    
+    createNoteBok() //sends value of input
+    
+  })
+
+
+}
+
+ let existingNoteBooks =[]
+ 
+ function createNoteBok(){ //calls all functions necesary to add a new book
+  
+  let title = document.getElementsByClassName("noteBookTitle")[0].value  //input value
+  console.log (title)
+  if (title === ""){
+    
+    document.getElementsByClassName("noteBookTitle")[0].style.border = "solid red 3px"
+    
+  }else{
+    
+    document.getElementsByClassName("noteBookTitle")[0].style.border = "solid 1px"
+    
+    existingNoteBooks.push(new NoteBookObject(title));
+    document.getElementsByClassName("noteBookTitle")[0]. value = ""}
+    
+    updateCurrentNoteBooks();
+
+  
+  
+  
+}
+
+function removeNoteBooks(titleToRemove){
+
+  
+  
+}
+
+function NoteBookObject(title){
+  
+  
+  this.titleOfObject = title;
+  
+  this.arrayOfAddedNotes ={};
+
+  this.getTitle = function (){
+    return this.titleOfObject
+  };
+  
+  this.setTitle = function (newTitle){
+    this.titleOfObject = newTitle;
+  };
+
+  function addNoteToBook(note){
+    arrayOfAddedNotes.push(note)
+
+  };
+
+  
+}
+
+
+function updateCurrentNoteBooks(){
+ 
+ document.querySelectorAll('.dropdown-item').forEach(e => e.remove());
+ let getDropdownMenu =  document.getElementsByClassName("dropdown-menu")[0]
+  
+ existingNoteBooks.forEach(element => {
+    console.log(element.getTitle())
+    
+    let books = document.createElement("a")
+  
+    books.className = "dropdown-item"
+    books.textContent = element.getTitle();
+
+    getDropdownMenu.appendChild(books)
+ });
+
+}
+
+
+
+
+//--
 
 function createButton() {
   noteButton = document.createElement("div");
@@ -16,7 +127,7 @@ function createButton() {
   noteButton.appendChild(span);
   let icon = document.createElement("img");
   icon.src = "/media/plus-circle.svg";
-  icon.width = "50";
+  icon.width = "50";  
   icon.height = "50";
   span.appendChild(icon);
   noteButton.addEventListener("click", function () {

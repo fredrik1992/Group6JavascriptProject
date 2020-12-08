@@ -174,3 +174,12 @@ footer {
   height: 50px;
   font-size: 50px;
 }
+
+.addNoteBookFlexBox{
+  display: flex;
+  flex-direction: row;
+  
+}
+.noteBookTitle{
+  margin: 10 px;
+  width: 70%;}
