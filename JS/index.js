@@ -83,6 +83,7 @@ function articleAttributes(article) {
 function createDiv1() {
   let div1 = document.createElement("div");
   div1.className = "note-buttons-top";
+  div1.appendChild(addBooksToNote());
   div1.appendChild(createP());
   div1.appendChild(createBtnDelete());
   return div1;
@@ -185,6 +186,42 @@ function addDate() {
     day = `0${day}`;
   }
   return `${noteDate.getFullYear()}-${month}-${day}`;
+}
+
+function addBooksToNote() {
+  /*let noteBooks = NoteBookObject.displayElementsBelongingToBook();*/
+
+  let noteBooks = ["hej", "hund", "katt"];
+  let noteDropDown = document.createElement("div");
+
+
+  let label = document.createElement("label");
+  label.setAttribute("for", "notebooks");
+  label.textContent = "Anteckningsbok";
+  noteDropDown.appendChild(label);
+
+
+  let select = document.createElement("select");
+  select.name = "notebooks";
+  select.id = "notebooks";
+  noteDropDown.appendChild(select);
+
+  let noOption = document.createElement("option");
+  noOption.textContent = "- tomt -";
+  noOption.style.color = "red";
+
+  if (noteBooks.length === 0) {
+    select.appendChild(noOption);
+  } else {
+    for (let i = 0; i < noteBooks.length; i++) {
+      let option = document.createElement("option");
+      option.className = "dropdown-item"
+      option.textContent = noteBooks[i];
+      select.appendChild(option);
+    }
+  }
+
+  return noteDropDown;
 }
 
 function saveNote() {
