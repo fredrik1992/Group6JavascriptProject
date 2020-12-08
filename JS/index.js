@@ -174,7 +174,7 @@ function buttonContains() {
   listButtons.appendChild(b1);
   b1.appendChild(b1img);
   b1.addEventListener("click", function () {
-    createNote(2);
+    new Note(2);
   });
 
   let b2 = document.createElement("li");
@@ -185,8 +185,17 @@ function buttonContains() {
   listButtons.appendChild(b2);
   b2.appendChild(b2img);
   b2.addEventListener("click", function () {
-    createNote(1);
+    new Note(1);
   });
+}
+
+/*
+Konstruktor för notes-objekt 
+*/
+function Note(type){
+  this.noteElement = createNote(type);
+  main.appendChild(this.noteElement);
+  
 }
 
 //////////////////////////////////////// FUNCTIONS FOR CREATING NEW NOTE ////////////////////////////////////////
@@ -198,7 +207,7 @@ function createNote(type /*  1 for note 2 for list*/) {
   article.appendChild(createDiv1());
   article.appendChild(createDiv2(type));
   article.appendChild(createBtnConfirm());
-  main.appendChild(article);
+  return article;
 }
 
 //Ger <article> klass och id
@@ -259,7 +268,9 @@ function createDiv2(type) {
   div2.className = "content";
 
   if (type == 1) {
-    let textarea = document.createElement("textarea");
+    let textarea = document.createElement("div");
+    textarea.className = "textArea"
+    textarea.contentEditable = "true";
     div2.appendChild(textarea);
   }
 
