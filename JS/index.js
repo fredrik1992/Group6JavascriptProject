@@ -2,6 +2,7 @@
 
 let noteButton;
 let main = document.getElementById("main");
+let existingNoteBooks =[]
 
 function initButton() {
   createButton();
@@ -15,61 +16,64 @@ function createAddNoteBookButton(){
   //skapa div element med flex  som en dropdown item
   // lägga till knapp samt input
   let getDropdownMenu =  document.getElementsByClassName("dropdown-menu")[0]
-  let boxForContent = document.createElement("div")
-  let noteBookName = document.createElement("input")
-  let button = document.createElement("button")
+  let flexBoxForContent = document.createElement("div")
+  let buttonToAddBooks = document.createElement("button")
+ 
+  let formToInput = document.createElement("form") // want to add required
+  let noteBookNameInput = document.createElement("input")
   
-  
-  boxForContent.className = " addNoteBookFlexBox"
-  button.textContent = "Add"
-  button.className = "addNoteButton"
-  noteBookName.className = "noteBookTitle"
-  
-  getDropdownMenu.appendChild(boxForContent)
-  boxForContent.appendChild(button)
-  boxForContent.appendChild(noteBookName)
+  flexBoxForContent.className = " addNoteBookFlexBox"
+  buttonToAddBooks.className = "addNoteButton"
+  buttonToAddBooks.textContent = "Add"
 
-  button.addEventListener("click",function(){
-    
-    let title = noteBookName.value
-    
-    
+  noteBookNameInput.className = "noteBookTitle"
+  
+  
+
+  
+  getDropdownMenu.appendChild(flexBoxForContent)
+  flexBoxForContent.appendChild(buttonToAddBooks)
+  flexBoxForContent.appendChild(formToInput)
+  formToInput.appendChild(noteBookNameInput)
+
+  buttonToAddBooks.addEventListener("click",function(){
     
     createNoteBok() //sends value of input
     
   })
-
-
 }
-
- let existingNoteBooks =[]
  
  function createNoteBok(){ //calls all functions necesary to add a new book
   
-  let title = document.getElementsByClassName("noteBookTitle")[0].value  //input value
-  console.log (title)
-  if (title === ""){
+  let inputTitle = document.getElementsByClassName("noteBookTitle")[0].value  //input value
+  let changeInputBoxApparance = document.getElementsByClassName("noteBookTitle")[0]
+  if (inputTitle === ""){//checks that input isent empty
     
-    document.getElementsByClassName("noteBookTitle")[0].style.border = "solid red 3px"
+    changeInputBoxApparance.style.border= "solid red 3px"
     
   }else{
     
-    document.getElementsByClassName("noteBookTitle")[0].style.border = "solid 1px"
+    changeInputBoxApparance.style.border= "solid 1px"
     
-    existingNoteBooks.push(new NoteBookObject(title));
-    document.getElementsByClassName("noteBookTitle")[0]. value = ""}
+    existingNoteBooks.push(new NoteBookObject(inputTitle)); //adds a new notebook to the list
+    document.getElementsByClassName("noteBookTitle")[0]. value = ""} //clears input field
     
     updateCurrentNoteBooks();
-
-  
-  
-  
 }
 
 function removeNoteBooks(titleToRemove){
+  
+  
+  console.log(titleToRemove.titleOfObject)
+  for (let i = 0; i<existingNoteBooks.length;i++){
+    
+    if(existingNoteBooks[i].titleOfObject == titleToRemove.titleOfObject){
+      existingNoteBooks.splice(i,1);
+    }
+  }
+ 
 
-  
-  
+  updateCurrentNoteBooks();
 }
 
 function NoteBookObject(title){
@@ -77,7 +81,7 @@ function NoteBookObject(title){
   
   this.titleOfObject = title;
   
-  this.arrayOfAddedNotes ={};
+  this.arrayOfAddedNotes =["hello","gh"];
 
   this.getTitle = function (){
     return this.titleOfObject
@@ -99,18 +103,49 @@ function NoteBookObject(title){
 function updateCurrentNoteBooks(){
  
  document.querySelectorAll('.dropdown-item').forEach(e => e.remove());
+ document.querySelectorAll('.noteBookFlex').forEach(e => e.remove());
  let getDropdownMenu =  document.getElementsByClassName("dropdown-menu")[0]
   
- existingNoteBooks.forEach(element => {
-    console.log(element.getTitle())
+  existingNoteBooks.forEach(element => {
+
+    let flexBox = document.createElement("div")
+    let removeNoteBookButton = document.createElement("button")
+    let books = document.createElement("button")
     
-    let books = document.createElement("a")
-  
+    flexBox.className = "noteBookFlex"
     books.className = "dropdown-item"
     books.textContent = element.getTitle();
+    removeNoteBookButton.textContent = "x"
 
-    getDropdownMenu.appendChild(books)
+    getDropdownMenu.appendChild(flexBox)
+    flexBox.appendChild(books)
+    flexBox.appendChild(removeNoteBookButton)
+
+    books.addEventListener("click",function(){// used to call a certain book to display its notes
+    
+      displayElementsBelongingToBook(element)
+      
+      })
+
+    removeNoteBookButton.addEventListener("click",function(){
+
+      removeNoteBooks(element)
+
+    })
  });
+
+}
+
+function displayElementsBelongingToBook(bookObject){//takes the object array to send to create notes
+  
+  let array = bookObject.arrayOfAddedNotes
+  
+  array.forEach(element => {
+    console.log("test")
+    // somwhere we need to choose to either hide or remove the other notes when this function is called
+    //suppose to call create element function  to only have the exisiting object notes displayed
+  });
+  
 
 }
 

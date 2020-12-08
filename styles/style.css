@@ -182,4 +182,13 @@ footer {
 }
 .noteBookTitle{
   margin: 10 px;
-  width: 70%;}
+  width: 100%;}
+
+.noteBookFlex{
+  display: flex;
+  flex-direction: row;
+}
+.removeNoteButton{
+  
+  
+}
