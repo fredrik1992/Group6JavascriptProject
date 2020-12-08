@@ -18,15 +18,19 @@ function createAddNoteBookButton(){
   let getDropdownMenu =  document.getElementsByClassName("dropdown-menu")[0]
   let flexBoxForContent = document.createElement("div")
   let buttonToAddBooks = document.createElement("button")
+  let buttonImage = document.createElement("img")
   let formToInput = document.createElement("form") // want to add required
   let noteBookNameInput = document.createElement("input")
   
   flexBoxForContent.className = " addNoteBookFlexBox"
-  buttonToAddBooks.className = "addNoteButton"
-  buttonToAddBooks.textContent = "Add"
+  buttonToAddBooks.className = "addNoteBookButton"
   noteBookNameInput.className = "noteBookTitle"
+  buttonImage.src = "/media/plus-circle.svg";
+  noteBookNameInput.placeholder = "Title of book"
+  noteBookNameInput.required = true
   
   getDropdownMenu.appendChild(flexBoxForContent)
+  buttonToAddBooks.appendChild(buttonImage)
   flexBoxForContent.appendChild(buttonToAddBooks)
   flexBoxForContent.appendChild(formToInput)
   formToInput.appendChild(noteBookNameInput)
@@ -41,7 +45,7 @@ function createAddNoteBookButton(){
  function createNoteBok(){ //calls all functions necesary to add a new book
   
   let inputTitle = document.getElementsByClassName("noteBookTitle")[0].value  //input value
-  let changeInputBoxApparance = document.getElementsByClassName("noteBookTitle")[0]
+  let changeInputBoxApparance = document.getElementsByClassName("noteBookTitle")[0] //to change apparance
   
   if (inputTitle === ""){//checks that input isent empty
     
@@ -61,7 +65,7 @@ function NoteBookObject(title){
   
   
   this.titleOfObject = title;
-  this.arrayOfAddedNotes =["hello","gh"];
+  this.arrayOfAddedNotes =["placeholderForNoteobjects"];
 
   this.getTitle = function (){
     return this.titleOfObject
@@ -102,16 +106,22 @@ function updateCurrentNoteBooks(){
 
     let flexBox = document.createElement("div")
     let removeNoteBookButton = document.createElement("button")
+    let buttonImage = document.createElement("img")
     let books = document.createElement("button")// makes the entie title a button
     
     flexBox.className = "noteBookFlex"
     books.className = "dropdown-item"
+    removeNoteBookButton.className = "removeNoteBookButton"
+    buttonImage.src = "media/x.svg";
     books.textContent = element.getTitle(); //gets the title variable in noteBookObject
-    removeNoteBookButton.textContent = "x"
+   
+    
 
     getDropdownMenu.appendChild(flexBox)
-    flexBox.appendChild(books)
+    removeNoteBookButton.appendChild(buttonImage)
     flexBox.appendChild(removeNoteBookButton)
+    flexBox.appendChild(books)
+    
 
     books.addEventListener("click",function(){// used to call a certain book to display its notes
     
