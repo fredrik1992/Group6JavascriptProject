@@ -18,25 +18,20 @@ function createAddNoteBookButton(){
   let getDropdownMenu =  document.getElementsByClassName("dropdown-menu")[0]
   let flexBoxForContent = document.createElement("div")
   let buttonToAddBooks = document.createElement("button")
- 
   let formToInput = document.createElement("form") // want to add required
   let noteBookNameInput = document.createElement("input")
   
   flexBoxForContent.className = " addNoteBookFlexBox"
   buttonToAddBooks.className = "addNoteButton"
   buttonToAddBooks.textContent = "Add"
-
   noteBookNameInput.className = "noteBookTitle"
-  
-  
-
   
   getDropdownMenu.appendChild(flexBoxForContent)
   flexBoxForContent.appendChild(buttonToAddBooks)
   flexBoxForContent.appendChild(formToInput)
   formToInput.appendChild(noteBookNameInput)
 
-  buttonToAddBooks.addEventListener("click",function(){
+  buttonToAddBooks.addEventListener("click",function(){ //starts the creation of note books
     
     createNoteBok() //sends value of input
     
@@ -47,6 +42,7 @@ function createAddNoteBookButton(){
   
   let inputTitle = document.getElementsByClassName("noteBookTitle")[0].value  //input value
   let changeInputBoxApparance = document.getElementsByClassName("noteBookTitle")[0]
+  
   if (inputTitle === ""){//checks that input isent empty
     
     changeInputBoxApparance.style.border= "solid red 3px"
@@ -58,29 +54,13 @@ function createAddNoteBookButton(){
     existingNoteBooks.push(new NoteBookObject(inputTitle)); //adds a new notebook to the list
     document.getElementsByClassName("noteBookTitle")[0]. value = ""} //clears input field
     
-    updateCurrentNoteBooks();
-}
-
-function removeNoteBooks(titleToRemove){
-  
-  
-  console.log(titleToRemove.titleOfObject)
-  for (let i = 0; i<existingNoteBooks.length;i++){
-    
-    if(existingNoteBooks[i].titleOfObject == titleToRemove.titleOfObject){
-      existingNoteBooks.splice(i,1);
-    }
-  }
- 
-
-  updateCurrentNoteBooks();
+    updateCurrentNoteBooks(); //updates the note book list with added book
 }
 
 function NoteBookObject(title){
   
   
   this.titleOfObject = title;
-  
   this.arrayOfAddedNotes =["hello","gh"];
 
   this.getTitle = function (){
@@ -96,25 +76,37 @@ function NoteBookObject(title){
 
   };
 
-  
 }
 
+function removeNoteBooks(titleToRemove){ //titleToRemove is a button event bound to the object when created
+  
+  for (let i = 0; i<existingNoteBooks.length;i++){
+    
+    if(existingNoteBooks[i].titleOfObject == titleToRemove.titleOfObject){
+      existingNoteBooks.splice(i,1);
+      break;
+    }
+  }
+ 
+  updateCurrentNoteBooks();
+}
 
 function updateCurrentNoteBooks(){
  
- document.querySelectorAll('.dropdown-item').forEach(e => e.remove());
- document.querySelectorAll('.noteBookFlex').forEach(e => e.remove());
+ document.querySelectorAll('.dropdown-item').forEach(e => e.remove());//cleares window
+ document.querySelectorAll('.noteBookFlex').forEach(e => e.remove());//cleares window
+ 
  let getDropdownMenu =  document.getElementsByClassName("dropdown-menu")[0]
   
   existingNoteBooks.forEach(element => {
 
     let flexBox = document.createElement("div")
     let removeNoteBookButton = document.createElement("button")
-    let books = document.createElement("button")
+    let books = document.createElement("button")// makes the entie title a button
     
     flexBox.className = "noteBookFlex"
     books.className = "dropdown-item"
-    books.textContent = element.getTitle();
+    books.textContent = element.getTitle(); //gets the title variable in noteBookObject
     removeNoteBookButton.textContent = "x"
 
     getDropdownMenu.appendChild(flexBox)
