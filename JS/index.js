@@ -53,6 +53,7 @@ function buttonContains() {
 
 //////////////////////////////////////// FUNCTIONS FOR CREATING NEW NOTE ////////////////////////////////////////
 
+//Skapar anteckningens container-div (<article>) och kallar på funktioner som ger styling och skapar de adnra elementen i anteckningen innan den fästs i <main>
 function createNote(type /*  1 for note 2 for list*/) {
   let article = document.createElement("article");
   article = articleAttributes(article);
@@ -62,12 +63,14 @@ function createNote(type /*  1 for note 2 for list*/) {
   main.appendChild(article);
 }
 
+//Ger <article> klass och id
 function articleAttributes(article) {
   article.className = "note";
   article.id = "note-article";
   return article;
 }
 
+//Skapar en div som innehåller delete-btn och datumet
 function createDiv1() {
   let div1 = document.createElement("div");
   div1.className = "note-buttons-top";
@@ -76,17 +79,21 @@ function createDiv1() {
   return div1;
 }
 
+
+//Datumet
 function createP() {
   let p = document.createElement("p");
   p.className = "date";
-  p.innerText = addDate();
+  p.innerText = addDate(); //Sätter texten i <p>-taggen till det datum addDate() retunerar
   return p;
 }
 
+//Delete-knappen
 function createBtnDelete() {
   let btnDelete = document.createElement("button");
   btnDelete.id = "delete-button";
   btnDelete.className = "note-button";
+  
   btnDelete.addEventListener("click", function () {
     closeNote();
   });
@@ -94,6 +101,8 @@ function createBtnDelete() {
   return btnDelete;
 }
 
+
+//Bilden till delete-knappen
 function createImgDelete() {
   let imgDelete = document.createElement("img");
   imgDelete.id = "img-delete";
@@ -105,6 +114,8 @@ function createImgDelete() {
   return imgDelete;
 }
 
+
+//Skapar en div som innehåller en text-anteckning eller en list-anteckning beroende på användarens val
 function createDiv2(type) {
   let div2 = document.createElement("div");
   div2.className = "content";
@@ -127,6 +138,7 @@ function createDiv2(type) {
   return div2;
 }
 
+//Skapar Confirm-knappen
 function createBtnConfirm(article) {
   let btnConfirm = document.createElement("button");
   btnConfirm.id = "confirm-button";
@@ -138,6 +150,7 @@ function createBtnConfirm(article) {
   return btnConfirm;
 }
 
+//Bilden till confirm-knappen
 function createImgConfirm() {
   let imgConfirm = document.createElement("img");
   imgConfirm.id = "img-confirm";
