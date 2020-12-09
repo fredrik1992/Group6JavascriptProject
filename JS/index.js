@@ -285,15 +285,41 @@ function createDiv2(type) {
   }
 
   if (type == 2) {
+    let input = document.createElement("input");
+    input.type = "text";
+    let button = document.createElement("button");
+    button.textContent = "click me";
+    button.idName = "myBtn";
     let node = document.createElement("ul");
-    let node_li = document.createElement("li"); // Create a <li> node
-    let textnode = document.createTextNode(""); // Create a text node
-    node_li.appendChild(textnode);
-    node.appendChild(node_li);
     node.className = "list";
-    div2.appendChild(node);
-  }
-
+  
+    div2.appendChild(input);
+    div2.appendChild(button);
+  
+    input.addEventListener('keypress', function (event) {
+      let e = event;
+      if (e.keyCode === 13) {
+        let node_li = document.createElement("li");
+        let textnode = document.createTextNode(input.value);
+        node_li.appendChild(textnode);
+        node.appendChild(node_li);
+  
+        div2.appendChild(node);
+      }
+      });
+      function addListItemOnClick() {
+        if (input.value.length > 0) {
+          let node_li = document.createElement("li");
+          let textnode = document.createTextNode(input.value);
+          node_li.appendChild(textnode);
+          node.appendChild(node_li);
+  
+          div2.appendChild(node);
+        }
+    }
+    button.addEventListener("click", addListItemOnClick);
+  
+    }
   return div2;
 }
 
@@ -336,7 +362,7 @@ function addDate() {
 }
 
 
-//Skapar en knapp med en "drop down" som ska skriva ut innehållet i listobjectet. Finns det inget innehåll syns inte knappen. Behöver funktionalitet för att koppla vald notebook till antecknigsobjektet.
+//Skapar en knapp med en "drop down" som ska skriva ut innehållet i listobjectet. Finns det inget innehåll syns inte knappen. Behöver funktionalitet för att koppla vald notebook till antecknigsobjektet..
 function addBooksToNote() {
   let noteDropDown = document.createElement("div");
   let button = document.createElement("button");
