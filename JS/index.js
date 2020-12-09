@@ -362,7 +362,7 @@ function addDate() {
 }
 
 
-//Skapar en knapp med en "drop down" som ska skriva ut innehållet i listobjectet. Finns det inget innehåll syns inte knappen. Behöver funktionalitet för att koppla vald notebook till antecknigsobjektet.
+//Skapar en knapp med en "drop down" som ska skriva ut innehållet i listobjectet. Finns det inget innehåll syns inte knappen. Behöver funktionalitet för att koppla vald notebook till antecknigsobjektet..
 function addBooksToNote() {
   let noteDropDown = document.createElement("div");
   let button = document.createElement("button");
