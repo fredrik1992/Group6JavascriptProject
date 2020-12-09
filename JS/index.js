@@ -335,7 +335,7 @@ function createBtnConfirm(article) {
   return btnConfirm;
 }
 
-//Bilden till confirm-knappen
+//Bilden till confirm-knappen.
 function createImgConfirm() {
   let imgConfirm = document.createElement("img");
   imgConfirm.id = "img-confirm";
@@ -364,9 +364,6 @@ function addDate() {
 
 //Skapar en knapp med en "drop down" som ska skriva ut innehållet i listobjectet. Finns det inget innehåll syns inte knappen. Behöver funktionalitet för att koppla vald notebook till antecknigsobjektet.
 function addBooksToNote() {
-
-
-  let noteBooks = ["Katt", "Hund", "Mockasin"]; //placeholder 
   let noteDropDown = document.createElement("div");
   let button = document.createElement("button");
   let btnIcon = document.createElement("img");
@@ -399,17 +396,17 @@ function addBooksToNote() {
   dropDownContent.className = "dropdown-content shadow-sm";
   dropDownContent.appendChild(dropDownList);
 
-  if (noteBooks.length === 0) {
+  if (existingNoteBooks.length === 0) {
     button.style.display = "none";
 
   } else {
-    for (let i = 0; i < noteBooks.length; i++) {
+    for (let i = 0; i < existingNoteBooks.length; i++) {
       let li = document.createElement("li");
       let option = document.createElement("a");
      
       option.href = "#";
       option.className = "dropdown-option";
-      option.textContent = noteBooks[i];
+      option.textContent = existingNoteBooks[i].getTitle();
       option.addEventListener("click", () => {
         dropDownContent.style.display = "none";
       })
