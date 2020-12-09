@@ -309,7 +309,7 @@ function createBtnConfirm(article) {
   return btnConfirm;
 }
 
-//Bilden till confirm-knappen
+//Bilden till confirm-knappen.
 function createImgConfirm() {
   let imgConfirm = document.createElement("img");
   imgConfirm.id = "img-confirm";
