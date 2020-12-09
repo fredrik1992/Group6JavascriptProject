@@ -174,3 +174,41 @@ footer {
   height: 50px;
   font-size: 50px;
 }
+
+.addNoteBookFlexBox{
+  display: flex;
+  flex-direction: row;
+ 
+  
+}
+.addNoteBookButton{
+  border:none;
+  background-color:transparent;
+  outline:none;
+  
+}
+.removeNoteBookButton{
+  border:none;
+  background-color:transparent;
+  outline:none;
+}
+.noteBookTitle{
+ position: relative;
+ left: 10%;
+  width: 80%;}
+
+.noteBookFlex{
+  display: flex;
+  flex-direction: row;
+}
+.removeNoteButton{
+  
+  
+}
+.dropdown-item{
+
+  position: relative;
+  width: 80%;
+  
+  
+}
