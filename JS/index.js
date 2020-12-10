@@ -3,7 +3,9 @@
 let noteButton;
 let main = document.getElementById("main");
 let existingNoteBooks = [];
+let allNotes = [];
 let openNotebook = "Dashboard"
+
 
 
 function initButton() {
@@ -12,9 +14,6 @@ function initButton() {
   createAddNoteBookButton();
   document.getElementsByClassName("noteBookTitle")[0].value = "Dashboard";
   createNoteBok()
-  
-  
-  
   
 }
 //---create noteBookStarts
@@ -135,6 +134,7 @@ function updateCurrentNoteBooks() {
     books.addEventListener("click", function () {
       // used to call a certain book to display its notes
       openNotebook = element.getTitle()
+      globalUpdate()
 
 
       
@@ -161,7 +161,17 @@ function displayElementsBelongingToBook(bookObject) {
 }
 
 
+function globalUpdate(){
+  document.querySelectorAll(".note").forEach((e) => e.remove()); //cleares window
 
+  allNotes.forEach(element => {
+
+    if (element.titleOfNoteBook == openNotebook){
+      main.appendChild(element.noteElement)
+    }
+    
+  });
+}
 
 //--
 
@@ -193,7 +203,7 @@ function buttonContains() {
   listButtons.appendChild(b1);
   b1.appendChild(b1img);
   b1.addEventListener("click", function () {
-    new Note(2);
+   allNotes.push(new Note(2)) 
   });
 
   let b2 = document.createElement("li");
@@ -204,7 +214,7 @@ function buttonContains() {
   listButtons.appendChild(b2);
   b2.appendChild(b2img);
   b2.addEventListener("click", function () {
-    new Note(1);
+    allNotes.push(new Note(1)) 
   });
 }
 
@@ -214,7 +224,8 @@ Konstruktor för notes-objekt
 function Note(type) {
   this.noteElement = createNote(type);
   main.appendChild(this.noteElement);
-
+  this.titleOfNoteBook = openNotebook
+  
 }
 
 //////////////////////////////////////// FUNCTIONS FOR CREATING NEW NOTE ////////////////////////////////////////
@@ -385,14 +396,7 @@ function addBooksToNote() {
   noteDropDown.appendChild(dropDownContent);
 
 
-
-
-
-
-
-  
-  
-  button.className = "note-button";
+ button.className = "note-button";
   button.addEventListener("click", () => {
     dropDownContent.style.display = "block";
   });
@@ -406,10 +410,7 @@ function addBooksToNote() {
   dropDownContent.className = "dropdown-content shadow-sm";
   dropDownContent.appendChild(dropDownList);
 
-  if (existingNoteBooks.length === 0) {
-    button.style.display = "none";
-
-  } else {
+  
     for (let i = 0; i < existingNoteBooks.length; i++) {
       let li = document.createElement("li");
       let option = document.createElement("a");
@@ -418,12 +419,14 @@ function addBooksToNote() {
       option.className = "dropdown-option";
       option.textContent = existingNoteBooks[i].getTitle();
       option.addEventListener("click", () => {
+         //= existingNoteBooks[i].getTitle()
+         
         dropDownContent.style.display = "none";
       })
 
       li.appendChild(option);
       dropDownContent.appendChild(li);
-    }
+    
   }
 
   return noteDropDown;
