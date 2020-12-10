@@ -8,7 +8,7 @@ let openNotebook = "Dashboard"
 
 
 
-function initButton() {
+function init() {
   createButton();
   buttonContains();
   createAddNoteBookButton();
@@ -162,6 +162,7 @@ function displayElementsBelongingToBook(bookObject) {
 
 
 function globalUpdate(){
+
   document.querySelectorAll(".note").forEach((e) => e.remove()); //cleares window
 
   allNotes.forEach(element => {
@@ -224,8 +225,17 @@ Konstruktor för notes-objekt
 function Note(type) {
   this.noteElement = createNote(type);
   main.appendChild(this.noteElement);
-  this.titleOfNoteBook = openNotebook
+
+  this.checkBox = document.createElement("input");
+  this.checkBox.type = "checkbox";
+  this.noteElement.appendChild(this.checkBox)
   
+
+  this.titleOfNoteBook = openNotebook;
+  
+  this.changeTitle = function (title){
+    this.titleOfNoteBook = title;
+  }
 }
 
 //////////////////////////////////////// FUNCTIONS FOR CREATING NEW NOTE ////////////////////////////////////////
@@ -403,9 +413,9 @@ function addBooksToNote() {
   button.appendChild(btnIcon);
 
   btnIcon.src = "media/journal-plus.svg";
-  btnIcon.width = "24";
-  btnIcon.height = "24";
-  btnIcon.title = "Add to Note book";
+  btnIcon.width = "50";
+  btnIcon.height = "50";
+  btnIcon.title = "Move to notebook";
 
   dropDownContent.className = "dropdown-content shadow-sm";
   dropDownContent.appendChild(dropDownList);
@@ -419,7 +429,15 @@ function addBooksToNote() {
       option.className = "dropdown-option";
       option.textContent = existingNoteBooks[i].getTitle();
       option.addEventListener("click", () => {
-         //= existingNoteBooks[i].getTitle()
+        allNotes.forEach(element => {
+          if(element.checkBox.checked == true){
+            element.titleOfNoteBook = existingNoteBooks[i].getTitle();
+            element.checkBox.checked = false;
+            globalUpdate();
+          }else{
+            console.log("Inget flyttades");
+          }
+        });
          
         dropDownContent.style.display = "none";
       })
@@ -446,4 +464,4 @@ function closeNote() {
   }
 }
 
-window.addEventListener("DOMContentLoaded", initButton());
+window.addEventListener("DOMContentLoaded", init());
