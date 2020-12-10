@@ -413,8 +413,8 @@ function addBooksToNote() {
   button.appendChild(btnIcon);
 
   btnIcon.src = "media/journal-plus.svg";
-  btnIcon.width = "50";
-  btnIcon.height = "50";
+  btnIcon.width = "24";
+  btnIcon.height = "24";
   btnIcon.title = "Move to notebook";
 
   dropDownContent.className = "dropdown-content shadow-sm";
