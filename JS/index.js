@@ -3,11 +3,19 @@
 let noteButton;
 let main = document.getElementById("main");
 let existingNoteBooks = [];
+let openNotebook = "Dashboard"
+
 
 function initButton() {
   createButton();
   buttonContains();
   createAddNoteBookButton();
+  document.getElementsByClassName("noteBookTitle")[0].value = "Dashboard";
+  createNoteBok()
+  
+  
+  
+  
 }
 //---create noteBookStarts
 
@@ -42,6 +50,7 @@ function createAddNoteBookButton() {
 }
 
 function createNoteBok() {
+  
   //calls all functions necesary to add a new book
 
   let inputTitle = document.getElementsByClassName("noteBookTitle")[0].value; //input value
@@ -73,8 +82,7 @@ function createNoteBok() {
 
 function NoteBookObject(title) {
   this.titleOfObject = title;
-  this.arrayOfAddedNotes = ["placeholderForNoteobjects"];
-
+  
   this.getTitle = function () {
     return this.titleOfObject;
   };
@@ -126,8 +134,10 @@ function updateCurrentNoteBooks() {
 
     books.addEventListener("click", function () {
       // used to call a certain book to display its notes
+      openNotebook = element.getTitle()
 
-      displayElementsBelongingToBook(element);
+
+      
     });
 
     removeNoteBookButton.addEventListener("click", function () {
@@ -142,7 +152,7 @@ function displayElementsBelongingToBook(bookObject) {
   let array = bookObject.arrayOfAddedNotes;
 
   array.forEach((element) => {
-    console.log("test");
+    
     // somwhere we need to choose to either hide or remove the other notes when this function is called
     //suppose to call create element function  to only have the exisiting object notes displayed
   });
