@@ -152,6 +152,14 @@ function globalUpdate() {
   });
 }
 
+function clearDeleted(){
+  for (let i = 0; i < allNotes.length; i++) {
+    if(allNotes[i].delete == true){
+      allNotes.splice(i, 1);
+    }
+  }
+}
+
 //--
 
 function createButton() {
@@ -215,9 +223,10 @@ function Note(type) {
     this.titleOfNoteBook = title;
   };
 
-  this.test = function () {
+  this.removeNote = function () {
     this.noteElement.remove();
     this.delete = true;
+    clearDeleted();
   };
 }
 
@@ -265,7 +274,7 @@ function createBtnDelete(obj) {
   btnDelete.className = "note-button";
 
   btnDelete.addEventListener("click", function () {
-    obj.test();
+    obj.removeNote();
   });
   btnDelete.appendChild(createImgDelete());
   return btnDelete;
