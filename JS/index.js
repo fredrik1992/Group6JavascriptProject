@@ -167,7 +167,7 @@ function globalUpdate(){
 
   allNotes.forEach(element => {
 
-    if (element.titleOfNoteBook == openNotebook){
+    if (element.titleOfNoteBook == openNotebook && element.delete != true){
       main.appendChild(element.noteElement)
     }
     
@@ -223,7 +223,7 @@ function buttonContains() {
 Konstruktor för notes-objekt 
 */
 function Note(type) {
-  this.noteElement = createNote(type);
+  this.noteElement = createNote(this, type);
   main.appendChild(this.noteElement);
 
   this.checkBox = document.createElement("input");
@@ -232,19 +232,21 @@ function Note(type) {
   
 
   this.titleOfNoteBook = openNotebook;
-  
-  this.changeTitle = function (title){
-    this.titleOfNoteBook = title;
+  this.delete = false;
+
+  this.test = function (){
+    this.noteElement.remove();
+    this.delete = true;
   }
 }
 
 //////////////////////////////////////// FUNCTIONS FOR CREATING NEW NOTE ////////////////////////////////////////
 
 //Skapar anteckningens container-div (<article>) och kallar på funktioner som ger styling och skapar de adnra elementen i anteckningen innan den fästs i <main>
-function createNote(type /*  1 for note 2 for list*/) {
+function createNote(obj, type /*  1 for note 2 for list*/) {
   let article = document.createElement("article");
   article = articleAttributes(article);
-  article.appendChild(createDiv1());
+  article.appendChild(createDiv1(obj));
   article.appendChild(createDiv2(type));
   article.appendChild(createBtnConfirm());
   return article;
@@ -258,12 +260,12 @@ function articleAttributes(article) {
 }
 
 //Skapar en div som innehåller delete-btn och datumet
-function createDiv1() {
+function createDiv1(obj) {
   let div1 = document.createElement("div");
   div1.className = "note-buttons-top";
   div1.appendChild(addBooksToNote());
   div1.appendChild(createP());
-  div1.appendChild(createBtnDelete());
+  div1.appendChild(createBtnDelete(obj));
   return div1;
 }
 
@@ -277,13 +279,13 @@ function createP() {
 }
 
 //Delete-knappen
-function createBtnDelete() {
+function createBtnDelete(obj) {
   let btnDelete = document.createElement("button");
   btnDelete.id = "delete-button";
   btnDelete.className = "note-button";
 
   btnDelete.addEventListener("click", function () {
-    closeNote();
+    obj.test();
   });
   btnDelete.appendChild(createImgDelete());
   return btnDelete;
