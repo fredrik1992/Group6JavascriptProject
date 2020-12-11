@@ -4,17 +4,14 @@ let noteButton;
 let main = document.getElementById("main");
 let existingNoteBooks = [];
 let allNotes = [];
-let openNotebook = "Dashboard"
-
-
+let openNotebook = "Dashboard";
 
 function init() {
   createButton();
   buttonContains();
   createAddNoteBookButton();
   document.getElementsByClassName("noteBookTitle")[0].value = "Dashboard";
-  createNoteBok()
-  
+  createNoteBok();
 }
 //---create noteBookStarts
 
@@ -49,7 +46,6 @@ function createAddNoteBookButton() {
 }
 
 function createNoteBok() {
-  
   //calls all functions necesary to add a new book
 
   let inputTitle = document.getElementsByClassName("noteBookTitle")[0].value; //input value
@@ -64,14 +60,6 @@ function createNoteBok() {
   } else {
     changeInputBoxApparance.style.border = "solid 1px";
 
-
-
-
-    
-
-
-
-
     existingNoteBooks.push(new NoteBookObject(inputTitle)); //adds a new notebook to the list
     document.getElementsByClassName("noteBookTitle")[0].value = "";
   } //clears input field
@@ -81,7 +69,7 @@ function createNoteBok() {
 
 function NoteBookObject(title) {
   this.titleOfObject = title;
-  
+
   this.getTitle = function () {
     return this.titleOfObject;
   };
@@ -133,11 +121,8 @@ function updateCurrentNoteBooks() {
 
     books.addEventListener("click", function () {
       // used to call a certain book to display its notes
-      openNotebook = element.getTitle()
-      globalUpdate()
-
-
-      
+      openNotebook = element.getTitle();
+      globalUpdate();
     });
 
     removeNoteBookButton.addEventListener("click", function () {
@@ -152,25 +137,18 @@ function displayElementsBelongingToBook(bookObject) {
   let array = bookObject.arrayOfAddedNotes;
 
   array.forEach((element) => {
-    
     // somwhere we need to choose to either hide or remove the other notes when this function is called
     //suppose to call create element function  to only have the exisiting object notes displayed
   });
-
-
 }
 
-
-function globalUpdate(){
-
+function globalUpdate() {
   document.querySelectorAll(".note").forEach((e) => e.remove()); //cleares window
 
-  allNotes.forEach(element => {
-
-    if (element.titleOfNoteBook == openNotebook && element.delete != true){
-      main.appendChild(element.noteElement)
+  allNotes.forEach((element) => {
+    if (element.titleOfNoteBook == openNotebook && element.delete != true) {
+      main.appendChild(element.noteElement);
     }
-    
   });
 }
 
@@ -204,7 +182,7 @@ function buttonContains() {
   listButtons.appendChild(b1);
   b1.appendChild(b1img);
   b1.addEventListener("click", function () {
-   allNotes.push(new Note(2)) 
+    allNotes.push(new Note(2));
   });
 
   let b2 = document.createElement("li");
@@ -215,7 +193,7 @@ function buttonContains() {
   listButtons.appendChild(b2);
   b2.appendChild(b2img);
   b2.addEventListener("click", function () {
-    allNotes.push(new Note(1)) 
+    allNotes.push(new Note(1));
   });
 }
 
@@ -228,16 +206,19 @@ function Note(type) {
 
   this.checkBox = document.createElement("input");
   this.checkBox.type = "checkbox";
-  this.noteElement.appendChild(this.checkBox)
-  
+  this.noteElement.appendChild(this.checkBox);
 
   this.titleOfNoteBook = openNotebook;
   this.delete = false;
 
-  this.test = function (){
+  this.setTitleOfNoteBook = (title) => {
+    this.titleOfNoteBook = title;
+  };
+
+  this.test = function () {
     this.noteElement.remove();
     this.delete = true;
-  }
+  };
 }
 
 //////////////////////////////////////// FUNCTIONS FOR CREATING NEW NOTE ////////////////////////////////////////
@@ -263,12 +244,11 @@ function articleAttributes(article) {
 function createDiv1(obj) {
   let div1 = document.createElement("div");
   div1.className = "note-buttons-top";
-  div1.appendChild(addBooksToNote());
+  div1.appendChild(addBooksToNote(obj));
   div1.appendChild(createP());
   div1.appendChild(createBtnDelete(obj));
   return div1;
 }
-
 
 //Datumet
 function createP() {
@@ -291,7 +271,6 @@ function createBtnDelete(obj) {
   return btnDelete;
 }
 
-
 //Bilden till delete-knappen
 function createImgDelete() {
   let imgDelete = document.createElement("img");
@@ -303,7 +282,6 @@ function createImgDelete() {
   imgDelete.title = "Delete";
   return imgDelete;
 }
-
 
 //Skapar en div som innehåller en text-anteckning eller en list-anteckning beroende på användarens val
 function createDiv2(type) {
@@ -325,39 +303,38 @@ function createDiv2(type) {
     button.idName = "myBtn";
     let node = document.createElement("ul");
     node.className = "list";
-  
+
     div2.appendChild(input);
     div2.appendChild(button);
-  
-    input.addEventListener('keypress', function (event) {
+
+    input.addEventListener("keypress", function (event) {
       let e = event;
       if (e.keyCode === 13) {
         let node_li = document.createElement("li");
         let textnode = document.createTextNode(input.value);
         node_li.appendChild(textnode);
         node.appendChild(node_li);
-  
+
         div2.appendChild(node);
       }
-      });
-      function addListItemOnClick() {
-        if (input.value.length > 0) {
-          let node_li = document.createElement("li");
-          let textnode = document.createTextNode(input.value);
-          node_li.appendChild(textnode);
-          node.appendChild(node_li);
-  
-          div2.appendChild(node);
-        }
+    });
+    function addListItemOnClick() {
+      if (input.value.length > 0) {
+        let node_li = document.createElement("li");
+        let textnode = document.createTextNode(input.value);
+        node_li.appendChild(textnode);
+        node.appendChild(node_li);
+
+        div2.appendChild(node);
+      }
     }
     button.addEventListener("click", addListItemOnClick);
-  
-    }
+  }
   return div2;
 }
 
 //Skapar Confirm-knappen
-function createBtnConfirm(article) {
+function createBtnConfirm() {
   let btnConfirm = document.createElement("button");
   btnConfirm.id = "confirm-button";
   btnConfirm.className = "note-button note-button-bottom";
@@ -394,22 +371,24 @@ function addDate() {
   return `${noteDate.getFullYear()}-${month}-${day}`;
 }
 
-
 //Skapar en knapp med en "drop down" som ska skriva ut innehållet i listobjectet. Finns det inget innehåll syns inte knappen. Behöver funktionalitet för att koppla vald notebook till antecknigsobjektet..
-function addBooksToNote() {
+function addBooksToNote(obj) {
   let noteDropDown = document.createElement("div");
   let button = document.createElement("button");
   let btnIcon = document.createElement("img");
   let dropDownContent = document.createElement("div");
   let dropDownList = document.createElement("ul");
-  
+
   noteDropDown.className = "dropdown";
   noteDropDown.appendChild(button);
   noteDropDown.appendChild(dropDownContent);
 
-
- button.className = "note-button";
+  button.className = "note-button";
   button.addEventListener("click", () => {
+    document.querySelectorAll(".dropdown-a").forEach((e) => e.remove());
+    document.querySelectorAll(".dropdown-li").forEach((e) => e.remove());
+    document.querySelectorAll(".dropdown-btn").forEach((e) => e.remove());
+    addBooksToDropDown(obj, dropDownContent);
     dropDownContent.style.display = "block";
   });
   button.appendChild(btnIcon);
@@ -422,34 +401,46 @@ function addBooksToNote() {
   dropDownContent.className = "dropdown-content shadow-sm";
   dropDownContent.appendChild(dropDownList);
 
-  
-    for (let i = 0; i < existingNoteBooks.length; i++) {
-      let li = document.createElement("li");
-      let option = document.createElement("a");
-     
-      option.href = "#";
-      option.className = "dropdown-option";
-      option.textContent = existingNoteBooks[i].getTitle();
-      option.addEventListener("click", () => {
-        allNotes.forEach(element => {
-          if(element.checkBox.checked == true){
-            element.titleOfNoteBook = existingNoteBooks[i].getTitle();
-            element.checkBox.checked = false;
-            globalUpdate();
-          }else{
-            console.log("Inget flyttades");
-          }
-        });
-         
-        dropDownContent.style.display = "none";
-      })
-
-      li.appendChild(option);
-      dropDownContent.appendChild(li);
-    
-  }
-
   return noteDropDown;
+}
+
+function addBooksToDropDown(obj, dropDownContent) {
+  for (let i = 0; i < existingNoteBooks.length; i++) {
+    let li = document.createElement("li");
+    li.className = "dropdown-li";
+    let option = document.createElement("a");
+
+    option.href = "#";
+    option.className = "dropdown-option dropdown-a";
+    option.textContent = existingNoteBooks[i].getTitle();
+
+    option.addEventListener("click", (element) => {
+      obj.setTitleOfNoteBook(element.target.innerText);
+      globalUpdate();
+      
+      allNotes.forEach((element) => {
+        if (element.checkBox.checked == true) {
+          element.titleOfNoteBook = existingNoteBooks[i].getTitle();
+          element.checkBox.checked = false;
+          globalUpdate();
+        } else {
+          console.log("Inget flyttades");
+        }
+      });
+
+      dropDownContent.style.display = "none";
+    });
+
+    li.appendChild(option);
+    dropDownContent.appendChild(li);
+  }
+  let closeButton = document.createElement("button");
+  closeButton.textContent = "CLOSE";
+  closeButton.className = "btn btn-outline-secondary btn-sm btn-block dropdown-btn";
+  closeButton.addEventListener("click", () => {
+    dropDownContent.style.display = "none";
+  });
+  dropDownContent.appendChild(closeButton);
 }
 
 function saveNote() {

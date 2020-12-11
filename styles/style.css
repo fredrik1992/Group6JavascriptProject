@@ -145,8 +145,24 @@ footer {
   min-width: 120px;
   z-index: 1;
   top: 2.5rem;
-  padding-bottom: 0.85rem;
-  border-radius: .5rem;
+  
+  border-radius: .25rem;
+}
+
+.btn-outline-secondary {
+  border: none;
+
+}
+
+.btn-group-sm>.btn, .btn-sm {
+  font-size: .65rem;
+  font-weight: 600;
+  
+}
+
+.btn-block {
+  margin-top: .5rem;
+  color: black;
 }
 
 .dropbtn {
