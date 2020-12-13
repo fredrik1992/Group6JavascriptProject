@@ -237,7 +237,7 @@ function createNote(obj, type /*  1 for note 2 for list*/) {
   let article = document.createElement("article");
   article = articleAttributes(article);
   article.appendChild(createDiv1(obj));
-  article.appendChild(createDiv2(type));
+  article.appendChild(createDiv2(type, article));
   article.appendChild(createBtnConfirm());
   return article;
 }
@@ -293,7 +293,7 @@ function createImgDelete() {
 }
 
 //Skapar en div som innehåller en text-anteckning eller en list-anteckning beroende på användarens val
-function createDiv2(type) {
+function createDiv2(type, article) {
   let div2 = document.createElement("div");
   div2.className = "content";
 
@@ -305,21 +305,37 @@ function createDiv2(type) {
   }
 
   if (type == 2) {
+    article.className = "note note-list";
+    let inputContainer = document.createElement("div");
+    inputContainer.className = "input-container";
     let input = document.createElement("input");
     input.type = "text";
+    input.className = "list-input";
+    input.placeholder = "Type here..."
+    
     let button = document.createElement("button");
-    button.textContent = "click me";
-    button.idName = "myBtn";
+    button.className = "list-btn note-button";
+    let imgAddList = document.createElement("img");
+    imgAddList.src = "media/plus.svg";
+    imgAddList.alt = "Add";
+    imgAddList.width = "28";
+    imgAddList.height = "28";
+    imgAddList.title = "Add to list";
+    button.appendChild(imgAddList);
     let node = document.createElement("ul");
     node.className = "list";
 
-    div2.appendChild(input);
-    div2.appendChild(button);
+    inputContainer.appendChild(input);
+    inputContainer.appendChild(button);
+
+    div2.appendChild(inputContainer);
+    
 
     input.addEventListener("keypress", function (event) {
       let e = event;
       if (e.keyCode === 13) {
         let node_li = document.createElement("li");
+        node_li.className = "list-item";
         let textnode = document.createTextNode(input.value);
         node_li.appendChild(textnode);
         node.appendChild(node_li);
@@ -327,6 +343,7 @@ function createDiv2(type) {
         div2.appendChild(node);
       }
     });
+
     function addListItemOnClick() {
       if (input.value.length > 0) {
         let node_li = document.createElement("li");
