@@ -140,6 +140,7 @@ function updateCurrentNoteBooks() {
 
 function globalUpdate() {
   document.querySelectorAll(".note").forEach((e) => e.remove()); //cleares window
+  moveSelected(false);
 
   allNotes.forEach((element) => {
     if (element.titleOfNoteBook == openNotebook && element.delete != true) {
@@ -216,6 +217,7 @@ function Note(type) {
 
   this.checkBox = document.createElement("input");
   this.checkBox.type = "checkbox";
+  this.checkBox.style.visibility ="hidden";
   this.noteElement.appendChild(this.checkBox);
 
   this.titleOfNoteBook = openNotebook;
@@ -224,6 +226,14 @@ function Note(type) {
   this.setTitleOfNoteBook = (title) => {
     this.titleOfNoteBook = title;
   };
+
+  this.checkBoxVisible = function(choise){
+    if(choise == true){
+      return this.checkBox.style.visibility ="visible";
+    }else if(choise == false){
+      return this.checkBox.style.visibility ="hidden";
+    }
+  }
 
   this.removeNote = function () {
     this.noteElement.remove();
@@ -443,8 +453,10 @@ function addBooksToDropDown(obj, dropDownContent) {
     option.textContent = existingNoteBooks[i].getTitle();
 
     option.addEventListener("click", (element) => {
-      obj.setTitleOfNoteBook(element.target.innerText);
-      globalUpdate();
+      if(obj.checked == true || obj.checkBox.style.visibility == 'hidden'){
+        obj.setTitleOfNoteBook(element.target.innerText);
+        globalUpdate();  
+      }
       
       allNotes.forEach((element) => {
         if (element.checkBox.checked == true) {
@@ -468,6 +480,14 @@ function addBooksToDropDown(obj, dropDownContent) {
   closeButton.addEventListener("click", () => {
     dropDownContent.style.display = "none";
   });
+  let selectToMove = document.createElement("button");
+  selectToMove.textContent = "select more";
+  selectToMove.className = "btn btn-outline-secondary btn-sm btn-block dropdown-btn";
+  selectToMove.addEventListener("click", () => {
+    moveSelected(true);
+  });
+
+  dropDownContent.appendChild(selectToMove);
   dropDownContent.appendChild(closeButton);
   closeOnClickOutside(obj, dropDownContent);
   
@@ -508,6 +528,12 @@ function closeNote() {
   } else {
     x.style.display = "none";
   }
+}
+
+function moveSelected(bool){
+  allNotes.forEach(element => {
+    element.checkBoxVisible(bool)
+  });
 }
 
 window.addEventListener("DOMContentLoaded", init());
