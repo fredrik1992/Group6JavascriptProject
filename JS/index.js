@@ -411,11 +411,11 @@ function addBooksToNote(obj) {
 
   button.className = "note-button";
   button.addEventListener("click", () => {
-    document.querySelectorAll(".dropdown-a").forEach((e) => e.remove());
-    document.querySelectorAll(".dropdown-li").forEach((e) => e.remove());
-    document.querySelectorAll(".dropdown-btn").forEach((e) => e.remove());
+    clearNoteDropDown();
     addBooksToDropDown(obj, dropDownContent);
     dropDownContent.style.display = "block";
+    
+    
   });
   button.appendChild(btnIcon);
 
@@ -467,6 +467,31 @@ function addBooksToDropDown(obj, dropDownContent) {
     dropDownContent.style.display = "none";
   });
   dropDownContent.appendChild(closeButton);
+  closeOnClickOutside(obj, dropDownContent);
+  
+}
+
+function closeOnClickOutside (obj, dropDownContent) {
+  document.addEventListener("click", (event) => {
+    let target = event.target;
+    do {
+      if (obj.noteElement == target) {
+        return;
+      }
+      target = target.parentNode;
+    }
+    while (target);
+    dropDownContent.style.display = "none";
+
+  })
+  
+}
+
+function clearNoteDropDown () {
+  document.querySelectorAll(".dropdown-a").forEach((e) => e.remove());
+  document.querySelectorAll(".dropdown-li").forEach((e) => e.remove());
+  document.querySelectorAll(".dropdown-btn").forEach((e) => e.remove());
+
 }
 
 function saveNote() {

@@ -41,7 +41,7 @@ h6 {
   word-wrap: wrap;
   text-align: center;
   font-size: .85rem;
-  padding-top: .5rem;
+  
   font-weight: 200;
   margin: 0 auto;
 
@@ -82,8 +82,9 @@ footer {
 }
 
 .note-list {
-  background-color: #BFD7EA;
+  background-color: #D1E2F0;
 }
+
 
 .textArea {
   background-color: inherit;
@@ -106,7 +107,7 @@ footer {
 
 .content {
   min-height: 100%;
-  padding: 0rem 2rem;
+  padding: 0rem .5rem;
 }
 
 .note-buttons-top {
@@ -152,10 +153,6 @@ footer {
   margin-left: 0.5rem;
 }
 
-#delete-button {
-  margin-right: 0.3rem;
-}
-
 
 .date {
   color: rgba(0, 0, 0, 0.5);
@@ -169,16 +166,26 @@ footer {
 
 .input-container {
   max-width: 100%;
+  margin: 0rem 1rem;
+  background-color: #e0ecf5;
+  display: none;
+  padding: .3rem .7rem;
+  border-radius: .3rem;
+
+}
+
+.note-list:hover .input-container {
   display: flex;
   justify-content: space-between;
-  margin: 0rem 1rem;
+  
+  
 
 }
 
 .list-input {
   
   border: none;
-  height: 3rem;
+  
   background-color: inherit;
   margin-right: .5rem;
   width: 100%;
@@ -349,6 +356,12 @@ footer {
 
 }
 
+@media (min-width: 430px) {
+  .content {
+    padding: 0rem 2rem;
+  }
+
+}
 
 
 @media (min-width: 992px) {
@@ -370,6 +383,9 @@ footer {
   .dropdown-menu {
     min-width: 15rem;
   }
+
+  
+  
 
  
 
