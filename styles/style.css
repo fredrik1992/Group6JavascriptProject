@@ -5,28 +5,56 @@
 
 }
 
+body {
+  background-color: #FFFFEB;
+  color: #32292F;
+}
+
 header {
   width: 100%;
   position: fixed;
 }
 
+img {
+  color: #32292F;
+}
+
 .navbar {
-  background-color: #79B4A9!important;
+  background-color: #F4AFAB !important;
+}
+.navbar-collapse {
+  flex-grow: 0;
+}
+
+.navbar-light .navbar-brand { 
+  color: #32292F!important;
 }
 
 .container {
   padding: 0;
 
-  
+
+}
+
+h6 {
+  max-width: 60%;
+  word-wrap: wrap;
+  text-align: center;
+  font-size: .85rem;
+  padding-top: .5rem;
+  font-weight: 200;
+  margin: 0 auto;
+
 }
 
 main {
-  max-width: 500px;
+  width: 100%;
   min-height: 90vh;
-
-  margin: 0 auto;
   margin-top: 1rem;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 footer {
@@ -35,49 +63,54 @@ footer {
   margin-top: 1rem;
   text-align: center;
   padding: 1rem;
-  padding-bottom: .05rem;
- 
+  padding-bottom: 0.05rem;
 }
 
 /* Själva anteckningen
 */
 .note {
- padding: .7rem 1rem 1rem;
- width: 100%;
- max-width: 450px;
- height: fit-content;
- min-height: 300px;
- display: flex;
- flex-direction: column;
- background-color: #feff9c;
- margin-bottom: 2rem;
+  padding: 0.7rem 1rem 1rem;
+  width: 100%;
+  max-width: 450px;
+  height: fit-content;
+  min-height: 300px;
+
+  display: flex;
+  flex-direction: column;
+  background-color: #feff9c;
+  margin-bottom: 2rem;
 }
 
-.note textarea {
+.note-list {
+  background-color: #BFD7EA;
+}
+
+.textArea {
   background-color: inherit;
   border: none;
-  resize: none;
-  min-height: 300px;
-  overflow: auto;
-  scroll-behavior: smooth;
+  
+  min-height: 200px;
+  
   height: 100%;
   width: 100%;
-  
-  
-  
+
+
+
   padding: 1rem;
+
 }
 
-.note textarea:focus {
+.textArea:focus {
   outline: none;
 }
 
 .content {
-  min-height: 100px;
+  min-height: 100%;
+  padding: 0rem 2rem;
 }
 
 .note-buttons-top {
-  display: flex; 
+  display: flex;
   justify-content: space-between;
   align-items: baseline;
 }
@@ -94,38 +127,139 @@ footer {
   margin-top: auto;
 }
 
-.note-button:focus {
-  outline: none;
-}
+
+
+
+
+
+
+
+
 
 .note-button:hover {
   filter: opacity(40%);
+  transition: 0.3s ease-in-out;
 
+}
+
+.note-button:focus {
+  outline: none;
+  filter: opacity(100%);
 }
 
 #list-button {
-  margin-right: .2rem;
-  margin-left: .5rem;
+  margin-right: 0.2rem;
+  margin-left: 0.5rem;
 }
 
 #delete-button {
-  margin-right: .3rem;
+  margin-right: 0.3rem;
 }
 
 
 .date {
-  color: rgba(0,0,0,.5);
-  margin: 0 auto;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 
 .list {
-  padding: 1rem;
-  padding-left: 2rem;
+  padding: 1rem 2rem;
+  
 }
 
+.input-container {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0rem 1rem;
 
+}
 
+.list-input {
+  
+  border: none;
+  height: 3rem;
+  background-color: inherit;
+  margin-right: .5rem;
+  width: 100%;
+  font-family: Verdana, Tahoma, sans-serif;
+  color: inherit;
+  
+}
+
+.list-item {
+  word-wrap: wrap;
+}
+
+.list-input:focus {
+  outline: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 120px;
+  z-index: 1;
+  top: 2.5rem;
+  
+  border-radius: .25rem;
+}
+
+.btn-outline-secondary {
+  border: none;
+
+}
+
+.btn-group-sm>.btn, .btn-sm {
+  font-size: .65rem;
+  font-weight: 600;
+  
+}
+
+.btn-block {
+  margin-top: .5rem;
+  color: black;
+}
+
+.dropbtn {
+  background-color: inherit;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  
+  padding: 0.5rem;
+}
+
+.dropbtn:focus {
+  outline: none;
+  filter: opacity(100%);
+}
+
+.dropbtn:hover {
+  filter: opacity(100%);
+}
+
+.dropdown-content a {
+  text-decoration: none;
+  color: black;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-content li {
+  list-style: none;
+  padding: 0.6rem 1rem;
+}
+
+.dropdown-content li:hover {
+  background-color: #9d8189;
+}
 
 /*Ny anteckning*/
 .menuIcon {
@@ -138,19 +272,18 @@ footer {
   cursor: pointer;
 }
 
-.menuIcon span{
+.menuIcon span {
   position: relative;
   width: 100%;
   height: 100%;
   transition: 0.3s ease-in-out;
 }
 
-.menuIcon.active span img{
+.menuIcon.active span img {
   transform: rotate(45deg);
 }
 
-
-.menuIcon ul{
+.menuIcon ul {
   position: absolute;
   bottom: 55px;
   visibility: hidden;
@@ -158,19 +291,87 @@ footer {
   transition: 0.4s;
 }
 
-.menuIcon.active ul{
+.menuIcon.active ul {
   visibility: visible;
   opacity: 1;
 }
 
-.menuIcon ul li{
+.menuIcon ul li {
   list-style: none;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.menuIcon ul svg{
+.menuIcon ul svg {
   height: 50px;
   font-size: 50px;
+}
+
+.addNoteBookFlexBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+
+}
+.addNoteBookButton {
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+.removeNoteBookButton {
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+.noteBookTitle {
+  position: relative;
+  left: 10%;
+  width: 100%!important;
+  padding-left: .3rem;
+}
+
+.noteBookFlex {
+  display: flex;
+  flex-direction: row;
+}
+
+
+.dropdown-menu.show {
+  padding: .5rem;
+}
+
+.dropdown-item {
+  position: relative;
+  width: 80%;
+
+
+}
+
+
+
+@media (min-width: 992px) {
+  .navbar-expand-lg {
+    justify-content: space-between!important;
+  }
+
+  .navbar-expand-lg .navbar-nav .dropdown-menu {
+    left: -7.5rem!important;
+  }
+
+  h6 {
+    width: 100%;
+    word-wrap: wrap;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+  .dropdown-menu {
+    min-width: 15rem;
+  }
+
+ 
+
+
 }
