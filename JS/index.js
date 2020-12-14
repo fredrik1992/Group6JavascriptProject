@@ -47,8 +47,7 @@ function createAddNoteBookButton() {
 }
 
 function createNoteBok(inputFromLocalStorage) {
-  //calls all functions necesary to add a new book
-  console.log(inputFromLocalStorage)
+  //calls all functions necesary to add a new booZ
   
   let inputTitle = document.getElementsByClassName("noteBookTitle")[0].value; //input value
   if (inputFromLocalStorage != null){inputTitle = inputFromLocalStorage}
@@ -71,33 +70,29 @@ function createNoteBok(inputFromLocalStorage) {
   updateCurrentNoteBooks(); //updates the note book list with added book
   saveNoteBooksToLocalStorage();
 }
+
 function saveNoteBooksToLocalStorage(){
 
-  let temporaryArray = ["Dashboard"]; // makes sure Dahsboard always exists
+  let arrayToHoldAllCurrentNotebooks= ["Dashboard"]; // makes sure Dahsboard always exists
   existingNoteBooks.forEach(element => {
     if(element.titleOfObject != "Dashboard"){
   
-      temporaryArray.push(element.titleOfObject)
-    }
-    
-   
-    
-  });//need to clear array after used or check before if there allredy is a existing name
-  temporaryArray.toString();
+      arrayToHoldAllCurrentNotebooks.push(element.titleOfObject)
+    }});//need to clear array after used or check before if there allredy is a existing name
   
-  localStorage.setItem("books",temporaryArray);
-  
-  
-}
+    arrayToHoldAllCurrentNotebooks.toString();
+    localStorage.setItem("books",arrayToHoldAllCurrentNotebooks);
+};
+
 function createNoteBooksFromLocalStorage (){
 
   if (localStorage.getItem("books")!= null){
   
-  let localStorageNoteBooksRetrieved = localStorage.getItem("books")
-  localStorageNoteBooksRetrieved = localStorageNoteBooksRetrieved.split(",")
-  console.log(localStorageNoteBooksRetrieved)
-  localStorageNoteBooksRetrieved.forEach(element => {
-    console.log(element)
+    let localStorageNoteBooksRetrieved = localStorage.getItem("books")
+
+    localStorageNoteBooksRetrieved = localStorageNoteBooksRetrieved.split(",")
+    localStorageNoteBooksRetrieved.forEach(element => {
+    
     
     createNoteBok(element)})}
 
