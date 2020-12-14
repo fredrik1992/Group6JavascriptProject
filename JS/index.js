@@ -12,6 +12,7 @@ function init() {
   createAddNoteBookButton();
   document.getElementsByClassName("noteBookTitle")[0].value = "Dashboard";
   createNoteBok();
+  displayCurrentNoteBook();
 }
 //---create noteBookStarts
 
@@ -127,6 +128,7 @@ function updateCurrentNoteBooks() {
     notebook.addEventListener("click", function () {
       // used to call a certain book to display its notes
       openNotebook = element.getTitle();
+      displayCurrentNoteBook();
       globalUpdate();
     });
 
@@ -152,6 +154,12 @@ function clearDeleted(){
       allNotes.splice(i, 1);
     }
   }
+}
+
+function displayCurrentNoteBook () {
+  let currentNotebookHeading = document.getElementById("current-notebook");
+  currentNotebookHeading.innerText = openNotebook.toUpperCase();
+
 }
 
 //--
@@ -299,7 +307,7 @@ function createDiv2(type, article) {
   }
 
   if (type == 2) {
-    article.className = "note note-list";
+    article.className = "note note-list shadow-sm";
     let inputContainer = document.createElement("div");
     inputContainer.className = "input-container";
     let input = document.createElement("input");
