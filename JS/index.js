@@ -51,13 +51,13 @@ function createNoteBok() {
 
   let inputTitle = document.getElementsByClassName("noteBookTitle")[0].value; //input value
   let changeInputBoxApparance = document.getElementsByClassName(
-    "noteBookTitle")[0]; //to change apparance
+    "noteBookTitle"
+  )[0]; //to change apparance
 
   if (inputTitle === "") {
     //checks that input isent empty
-     changeInputBoxApparance.style.border = "solid red 3px";
+    changeInputBoxApparance.style.border = "solid red 3px";
   } else {
-    
     changeInputBoxApparance.style.border = "solid 1px";
 
     existingNoteBooks.push(new NoteBookObject(inputTitle)); //adds a new notebook to the list
@@ -77,8 +77,7 @@ function NoteBookObject(title) {
   this.setTitle = function (newTitle) {
     this.titleOfObject = newTitle;
   };
-
-};
+}
 
 function removeNoteBooks(titleToRemove) {
   //titleToRemove is a button event bound to the object when created
@@ -87,7 +86,6 @@ function removeNoteBooks(titleToRemove) {
     if (existingNoteBooks[i].titleOfObject == titleToRemove.titleOfObject) {
       existingNoteBooks.splice(i, 1);
       break;
-      
     }
   }
 
@@ -95,7 +93,6 @@ function removeNoteBooks(titleToRemove) {
 }
 
 function updateCurrentNoteBooks() {
-  
   document.querySelectorAll(".dropdown-item").forEach((e) => e.remove()); //cleares window
   document.querySelectorAll(".noteBookFlex").forEach((e) => e.remove()); //cleares window
 
@@ -113,18 +110,20 @@ function updateCurrentNoteBooks() {
     buttonImage.src = "media/x.svg";
     notebook.textContent = element.getTitle(); //gets the title variable in noteBookObject
     notebook.style.fontFamily = "Cursive";
-   
+
     getDropdownMenu.appendChild(flexBox);
     removeNoteBookButton.appendChild(buttonImage);
-    
-    if (element.titleOfObject != "Dashboard"){ //checks if element is Dashboard so it wont get removed
+
+    if (element.titleOfObject != "Dashboard") {
+      //checks if element is Dashboard so it wont get removed
 
       flexBox.appendChild(removeNoteBookButton);
+    } else {
+      notebook.classList.add("Dashboard");
     }
-    else{notebook.classList.add("Dashboard")}
-    
+
     flexBox.appendChild(notebook);
-   
+
     notebook.addEventListener("click", function () {
       // used to call a certain book to display its notes
       openNotebook = element.getTitle();
@@ -136,7 +135,7 @@ function updateCurrentNoteBooks() {
       removeNoteBooks(element);
     });
   });
-};
+}
 
 function globalUpdate() {
   document.querySelectorAll(".note").forEach((e) => e.remove()); //cleares window
@@ -149,18 +148,17 @@ function globalUpdate() {
   });
 }
 
-function clearDeleted(){
+function clearDeleted() {
   for (let i = 0; i < allNotes.length; i++) {
-    if(allNotes[i].delete == true){
+    if (allNotes[i].delete == true) {
       allNotes.splice(i, 1);
     }
   }
 }
 
-function displayCurrentNoteBook () {
+function displayCurrentNoteBook() {
   let currentNotebookHeading = document.getElementById("current-notebook");
   currentNotebookHeading.innerText = openNotebook.toUpperCase();
-
 }
 
 //--
@@ -217,7 +215,7 @@ function Note(type) {
 
   this.checkBox = document.createElement("input");
   this.checkBox.type = "checkbox";
-  this.checkBox.style.visibility ="hidden";
+  this.checkBox.style.visibility = "hidden";
   this.noteElement.appendChild(this.checkBox);
 
   this.titleOfNoteBook = openNotebook;
@@ -227,13 +225,13 @@ function Note(type) {
     this.titleOfNoteBook = title;
   };
 
-  this.checkBoxVisible = function(choise){
-    if(choise == true){
-      return this.checkBox.style.visibility ="visible";
-    }else if(choise == false){
-      return this.checkBox.style.visibility ="hidden";
+  this.checkBoxVisible = function (choise) {
+    if (choise == true) {
+      return (this.checkBox.style.visibility = "visible");
+    } else if (choise == false) {
+      return (this.checkBox.style.visibility = "hidden");
     }
-  }
+  };
 
   this.removeNote = function () {
     this.noteElement.remove();
@@ -323,8 +321,8 @@ function createDiv2(type, article) {
     let input = document.createElement("input");
     input.type = "text";
     input.className = "list-input";
-    input.placeholder = "Type here..."
-    
+    input.placeholder = "Type here...";
+
     let button = document.createElement("button");
     button.className = "list-btn note-button";
     let imgAddList = document.createElement("img");
@@ -341,7 +339,6 @@ function createDiv2(type, article) {
     inputContainer.appendChild(button);
 
     div2.appendChild(inputContainer);
-    
 
     input.addEventListener("keypress", function (event) {
       let e = event;
@@ -426,8 +423,6 @@ function addBooksToNote(obj) {
     clearNoteDropDown();
     addBooksToDropDown(obj, dropDownContent);
     dropDownContent.style.display = "block";
-    
-    
   });
   button.appendChild(btnIcon);
 
@@ -447,17 +442,33 @@ function addBooksToDropDown(obj, dropDownContent) {
     let li = document.createElement("li");
     li.className = "dropdown-li";
     let option = document.createElement("a");
+    let closeButton = document.createElement("button");
+    let closeButtonIcon = document.createElement("img");
+
+    dropDownContent.appendChild(closeButton);
+    closeButton.className = "note-button close-btn-dropdown";
+    closeButton.addEventListener("click", () => {
+      dropDownContent.style.display = "none";
+    });
+
+    closeButton.appendChild(closeButtonIcon)
+    closeButtonIcon.src = "media/x.svg";
+    closeButtonIcon.height = "15";
+    closeButtonIcon.width = "15";
+    closeButtonIcon.alt = "Close dropdown";
+    closeButtonIcon.title = "close";
+    
 
     option.href = "#";
     option.className = "dropdown-option dropdown-a";
     option.textContent = existingNoteBooks[i].getTitle();
 
     option.addEventListener("click", (element) => {
-      if(obj.checked == true || obj.checkBox.style.visibility == 'hidden'){
+      if (obj.checked == true || obj.checkBox.style.visibility == "hidden") {
         obj.setTitleOfNoteBook(element.target.innerText);
-        globalUpdate();  
+        globalUpdate();
       }
-      
+
       allNotes.forEach((element) => {
         if (element.checkBox.checked == true) {
           element.titleOfNoteBook = existingNoteBooks[i].getTitle();
@@ -472,28 +483,22 @@ function addBooksToDropDown(obj, dropDownContent) {
     });
 
     li.appendChild(option);
+    
     dropDownContent.appendChild(li);
   }
-  let closeButton = document.createElement("button");
-  closeButton.textContent = "CLOSE";
-  closeButton.className = "btn btn-outline-secondary btn-sm btn-block dropdown-btn";
-  closeButton.addEventListener("click", () => {
-    dropDownContent.style.display = "none";
-  });
+
   let selectToMove = document.createElement("button");
-  selectToMove.textContent = "select more";
+  selectToMove.textContent = "SELECT MORE";
   selectToMove.className = "btn btn-outline-secondary btn-sm btn-block dropdown-btn";
   selectToMove.addEventListener("click", () => {
     moveSelected(true);
   });
 
   dropDownContent.appendChild(selectToMove);
-  dropDownContent.appendChild(closeButton);
   closeOnClickOutside(obj, dropDownContent);
-  
 }
 
-function closeOnClickOutside (obj, dropDownContent) {
+function closeOnClickOutside(obj, dropDownContent) {
   document.addEventListener("click", (event) => {
     let target = event.target;
     do {
@@ -501,19 +506,16 @@ function closeOnClickOutside (obj, dropDownContent) {
         return;
       }
       target = target.parentNode;
-    }
-    while (target);
+    } while (target);
     dropDownContent.style.display = "none";
-
-  })
-  
+  });
 }
 
-function clearNoteDropDown () {
+function clearNoteDropDown() {
+  document.querySelectorAll(".close-btn-dropdown").forEach((e) => e.remove());
   document.querySelectorAll(".dropdown-a").forEach((e) => e.remove());
   document.querySelectorAll(".dropdown-li").forEach((e) => e.remove());
   document.querySelectorAll(".dropdown-btn").forEach((e) => e.remove());
-
 }
 
 function saveNote() {
@@ -530,9 +532,9 @@ function closeNote() {
   }
 }
 
-function moveSelected(bool){
-  allNotes.forEach(element => {
-    element.checkBoxVisible(bool)
+function moveSelected(bool) {
+  allNotes.forEach((element) => {
+    element.checkBoxVisible(bool);
   });
 }
 
