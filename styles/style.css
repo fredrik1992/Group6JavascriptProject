@@ -355,6 +355,9 @@ footer {
 
 
 }
+.Dashboard{
+  left: 4%;
+}
 
 @media (min-width: 430px) {
   .content {
