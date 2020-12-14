@@ -11,7 +11,8 @@ function init() {
   buttonContains();
   createAddNoteBookButton();
   document.getElementsByClassName("noteBookTitle")[0].value = "Dashboard";
-  createNoteBok();
+  createNoteBooksFromLocalStorage();
+  
 }
 //---create noteBookStarts
 
@@ -45,18 +46,22 @@ function createAddNoteBookButton() {
   });
 }
 
-function createNoteBok() {
+function createNoteBok(inputFromLocalStorage) {
   //calls all functions necesary to add a new book
-
+  console.log(inputFromLocalStorage)
+  
   let inputTitle = document.getElementsByClassName("noteBookTitle")[0].value; //input value
+  if (inputFromLocalStorage != null){inputTitle = inputFromLocalStorage}
+  
   let changeInputBoxApparance = document.getElementsByClassName(
     "noteBookTitle")[0]; //to change apparance
-
+  
   if (inputTitle === "") {
     //checks that input isent empty
      changeInputBoxApparance.style.border = "solid red 3px";
   } else {
-    
+
+    localStorage.setItem(("notebook" + inputTitle),inputTitle)
     changeInputBoxApparance.style.border = "solid 1px";
 
     existingNoteBooks.push(new NoteBookObject(inputTitle)); //adds a new notebook to the list
@@ -64,6 +69,45 @@ function createNoteBok() {
   } //clears input field
 
   updateCurrentNoteBooks(); //updates the note book list with added book
+  saveNoteBooksToLocalStorage();
+}
+function saveNoteBooksToLocalStorage(){
+
+  let temporaryArray = ["Dashboard"]; // makes sure Dahsboard always exists
+  existingNoteBooks.forEach(element => {
+    if(element.titleOfObject != "Dashboard"){
+  
+      temporaryArray.push(element.titleOfObject)
+    }
+    
+   
+    
+  });//need to clear array after used or check before if there allredy is a existing name
+  temporaryArray.toString();
+  
+  localStorage.setItem("books",temporaryArray);
+  
+  
+}
+function createNoteBooksFromLocalStorage (){
+
+  if (localStorage.getItem("books")!= null){
+  
+  let localStorageNoteBooksRetrieved = localStorage.getItem("books")
+  localStorageNoteBooksRetrieved = localStorageNoteBooksRetrieved.split(",")
+  console.log(localStorageNoteBooksRetrieved)
+  localStorageNoteBooksRetrieved.forEach(element => {
+    console.log(element)
+    
+    createNoteBok(element)})}
+
+ 
+   
+    
+  ;
+ 
+  
+
 }
 
 function NoteBookObject(title) {
@@ -85,6 +129,7 @@ function removeNoteBooks(titleToRemove) {
   for (let i = 0; i < existingNoteBooks.length; i++) {
     if (existingNoteBooks[i].titleOfObject == titleToRemove.titleOfObject) {
       existingNoteBooks.splice(i, 1);
+      saveNoteBooksToLocalStorage();
       break;
       
     }
