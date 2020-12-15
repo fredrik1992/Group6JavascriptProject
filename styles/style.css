@@ -244,14 +244,13 @@ footer {
   position: relative;
   bottom: 1rem;
   right: .3rem;
-  background-color: inherit;
-  height: 15px;
-  width: 15px;
+  background-color: transparent;
+  
 }
 
 .close-btn-dropdown img {
   position: relative;
-  bottom: .1rem;
+  bottom: .2rem;
 }
 
 .btn-outline-secondary {
@@ -297,7 +296,7 @@ footer {
 
 .dropdown-content li {
   list-style: none;
-  padding: 0.6rem 1rem;
+  padding: 0.4rem 1rem;
 }
 
 .dropdown-content li:hover {
