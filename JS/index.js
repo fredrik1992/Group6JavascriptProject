@@ -217,6 +217,8 @@ function buttonContains() {
 Konstruktor för notes-objekt 
 */
 function Note(type) {
+
+  this.noteType = type;
   this.noteElement = createNote(this, type);
   main.appendChild(this.noteElement);
 
@@ -225,14 +227,19 @@ function Note(type) {
   this.checkBox.style.visibility = "hidden";
   this.noteElement.appendChild(this.checkBox);
 
-  this.noteText = this.noteElement.getElementsByClassName('textArea')[0];
-
   this.titleOfNoteBook = openNotebook;
   this.delete = false;
 
   this.getNoteText = function(){
-    this.test = this.noteText.textContent;
-    return this.test;
+    if(this.noteType == 1){
+      this.noteText = this.noteElement.getElementsByClassName('textArea')[0];
+      this.innerNoteText = this.noteText.textContent;
+      return this.innerNoteText;
+    }else if(this.noteType == 2){
+      this.noteText = this.noteElement.getElementsByClassName('content')[0];
+      this.innerNoteText = this.noteText.innerText;
+      return this.innerNoteText;
+    }
   }
   this.setTitleOfNoteBook = (title) => {
     this.titleOfNoteBook = title;
