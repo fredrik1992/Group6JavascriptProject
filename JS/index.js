@@ -322,7 +322,7 @@ function Note(type,savedNoteBookPlacment) {
 
 
 function saveNotesToLocalStorage(){
- 
+  console.log(getLocalStorageListsToArray("notes"))
   
   let holdsLocalStorageNotes =[];
  allNotes.forEach(element => {
@@ -347,7 +347,7 @@ function  makeNotesFromLocalStorage(){
     let noteBookBelongingToNote = ""
     let noteOrListType = ""
     if(getLocalStorageListsToArray ("notes") != null){
-
+        
         getLocalStorageListsToArray("notes").forEach(element => {
   
       if (counter < numberOfPlacesEachNoteDataHave){
@@ -613,6 +613,7 @@ function addBooksToDropDown(obj, dropDownContent) {
     option.addEventListener("click", (element) => {
       if (obj.checked == true || obj.checkBox.style.visibility == "hidden") {
         obj.setTitleOfNoteBook(element.target.innerText);
+        saveNotesToLocalStorage()
         globalUpdate();
       }
 
@@ -620,7 +621,7 @@ function addBooksToDropDown(obj, dropDownContent) {
         if (element.checkBox.checked == true) {
           element.titleOfNoteBook = existingNoteBooks[i].getTitle();
           element.checkBox.checked = false;
-          globalUpdate();
+         globalUpdate();
         } else {
           console.log("Inget flyttades");
         }
