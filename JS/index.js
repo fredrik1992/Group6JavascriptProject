@@ -142,6 +142,9 @@ function globalUpdate() {
   document.querySelectorAll(".note").forEach((e) => e.remove()); //cleares window
   moveSelected(false);
 
+
+  allNotes.reverse();
+
   allNotes.forEach((element) => {
     if (element.titleOfNoteBook == openNotebook && element.delete != true) {
       main.appendChild(element.noteElement);
