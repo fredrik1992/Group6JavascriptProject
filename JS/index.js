@@ -6,13 +6,17 @@ let existingNoteBooks = [];
 let allNotes = [];
 let openNotebook = "Dashboard";
 
+
 function init() {
   createButton();
   buttonContains();
   createAddNoteBookButton();
-  document.getElementsByClassName("noteBookTitle")[0].value = "Dashboard";
-  createNoteBok();
+  createNoteBok("Dashboard")
+  createNoteBooksFromLocalStorage();
+  makeNotesFromLocalStorage()
   displayCurrentNoteBook();
+  
+
 }
 //---create noteBookStarts
 
@@ -49,18 +53,24 @@ function createAddNoteBookButton() {
   });
 }
 
-function createNoteBok() {
-  //calls all functions necesary to add a new book
-
+function createNoteBok(inputFromLocalStorage) {
+  //calls all functions necesary to add a new booZ
+  
   let inputTitle = document.getElementsByClassName("noteBookTitle")[0].value; //input value
+  if (inputFromLocalStorage != null ){//checks if it should use input from local storage or input field
+    
+    inputTitle = inputFromLocalStorage}
+  
   let changeInputBoxApparance = document.getElementsByClassName(
-    "noteBookTitle"
-  )[0]; //to change apparance
+
+    "noteBookTitle")[0]; //to change apparance
+  
 
   if (inputTitle === "") {
     //checks that input isent empty
     changeInputBoxApparance.style.border = "solid red 3px";
   } else {
+
     changeInputBoxApparance.style.border = "solid 1px";
 
     existingNoteBooks.push(new NoteBookObject(inputTitle)); //adds a new notebook to the list
@@ -68,6 +78,39 @@ function createNoteBok() {
   } //clears input field
 
   updateCurrentNoteBooks(); //updates the note book list with added book
+  saveNoteBooksToLocalStorage()
+  
+}
+
+
+function saveNoteBooksToLocalStorage(){
+  
+  if(existingNoteBooks.length>1){
+    let arrayToHoldAllCurrentNotebooks= []; // holds the exisiting notebooks titles
+    existingNoteBooks.forEach(element => {
+      if(element.titleOfObject != "Dashboard"){
+    
+        arrayToHoldAllCurrentNotebooks.push(element.titleOfObject)
+      }});//need to clear array after used or check before if there allredy is a existing name
+    
+      arrayToHoldAllCurrentNotebooks.toString(); // turns the notes ti string
+      localStorage.setItem("books",arrayToHoldAllCurrentNotebooks);
+
+
+  }};
+
+function createNoteBooksFromLocalStorage (){
+  if (localStorage.getItem("lastVisitedNoteBook" != null)){
+    openNotebook = localStorage.getItem("lastVisitedNoteBook")
+  }
+  if (getLocalStorageListsToArray("books") != null){ 
+    
+    getLocalStorageListsToArray("books").forEach(element => {
+    createNoteBok(element)})};
+  }
+
+function lastVisitedNoteBook(lastNoteBookClick){ //at sstart
+  localStorage.setItem("lastVisitedNoteBook",lastNoteBookClick)
 }
 
 function NoteBookObject(title) {
@@ -88,6 +131,7 @@ function removeNoteBooks(titleToRemove) {
   for (let i = 0; i < existingNoteBooks.length; i++) {
     if (existingNoteBooks[i].titleOfObject == titleToRemove.titleOfObject) {
       existingNoteBooks.splice(i, 1);
+      saveNoteBooksToLocalStorage();
       break;
     }
   }
@@ -129,13 +173,18 @@ function updateCurrentNoteBooks() {
 
     notebook.addEventListener("click", function () {
       // used to call a certain book to display its notes
-      openNotebook = element.getTitle();
+
+      openNotebook = element.titleOfObject
+      lastVisitedNoteBook(element.titleOfObject)
       displayCurrentNoteBook();
       globalUpdate();
     });
 
     removeNoteBookButton.addEventListener("click", function () {
       removeNoteBooks(element);
+      openNotebook = element.getTitle();
+      displayCurrentNoteBook();
+      globalUpdate();
     });
   });
 }
@@ -199,6 +248,7 @@ function buttonContains() {
   b1.appendChild(b1img);
   b1.addEventListener("click", function () {
     allNotes.push(new Note(2));
+    saveNotesToLocalStorage()
   });
 
   let b2 = document.createElement("li");
@@ -210,15 +260,19 @@ function buttonContains() {
   b2.appendChild(b2img);
   b2.addEventListener("click", function () {
     allNotes.push(new Note(1));
+    saveNotesToLocalStorage()
   });
+  
 }
 
 /*
 Konstruktor för notes-objekt 
 */
-function Note(type) {
 
-  this.noteType = type;
+function Note(type,savedNoteBookPlacment) {
+  this.type = type;
+
+
   this.noteElement = createNote(this, type);
   main.appendChild(this.noteElement);
 
@@ -226,8 +280,10 @@ function Note(type) {
   this.checkBox.type = "checkbox";
   this.checkBox.style.visibility = "hidden";
   this.noteElement.appendChild(this.checkBox);
-
-  this.titleOfNoteBook = openNotebook;
+  if(savedNoteBookPlacment != null){
+    this.titleOfNoteBook = savedNoteBookPlacment;
+  }else{this.titleOfNoteBook = openNotebook;}
+  
   this.delete = false;
 
   this.getNoteText = function(){
@@ -257,8 +313,78 @@ function Note(type) {
     this.noteElement.remove();
     this.delete = true;
     clearDeleted();
+    
   };
+  
+  
 }
+
+
+function saveNotesToLocalStorage(){
+ 
+  
+  let holdsLocalStorageNotes =[];
+ allNotes.forEach(element => {
+  
+  holdsLocalStorageNotes.push(element.titleOfNoteBook,element.type)
+  
+ }); 
+ toString(holdsLocalStorageNotes)
+ localStorage.setItem("notes",holdsLocalStorageNotes);
+  
+  
+  // maby add a call in remove notes to jsut to keep in current
+
+}
+
+
+function  makeNotesFromLocalStorage(){
+
+ 
+    const numberOfPlacesEachNoteDataHave =3;
+    let counter = 1
+    let noteBookBelongingToNote = ""
+    let noteOrListType = ""
+    if(getLocalStorageListsToArray ("notes") != null){
+
+        getLocalStorageListsToArray("notes").forEach(element => {
+  
+      if (counter < numberOfPlacesEachNoteDataHave){
+        if (counter == 1){
+          noteBookBelongingToNote = element
+
+        }
+        else{noteOrListType = element}
+
+      }
+      
+      if(counter == 2){ 
+      
+        allNotes.push(new Note(noteOrListType,noteBookBelongingToNote));
+        counter = 1
+        
+      }
+      else{counter++}
+    })
+    }globalUpdate()}
+    
+    
+
+ function getLocalStorageListsToArray(key){
+   
+  if (localStorage.getItem(key)!= null){
+    
+    let arrayToHoldkeyList =localStorage.getItem(key);
+    arrayToHoldkeyList = arrayToHoldkeyList.split(",")   
+
+    return arrayToHoldkeyList
+  }
+
+  
+
+}
+
+
 
 //////////////////////////////////////// FUNCTIONS FOR CREATING NEW NOTE ////////////////////////////////////////
 
@@ -540,7 +666,7 @@ function clearNoteDropDown() {
 
 function saveNote() {
   let inputValue = document.getElementById("input-text").value;
-  ///   console.log(inputValue);
+  
 }
 
 function closeNote() {
