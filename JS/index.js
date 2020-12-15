@@ -278,17 +278,13 @@ function Note(type, savedNoteBookPlacment) {
 
   this.delete = false;
 
-  this.getNoteText = function () {
-    if (this.noteType == 1) {
-      this.noteText = this.noteElement.getElementsByClassName("textArea")[0];
-      this.innerNoteText = this.noteText.textContent;
-      return this.innerNoteText;
-    } else if (this.noteType == 2) {
-      this.noteText = this.noteElement.getElementsByClassName("content")[0];
-      this.innerNoteText = this.noteText.innerText;
-      return this.innerNoteText;
+  this.getNoteText = function(){
+    if(this.noteType == 1){
+      return this.noteElement.getElementsByClassName('textArea')[0].textContent;
+    }else if(this.noteType == 2){
+      return this.noteElement.getElementsByClassName('list')[0].innerText;
     }
-  };
+  }
   this.setTitleOfNoteBook = (title) => {
     this.titleOfNoteBook = title;
   };
