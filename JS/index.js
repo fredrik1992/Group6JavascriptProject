@@ -185,11 +185,9 @@ function globalUpdate() {
   document.querySelectorAll(".note").forEach((e) => e.remove()); //cleares window
   moveSelected(false);
 
-  allNotes.reverse();
-
   allNotes.forEach((element) => {
     if (element.titleOfNoteBook == openNotebook && element.delete != true) {
-      main.appendChild(element.noteElement);
+      main.prepend(element.noteElement);
     }
   });
 }
@@ -262,7 +260,7 @@ function Note(type, savedNoteBookPlacment) {
   this.noteType = type;
 
   this.noteElement = createNote(this, type);
-  main.appendChild(this.noteElement);
+  main.prepend(this.noteElement);
   this.date = addDate();
 
   this.checkBox = document.createElement("input");
