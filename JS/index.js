@@ -225,9 +225,15 @@ function Note(type) {
   this.checkBox.style.visibility = "hidden";
   this.noteElement.appendChild(this.checkBox);
 
+  this.noteText = this.noteElement.getElementsByClassName('textArea')[0];
+
   this.titleOfNoteBook = openNotebook;
   this.delete = false;
 
+  this.getNoteText = function(){
+    this.test = this.noteText.textContent;
+    return this.test;
+  }
   this.setTitleOfNoteBook = (title) => {
     this.titleOfNoteBook = title;
   };
