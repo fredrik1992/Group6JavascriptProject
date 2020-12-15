@@ -145,6 +145,7 @@ function globalUpdate() {
   moveSelected(false);
 
 
+
   allNotes.reverse();
 
   allNotes.forEach((element) => {
