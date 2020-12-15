@@ -6,22 +6,16 @@ let existingNoteBooks = [];
 let allNotes = [];
 let openNotebook = "Dashboard";
 
-
 function init() {
   createButton();
   buttonContains();
   createAddNoteBookButton();
-  createNoteBok("Dashboard")
+  createNoteBok("Dashboard");
   createNoteBooksFromLocalStorage();
-  makeNotesFromLocalStorage()
+  makeNotesFromLocalStorage();
   displayCurrentNoteBook();
-  
-
 }
 //---create noteBookStarts
-
-
-
 
 function createAddNoteBookButton() {
   //skapa div element med flex  som en dropdown item
@@ -55,22 +49,22 @@ function createAddNoteBookButton() {
 
 function createNoteBok(inputFromLocalStorage) {
   //calls all functions necesary to add a new booZ
-  
-  let inputTitle = document.getElementsByClassName("noteBookTitle")[0].value; //input value
-  if (inputFromLocalStorage != null ){//checks if it should use input from local storage or input field
-    
-    inputTitle = inputFromLocalStorage}
-  
-  let changeInputBoxApparance = document.getElementsByClassName(
 
-    "noteBookTitle")[0]; //to change apparance
-  
+  let inputTitle = document.getElementsByClassName("noteBookTitle")[0].value; //input value
+  if (inputFromLocalStorage != null) {
+    //checks if it should use input from local storage or input field
+
+    inputTitle = inputFromLocalStorage;
+  }
+
+  let changeInputBoxApparance = document.getElementsByClassName(
+    "noteBookTitle"
+  )[0]; //to change apparance
 
   if (inputTitle === "") {
     //checks that input isent empty
     changeInputBoxApparance.style.border = "solid red 3px";
   } else {
-
     changeInputBoxApparance.style.border = "solid 1px";
 
     existingNoteBooks.push(new NoteBookObject(inputTitle)); //adds a new notebook to the list
@@ -78,39 +72,37 @@ function createNoteBok(inputFromLocalStorage) {
   } //clears input field
 
   updateCurrentNoteBooks(); //updates the note book list with added book
-  saveNoteBooksToLocalStorage()
-  
+  saveNoteBooksToLocalStorage();
 }
 
+function saveNoteBooksToLocalStorage() {
+  if (existingNoteBooks.length > 1) {
+    let arrayToHoldAllCurrentNotebooks = []; // holds the exisiting notebooks titles
+    existingNoteBooks.forEach((element) => {
+      if (element.titleOfObject != "Dashboard") {
+        arrayToHoldAllCurrentNotebooks.push(element.titleOfObject);
+      }
+    }); //need to clear array after used or check before if there allredy is a existing name
 
-function saveNoteBooksToLocalStorage(){
-  
-  if(existingNoteBooks.length>1){
-    let arrayToHoldAllCurrentNotebooks= []; // holds the exisiting notebooks titles
-    existingNoteBooks.forEach(element => {
-      if(element.titleOfObject != "Dashboard"){
-    
-        arrayToHoldAllCurrentNotebooks.push(element.titleOfObject)
-      }});//need to clear array after used or check before if there allredy is a existing name
-    
-      arrayToHoldAllCurrentNotebooks.toString(); // turns the notes ti string
-      localStorage.setItem("books",arrayToHoldAllCurrentNotebooks);
-
-
-  }};
-
-function createNoteBooksFromLocalStorage (){
-  if (localStorage.getItem("lastVisitedNoteBook" != null)){
-    openNotebook = localStorage.getItem("lastVisitedNoteBook")
+    arrayToHoldAllCurrentNotebooks.toString(); // turns the notes ti string
+    localStorage.setItem("books", arrayToHoldAllCurrentNotebooks);
   }
-  if (getLocalStorageListsToArray("books") != null){ 
-    
-    getLocalStorageListsToArray("books").forEach(element => {
-    createNoteBok(element)})};
-  }
+}
 
-function lastVisitedNoteBook(lastNoteBookClick){ //at sstart
-  localStorage.setItem("lastVisitedNoteBook",lastNoteBookClick)
+function createNoteBooksFromLocalStorage() {
+  if (localStorage.getItem("lastVisitedNoteBook" != null)) {
+    openNotebook = localStorage.getItem("lastVisitedNoteBook");
+  }
+  if (getLocalStorageListsToArray("books") != null) {
+    getLocalStorageListsToArray("books").forEach((element) => {
+      createNoteBok(element);
+    });
+  }
+}
+
+function lastVisitedNoteBook(lastNoteBookClick) {
+  //at sstart
+  localStorage.setItem("lastVisitedNoteBook", lastNoteBookClick);
 }
 
 function NoteBookObject(title) {
@@ -174,8 +166,8 @@ function updateCurrentNoteBooks() {
     notebook.addEventListener("click", function () {
       // used to call a certain book to display its notes
 
-      openNotebook = element.titleOfObject
-      lastVisitedNoteBook(element.titleOfObject)
+      openNotebook = element.titleOfObject;
+      lastVisitedNoteBook(element.titleOfObject);
       displayCurrentNoteBook();
       globalUpdate();
     });
@@ -192,8 +184,6 @@ function updateCurrentNoteBooks() {
 function globalUpdate() {
   document.querySelectorAll(".note").forEach((e) => e.remove()); //cleares window
   moveSelected(false);
-
-
 
   allNotes.reverse();
 
@@ -248,7 +238,7 @@ function buttonContains() {
   b1.appendChild(b1img);
   b1.addEventListener("click", function () {
     allNotes.push(new Note(2));
-    saveNotesToLocalStorage()
+    saveNotesToLocalStorage();
   });
 
   let b2 = document.createElement("li");
@@ -260,18 +250,16 @@ function buttonContains() {
   b2.appendChild(b2img);
   b2.addEventListener("click", function () {
     allNotes.push(new Note(1));
-    saveNotesToLocalStorage()
+    saveNotesToLocalStorage();
   });
-  
 }
 
 /*
 Konstruktor för notes-objekt 
 */
 
-function Note(type,savedNoteBookPlacment) {
+function Note(type, savedNoteBookPlacment) {
   this.noteType = type;
-
 
   this.noteElement = createNote(this, type);
   main.appendChild(this.noteElement);
@@ -282,23 +270,25 @@ function Note(type,savedNoteBookPlacment) {
   this.checkBox.style.visibility = "hidden";
   this.checkBox.className = "checkbox";
   this.noteElement.appendChild(this.checkBox);
-  if(savedNoteBookPlacment != null){
+  if (savedNoteBookPlacment != null) {
     this.titleOfNoteBook = savedNoteBookPlacment;
-  }else{this.titleOfNoteBook = openNotebook;}
-  
+  } else {
+    this.titleOfNoteBook = openNotebook;
+  }
+
   this.delete = false;
 
-  this.getNoteText = function(){
-    if(this.noteType == 1){
-      this.noteText = this.noteElement.getElementsByClassName('textArea')[0];
+  this.getNoteText = function () {
+    if (this.noteType == 1) {
+      this.noteText = this.noteElement.getElementsByClassName("textArea")[0];
       this.innerNoteText = this.noteText.textContent;
       return this.innerNoteText;
-    }else if(this.noteType == 2){
-      this.noteText = this.noteElement.getElementsByClassName('content')[0];
+    } else if (this.noteType == 2) {
+      this.noteText = this.noteElement.getElementsByClassName("content")[0];
       this.innerNoteText = this.noteText.innerText;
       return this.innerNoteText;
     }
-  }
+  };
   this.setTitleOfNoteBook = (title) => {
     this.titleOfNoteBook = title;
   };
@@ -315,80 +305,58 @@ function Note(type,savedNoteBookPlacment) {
     this.noteElement.remove();
     this.delete = true;
     clearDeleted();
-    saveNotesToLocalStorage()
-    
+    saveNotesToLocalStorage();
   };
-  
-  
 }
 
+function saveNotesToLocalStorage() {
+  console.log(getLocalStorageListsToArray("notes"));
 
-function saveNotesToLocalStorage(){
-  console.log(getLocalStorageListsToArray("notes"))
-  
-  let holdsLocalStorageNotes =[];
- allNotes.forEach(element => {
-  console.log(element.getNoteTex)
-  holdsLocalStorageNotes.push(element.titleOfNoteBook,element.noteType)
-  
-  
- }); 
- toString(holdsLocalStorageNotes)
- localStorage.setItem("notes",holdsLocalStorageNotes);
-  
-  
+  let holdsLocalStorageNotes = [];
+  allNotes.forEach((element) => {
+    console.log(element.getNoteTex);
+    holdsLocalStorageNotes.push(element.titleOfNoteBook, element.noteType);
+  });
+  toString(holdsLocalStorageNotes);
+  localStorage.setItem("notes", holdsLocalStorageNotes);
+
   // maby add a call in remove notes to jsut to keep in current
-
 }
 
-
-function  makeNotesFromLocalStorage(){
-
- 
-    const numberOfPlacesEachNoteDataHave =3;
-    let counter = 1
-    let noteBookBelongingToNote = ""
-    let noteOrListType = ""
-    if(getLocalStorageListsToArray ("notes") != null){
-        
-        getLocalStorageListsToArray("notes").forEach(element => {
-  
-      if (counter < numberOfPlacesEachNoteDataHave){
-        if (counter == 1){
-          noteBookBelongingToNote = element
-
+function makeNotesFromLocalStorage() {
+  const numberOfPlacesEachNoteDataHave = 3;
+  let counter = 1;
+  let noteBookBelongingToNote = "";
+  let noteOrListType = "";
+  if (getLocalStorageListsToArray("notes") != null) {
+    getLocalStorageListsToArray("notes").forEach((element) => {
+      if (counter < numberOfPlacesEachNoteDataHave) {
+        if (counter == 1) {
+          noteBookBelongingToNote = element;
+        } else {
+          noteOrListType = element;
         }
-        else{noteOrListType = element}
-
       }
-      
-      if(counter == 2){ 
-      
-        allNotes.push(new Note(noteOrListType,noteBookBelongingToNote));
-        counter = 1
-        
+
+      if (counter == 2) {
+        allNotes.push(new Note(noteOrListType, noteBookBelongingToNote));
+        counter = 1;
+      } else {
+        counter++;
       }
-      else{counter++}
-    })
-    }globalUpdate()}
-    
-    
-
- function getLocalStorageListsToArray(key){
-   
-  if (localStorage.getItem(key)!= null){
-    
-    let arrayToHoldkeyList =localStorage.getItem(key);
-    arrayToHoldkeyList = arrayToHoldkeyList.split(",")   
-
-    return arrayToHoldkeyList
+    });
   }
-
-  
-
+  globalUpdate();
 }
 
+function getLocalStorageListsToArray(key) {
+  if (localStorage.getItem(key) != null) {
+    let arrayToHoldkeyList = localStorage.getItem(key);
+    arrayToHoldkeyList = arrayToHoldkeyList.split(",");
 
+    return arrayToHoldkeyList;
+  }
+}
 
 //////////////////////////////////////// FUNCTIONS FOR CREATING NEW NOTE ////////////////////////////////////////
 
@@ -588,27 +556,27 @@ function addBooksToNote(obj) {
 }
 
 function addBooksToDropDown(obj, dropDownContent) {
+  let closeButton = document.createElement("button");
+  let closeButtonIcon = document.createElement("img");
+
+  dropDownContent.appendChild(closeButton);
+  closeButton.className = "note-button close-btn-dropdown";
+  closeButton.addEventListener("click", () => {
+    dropDownContent.style.display = "none";
+  });
+
+  closeButton.appendChild(closeButtonIcon);
+  closeButtonIcon.src = "media/x.svg";
+  closeButtonIcon.height = "15";
+  closeButtonIcon.width = "15";
+  closeButtonIcon.alt = "Close dropdown";
+  closeButtonIcon.title = "close";
+  closeButtonIcon.className = "close-btn-dropdown-img";
+
   for (let i = 0; i < existingNoteBooks.length; i++) {
     let li = document.createElement("li");
     li.className = "dropdown-li";
     let option = document.createElement("a");
-    let closeButton = document.createElement("button");
-    let closeButtonIcon = document.createElement("img");
-
-    dropDownContent.appendChild(closeButton);
-    closeButton.className = "note-button close-btn-dropdown";
-    closeButton.addEventListener("click", () => {
-      dropDownContent.style.display = "none";
-    });
-
-    closeButton.appendChild(closeButtonIcon)
-    closeButtonIcon.src = "media/x.svg";
-    closeButtonIcon.height = "15";
-    closeButtonIcon.width = "15";
-    closeButtonIcon.alt = "Close dropdown";
-    closeButtonIcon.title = "close";
-    closeButtonIcon.className = "close-btn-dropdown-img";
-    
 
     option.href = "#";
     option.className = "dropdown-option dropdown-a";
@@ -617,7 +585,7 @@ function addBooksToDropDown(obj, dropDownContent) {
     option.addEventListener("click", (element) => {
       if (obj.checked == true || obj.checkBox.style.visibility == "hidden") {
         obj.setTitleOfNoteBook(element.target.innerText);
-        saveNotesToLocalStorage()
+        saveNotesToLocalStorage();
         globalUpdate();
       }
 
@@ -625,7 +593,7 @@ function addBooksToDropDown(obj, dropDownContent) {
         if (element.checkBox.checked == true) {
           element.titleOfNoteBook = existingNoteBooks[i].getTitle();
           element.checkBox.checked = false;
-         globalUpdate();
+          globalUpdate();
         }
       });
 
@@ -633,13 +601,14 @@ function addBooksToDropDown(obj, dropDownContent) {
     });
 
     li.appendChild(option);
-    
+
     dropDownContent.appendChild(li);
   }
 
   let selectToMove = document.createElement("button");
   selectToMove.textContent = "SELECT MORE";
-  selectToMove.className = "btn btn-outline-secondary btn-sm btn-block dropdown-btn";
+  selectToMove.className =
+    "btn btn-outline-secondary btn-sm btn-block dropdown-btn";
   selectToMove.addEventListener("click", () => {
     moveSelected(true);
   });
@@ -662,16 +631,13 @@ function closeOnClickOutside(obj, dropDownContent) {
 }
 
 function clearNoteDropDown() {
-  document.querySelectorAll(".close-btn-dropdown-img").forEach((e) => e.remove());
   document.querySelectorAll(".close-btn-dropdown").forEach((e) => e.remove());
-  document.querySelectorAll(".dropdown-a").forEach((e) => e.remove());
   document.querySelectorAll(".dropdown-li").forEach((e) => e.remove());
   document.querySelectorAll(".dropdown-btn").forEach((e) => e.remove());
 }
 
 function saveNote() {
   let inputValue = document.getElementById("input-text").value;
-  
 }
 
 function closeNote() {
