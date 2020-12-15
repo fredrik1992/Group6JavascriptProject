@@ -22,23 +22,8 @@ img {
 .navbar {
   background-color: #F4AFAB !important;
 }
-
-.navbar-brand {
-  width:10%;
-  margin: 0;
-}
-
-
-
-
-
 .navbar-collapse {
   flex-grow: 0;
-  width: 20%;
-}
-
-.navbar-nav {
-  margin-left: auto;
 }
 
 .navbar-light .navbar-brand { 
@@ -55,8 +40,8 @@ h6 {
   max-width: 60%;
   word-wrap: wrap;
   text-align: center;
-  font-size: 1rem;
-  
+  font-size: .85rem;
+  padding-top: .5rem;
   font-weight: 200;
   margin: 0 auto;
 
@@ -97,9 +82,8 @@ footer {
 }
 
 .note-list {
-  background-color: #D1E2F0;
+  background-color: #BFD7EA;
 }
-
 
 .textArea {
   background-color: inherit;
@@ -122,7 +106,7 @@ footer {
 
 .content {
   min-height: 100%;
-  padding: 0rem .5rem;
+  padding: 0rem 2rem;
 }
 
 .note-buttons-top {
@@ -168,6 +152,10 @@ footer {
   margin-left: 0.5rem;
 }
 
+#delete-button {
+  margin-right: 0.3rem;
+}
+
 
 .date {
   color: rgba(0, 0, 0, 0.5);
@@ -181,26 +169,16 @@ footer {
 
 .input-container {
   max-width: 100%;
-  margin: 0rem 1rem;
-  background-color: #e0ecf5;
-  display: none;
-  padding: .3rem .7rem;
-  border-radius: .3rem;
-
-}
-
-.note-list:hover .input-container {
   display: flex;
   justify-content: space-between;
-  
-  
+  margin: 0rem 1rem;
 
 }
 
 .list-input {
   
   border: none;
-  
+  height: 3rem;
   background-color: inherit;
   margin-right: .5rem;
   width: 100%;
@@ -231,23 +209,6 @@ footer {
   top: 2.5rem;
   
   border-radius: .25rem;
-}
-
-.close-btn-dropdown {
-  margin: 0;
-  padding: 0;
-  float: right;
-  position: relative;
-  bottom: 1rem;
-  right: .3rem;
-  background-color: inherit;
-  height: 15px;
-  width: 15px;
-}
-
-.close-btn-dropdown img {
-  position: relative;
-  bottom: .1rem;
 }
 
 .btn-outline-secondary {
@@ -297,7 +258,7 @@ footer {
 }
 
 .dropdown-content li:hover {
-  background-color: #F4AFAB;
+  background-color: #9d8189;
 }
 
 /*Ny anteckning*/
@@ -351,7 +312,6 @@ footer {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%
 
 
 }
@@ -368,7 +328,7 @@ footer {
 .noteBookTitle {
   position: relative;
   left: 10%;
-  width: 80%!important;
+  width: 100%!important;
   padding-left: .3rem;
 }
 
@@ -388,29 +348,17 @@ footer {
 
 
 }
-.Dashboard{
-  left: 4%;
-}
 
-@media (min-width: 430px) {
-  .content {
-    padding: 0rem 2rem;
-  }
-
-}
 
 
 @media (min-width: 992px) {
   .navbar-expand-lg {
     justify-content: space-between!important;
-    
   }
 
   .navbar-expand-lg .navbar-nav .dropdown-menu {
     left: -7.5rem!important;
   }
-
-
 
   h6 {
     width: 100%;
@@ -422,15 +370,6 @@ footer {
   .dropdown-menu {
     min-width: 15rem;
   }
-
-  .navbar-brand {
-    width: 20%;
-  }
-
- 
-
-  
-  
 
  
 
