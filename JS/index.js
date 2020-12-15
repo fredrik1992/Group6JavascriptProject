@@ -275,10 +275,12 @@ function Note(type,savedNoteBookPlacment) {
 
   this.noteElement = createNote(this, type);
   main.appendChild(this.noteElement);
+  this.date = addDate();
 
   this.checkBox = document.createElement("input");
   this.checkBox.type = "checkbox";
   this.checkBox.style.visibility = "hidden";
+  this.checkBox.className = "checkbox";
   this.noteElement.appendChild(this.checkBox);
   if(savedNoteBookPlacment != null){
     this.titleOfNoteBook = savedNoteBookPlacment;
@@ -396,7 +398,7 @@ function createNote(obj, type /*  1 for note 2 for list*/) {
   article = articleAttributes(article);
   article.appendChild(createDiv1(obj));
   article.appendChild(createDiv2(type, article));
-  article.appendChild(createBtnConfirm());
+  //article.appendChild(createBtnConfirm());
   return article;
 }
 
@@ -412,13 +414,13 @@ function createDiv1(obj) {
   let div1 = document.createElement("div");
   div1.className = "note-buttons-top";
   div1.appendChild(addBooksToNote(obj));
-  div1.appendChild(createP());
+  div1.appendChild(createP(obj));
   div1.appendChild(createBtnDelete(obj));
   return div1;
 }
 
 //Datumet
-function createP() {
+function createP(obj) {
   let p = document.createElement("p");
   p.className = "date";
   p.innerText = addDate(); //Sätter texten i <p>-taggen till det datum addDate() retunerar
@@ -469,7 +471,7 @@ function createDiv2(type, article) {
     let input = document.createElement("input");
     input.type = "text";
     input.className = "list-input";
-    input.placeholder = "Type here...";
+    input.placeholder = "Add to list";
 
     let button = document.createElement("button");
     button.className = "list-btn note-button";
@@ -517,7 +519,7 @@ function createDiv2(type, article) {
 }
 
 //Skapar Confirm-knappen
-function createBtnConfirm() {
+/* function createBtnConfirm() {
   let btnConfirm = document.createElement("button");
   btnConfirm.id = "confirm-button";
   btnConfirm.className = "note-button note-button-bottom";
@@ -538,7 +540,7 @@ function createImgConfirm() {
   imgConfirm.height = "32";
   imgConfirm.title = "Confirm";
   return imgConfirm;
-}
+} */
 
 //Skapar ett nytt datum-objekt och lägger till dagens datum till en ny anteckning i formatet yyyy-mm-dd
 function addDate() {
@@ -605,6 +607,7 @@ function addBooksToDropDown(obj, dropDownContent) {
     closeButtonIcon.width = "15";
     closeButtonIcon.alt = "Close dropdown";
     closeButtonIcon.title = "close";
+    closeButtonIcon.className = "close-btn-dropdown-img";
     
 
     option.href = "#";
@@ -623,8 +626,6 @@ function addBooksToDropDown(obj, dropDownContent) {
           element.titleOfNoteBook = existingNoteBooks[i].getTitle();
           element.checkBox.checked = false;
          globalUpdate();
-        } else {
-          console.log("Inget flyttades");
         }
       });
 
@@ -661,6 +662,7 @@ function closeOnClickOutside(obj, dropDownContent) {
 }
 
 function clearNoteDropDown() {
+  document.querySelectorAll(".close-btn-dropdown-img").forEach((e) => e.remove());
   document.querySelectorAll(".close-btn-dropdown").forEach((e) => e.remove());
   document.querySelectorAll(".dropdown-a").forEach((e) => e.remove());
   document.querySelectorAll(".dropdown-li").forEach((e) => e.remove());

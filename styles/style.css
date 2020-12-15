@@ -100,6 +100,10 @@ footer {
   background-color: #D1E2F0;
 }
 
+.checkbox {
+  margin-top: auto;
+}
+
 
 .textArea {
   background-color: inherit;
