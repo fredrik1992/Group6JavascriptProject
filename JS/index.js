@@ -270,7 +270,7 @@ Konstruktor för notes-objekt
 */
 
 function Note(type,savedNoteBookPlacment) {
-  this.type = type;
+  this.noteType = type;
 
 
   this.noteElement = createNote(this, type);
@@ -326,8 +326,9 @@ function saveNotesToLocalStorage(){
   
   let holdsLocalStorageNotes =[];
  allNotes.forEach(element => {
+  console.log(element.getNoteTex)
+  holdsLocalStorageNotes.push(element.titleOfNoteBook,element.noteType)
   
-  holdsLocalStorageNotes.push(element.titleOfNoteBook,element.type)
   
  }); 
  toString(holdsLocalStorageNotes)
