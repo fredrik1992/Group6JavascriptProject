@@ -16,6 +16,9 @@ function init() {
 }
 //---create noteBookStarts
 
+
+
+
 function createAddNoteBookButton() {
   //skapa div element med flex  som en dropdown item
   // lägga till knapp samt input
@@ -140,6 +143,7 @@ function updateCurrentNoteBooks() {
 function globalUpdate() {
   document.querySelectorAll(".note").forEach((e) => e.remove()); //cleares window
   moveSelected(false);
+
 
 
   allNotes.reverse();
