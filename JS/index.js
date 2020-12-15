@@ -14,6 +14,7 @@ function init() {
   createNoteBok("Dashboard")
   createNoteBooksFromLocalStorage();
   makeNotesFromLocalStorage()
+  displayCurrentNoteBook();
   
 
 }
@@ -175,12 +176,15 @@ function updateCurrentNoteBooks() {
 
       openNotebook = element.titleOfObject
       lastVisitedNoteBook(element.titleOfObject)
-
+      displayCurrentNoteBook();
       globalUpdate();
     });
 
     removeNoteBookButton.addEventListener("click", function () {
       removeNoteBooks(element);
+      openNotebook = element.getTitle();
+      displayCurrentNoteBook();
+      globalUpdate();
     });
   });
 }
