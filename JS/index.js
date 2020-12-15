@@ -313,6 +313,7 @@ function Note(type,savedNoteBookPlacment) {
     this.noteElement.remove();
     this.delete = true;
     clearDeleted();
+    saveNotesToLocalStorage()
     
   };
   
