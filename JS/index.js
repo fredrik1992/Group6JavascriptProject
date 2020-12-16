@@ -513,7 +513,9 @@ function createDiv2(type, article) {
   return div2;
 }
 
+
  function createBtnConfirm() {
+
   let btnConfirm = document.createElement("button");
   btnConfirm.id = "confirm-button";
   btnConfirm.className = "note-button note-button-bottom";
@@ -535,7 +537,9 @@ function createImgConfirm() {
   imgConfirm.height = "32";
   imgConfirm.title = "Confirm";
   return imgConfirm;
+
 } 
+
 
 //Skapar ett nytt datum-objekt och lägger till dagens datum till en ny anteckning i formatet yyyy-mm-dd
 function addDate() {
