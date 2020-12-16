@@ -262,16 +262,16 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
   if (date != null){
     this.date = date
   }
+
   this.noteElement = createNote(this, type);
   main.prepend(this.noteElement);
   
-  
-
   this.checkBox = document.createElement("input");
   this.checkBox.type = "checkbox";
   this.checkBox.style.display = "none";
   this.checkBox.className = "checkbox";
   this.noteElement.appendChild(this.checkBox);
+
   if (savedNoteBookPlacment != null) {
     this.titleOfNoteBook = savedNoteBookPlacment;
   } else {
@@ -285,17 +285,33 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
     this.noteElement.getElementsByClassName('textArea')[0].textContent = savedTextarea;
   }
 
+  //om du kan mata varje string som newNext från local sätter denna dit dom en i taget
+  this.setNewLi = function(newText){
+    if(this.noteType == 2){   
+
+      let node = this.noteElement.getElementsByClassName('list');
+      //let ulNode = document.createElement('ul');
+      //ulNode.className ="list-item"
+      let test = document.createElement('li');
+      let textNode = document.createTextNode(newText);
+      test.appendChild(textNode)
+      test.className = "list-item";
+      test.appendChild(textNode);
+      //ulNode.appendChild(test);
+      node[0].appendChild(test);
+      return node;
+  }
+}
   this.getNoteText = function(){
     if(this.noteType == 1){
-     
-      
-      return this.noteElement.getElementsByClassName('textArea')[0].textContent;
+     return this.noteElement.getElementsByClassName('textArea')[0].textContent;
 
-      
     }else if(this.noteType == 2){
-     
-     // return this.noteElement.getElementsByClassName('list')[0].innerText;
-      
+      let elements = this.noteElement.getElementsByClassName('list-item');
+      for (let i = 0; i < elements.length; i++) {
+        //kanske kan spara direkt till local? 
+        console.log(elements[i].innerText)
+      }
     }
   }
   this.setTitleOfNoteBook = (title) => {
@@ -484,6 +500,7 @@ function createDiv2(type, article) {
     inputContainer.appendChild(button);
 
     div2.appendChild(inputContainer);
+    div2.appendChild(node);
 
     input.addEventListener("keypress", function (event) {
       let e = event;
@@ -494,7 +511,6 @@ function createDiv2(type, article) {
         node_li.appendChild(textnode);
         node.appendChild(node_li);
 
-        div2.appendChild(node);
       }
     });
 
