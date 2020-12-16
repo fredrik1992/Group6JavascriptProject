@@ -173,6 +173,7 @@ function updateCurrentNoteBooks() {
     });
 
     removeNoteBookButton.addEventListener("click", function () {
+      moveToDashboard(element);
       removeNoteBooks(element);
       openNotebook = element.getTitle();
       displayCurrentNoteBook();
@@ -181,6 +182,14 @@ function updateCurrentNoteBooks() {
   });
 }
 
+
+function moveToDashboard(obj){
+  for (let i = 0; i < allNotes.length; i++) {
+                   if(allNotes[i].titleOfNoteBook == obj.titleOfObject){
+                   allNotes[i].titleOfNoteBook = "Dashboard";
+          } 
+       }
+  }
 function globalUpdate() {
   document.querySelectorAll(".note").forEach((e) => e.remove()); //cleares window
   moveSelected(false);
