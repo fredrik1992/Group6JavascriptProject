@@ -361,7 +361,7 @@ function createNote(obj, type /*  1 for note 2 for list*/) {
   article = articleAttributes(article);
   article.appendChild(createDiv1(obj));
   article.appendChild(createDiv2(type, article));
-  //article.appendChild(createBtnConfirm());
+  article.appendChild(createBtnConfirm());
   return article;
 }
 
@@ -482,7 +482,7 @@ function createDiv2(type, article) {
 }
 
 //Skapar Confirm-knappen
-/* function createBtnConfirm() {
+function createBtnConfirm() {
   let btnConfirm = document.createElement("button");
   btnConfirm.id = "confirm-button";
   btnConfirm.className = "note-button note-button-bottom";
@@ -503,7 +503,7 @@ function createImgConfirm() {
   imgConfirm.height = "32";
   imgConfirm.title = "Confirm";
   return imgConfirm;
-} */
+}
 
 //Skapar ett nytt datum-objekt och lägger till dagens datum till en ny anteckning i formatet yyyy-mm-dd
 function addDate() {
