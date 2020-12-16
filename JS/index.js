@@ -170,6 +170,7 @@ function updateCurrentNoteBooks() {
       lastVisitedNoteBook(element.titleOfObject);
       displayCurrentNoteBook();
       globalUpdate();
+      newNoteBookIntro();
     });
 
     removeNoteBookButton.addEventListener("click", function () {
@@ -212,6 +213,19 @@ function clearDeleted() {
 function displayCurrentNoteBook() {
   let currentNotebookHeading = document.getElementById("current-notebook");
   currentNotebookHeading.innerText = openNotebook.toUpperCase();
+}
+
+function newNoteBookIntro() {
+  let notebookHeading = document.getElementById("current-notebook");
+  notebookHeading.style.color = "#f7faeb";
+  notebookHeading.style.transition = "all 0.2s ease";
+  notebookHeading.style.transform = "scale(1.1)";
+  
+  setTimeout(() => {
+    notebookHeading.style.color = "#32292f";
+    notebookHeading.style.transform = "scale(1)";
+  }, 200);
+  
 }
 
 //--
