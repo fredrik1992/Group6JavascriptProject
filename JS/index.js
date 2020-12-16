@@ -185,11 +185,9 @@ function globalUpdate() {
   document.querySelectorAll(".note").forEach((e) => e.remove()); //cleares window
   moveSelected(false);
 
-  allNotes.reverse();
-
   allNotes.forEach((element) => {
     if (element.titleOfNoteBook == openNotebook && element.delete != true) {
-      main.appendChild(element.noteElement);
+      main.prepend(element.noteElement);
     }
   });
 }
@@ -260,11 +258,14 @@ Konstruktor för notes-objekt
 
 function Note(type, savedNoteBookPlacment,savedTextarea) {
   this.noteType = type;
+
   console.log(savedTextarea)
-  this.noteElement = createNote(this, type);
-  main.appendChild(this.noteElement);
   this.date = addDate();
+  this.noteElement = createNote(this, type);
+  main.prepend(this.noteElement);
   
+  
+
   this.checkBox = document.createElement("input");
   this.checkBox.type = "checkbox";
   this.checkBox.style.visibility = "hidden";
@@ -415,7 +416,7 @@ function createDiv1(obj) {
 function createP(obj) {
   let p = document.createElement("p");
   p.className = "date";
-  p.innerText = addDate(); //Sätter texten i <p>-taggen till det datum addDate() retunerar
+  p.innerText = obj.date; //Sätter texten i <p>-taggen till det datum addDate() retunerar
   return p;
 }
 
@@ -591,8 +592,8 @@ function addBooksToDropDown(obj, dropDownContent) {
 
   closeButton.appendChild(closeButtonIcon);
   closeButtonIcon.src = "media/x.svg";
-  closeButtonIcon.height = "15";
-  closeButtonIcon.width = "15";
+  closeButtonIcon.height = "18";
+  closeButtonIcon.width = "18";
   closeButtonIcon.alt = "Close dropdown";
   closeButtonIcon.title = "close";
   closeButtonIcon.className = "close-btn-dropdown-img";
