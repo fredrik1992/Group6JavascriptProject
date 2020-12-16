@@ -212,6 +212,19 @@ function clearDeleted() {
 function displayCurrentNoteBook() {
   let currentNotebookHeading = document.getElementById("current-notebook");
   currentNotebookHeading.innerText = openNotebook.toUpperCase();
+  newNoteBookIntro(currentNotebookHeading);
+}
+
+function newNoteBookIntro(notebookHeading) {
+  notebookHeading.style.color = "#f7faeb";
+  notebookHeading.style.transition = "all 0.2s ease";
+  notebookHeading.style.transform = "scale(1.1)";
+  
+  setTimeout(() => {
+    notebookHeading.style.color = "#32292f";
+    notebookHeading.style.transform = "scale(1)";
+  },150);
+  
 }
 
 //--
