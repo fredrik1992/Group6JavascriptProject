@@ -325,9 +325,9 @@ function saveNotesToLocalStorage() {
     element.getNoteText();
     console.log(element.textAreaContent);
     let temporaryVarForTextContent = ""
-    if(element.getNoteText() != ""){
-      temporaryVarForTextContent = element.getNoteText();
-   }
+    if(element.getNoteText() != ""){temporaryVarForTextContent = element.getNoteText();}
+
+    
     holdsLocalStorageNotes.push(element.noteType,element.titleOfNoteBook,temporaryVarForTextContent,"//");
     console.log(holdsLocalStorageNotes)
   });
@@ -358,7 +358,7 @@ function makeNotesFromLocalStorage() {
         
         noteOrListType = noteTosave[0];
         noteBookBelongingToNote = noteTosave[1]
-        allNotes.push(new Note(noteOrListType, noteBookBelongingToNote));
+        allNotes.push(new Note(noteOrListType, noteBookBelongingToNote));//when fixed sent the rest of array into notes
         noteTosave = []
         
         }
@@ -391,7 +391,7 @@ function createNote(obj, type /*  1 for note 2 for list*/) {
   article = articleAttributes(article);
   article.appendChild(createDiv1(obj));
   article.appendChild(createDiv2(type, article));
-  //article.appendChild(createBtnConfirm());
+  article.appendChild(createBtnConfirm());
   return article;
 }
 
@@ -511,13 +511,13 @@ function createDiv2(type, article) {
   return div2;
 }
 
-//Skapar Confirm-knappen
-/* function createBtnConfirm() {
+ function createBtnConfirm() {
   let btnConfirm = document.createElement("button");
   btnConfirm.id = "confirm-button";
   btnConfirm.className = "note-button note-button-bottom";
   btnConfirm.addEventListener("click", function () {
-    saveNote();
+    saveNotesToLocalStorage()
+    
   });
   btnConfirm.appendChild(createImgConfirm());
   return btnConfirm;
@@ -533,7 +533,7 @@ function createImgConfirm() {
   imgConfirm.height = "32";
   imgConfirm.title = "Confirm";
   return imgConfirm;
-} */
+} 
 
 //Skapar ett nytt datum-objekt och lägger till dagens datum till en ny anteckning i formatet yyyy-mm-dd
 function addDate() {
@@ -661,9 +661,9 @@ function clearNoteDropDown() {
   document.querySelectorAll(".dropdown-btn").forEach((e) => e.remove());
 }
 
-function saveNote() {//ska nog tas bort
-  let inputValue = document.getElementById("input-text").value;
-}
+//function saveNote() {//ska nog tas bort
+  //let inputValue = document.getElementById("input-text").value;
+//}
 
 function closeNote() {
   let x = document.getElementById("note-article");
