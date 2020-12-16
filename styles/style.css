@@ -17,7 +17,7 @@ img {
 }
 
 .navbar-brand {
-  width: 10%;
+  width: 20%;
   margin: 0;
 }
 
@@ -36,18 +36,17 @@ img {
 
 .container {
   padding: 0;
-  background-color: #ffffeb;
+  background-color: #f7faeb;
   color: #32292f;
   height: 100%;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  
 }
 
 h6 {
   max-width: 60%;
- 
+
   text-align: center;
   font-size: 1rem;
 
@@ -92,8 +91,6 @@ footer {
   flex-direction: column;
   background-color: #feff9c;
   margin-bottom: 3rem;
-
-  
 }
 
 .content {
@@ -103,16 +100,11 @@ footer {
   height: 100%;
 }
 .note:hover {
-  height:fit-content;
-  
-  
-  
+  height: fit-content;
+
   transition: all 0.3s ease;
   transform: scale(1.02);
-  
-  
 }
-
 
 .note:hover .content {
   transition: all 0.3s ease;
@@ -159,7 +151,6 @@ footer {
 .note-button-bottom {
   margin-left: auto;
   margin-top: auto;
-  
 }
 
 .note-button:hover {
@@ -194,7 +185,7 @@ footer {
   border-radius: 0.3rem;
 }
 
-.note-list:hover .input-container {
+.note-list:hover, .input-container {
   display: flex;
   justify-content: space-between;
 }
@@ -225,7 +216,7 @@ footer {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: #f7faeb;
   min-width: 120px;
   z-index: 1;
   top: 2.5rem;
@@ -429,9 +420,9 @@ footer {
     min-height: 225px;
   }
 
-  .note:hover {
+  .note:hover, .note:active {
     min-height: 225px;
     margin-top: 0rem;
     margin-bottom: 2rem;
-}
+  }
 }
