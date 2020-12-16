@@ -339,11 +339,13 @@ function saveNotesToLocalStorage() {
 }
 
 function makeNotesFromLocalStorage() {
+
   let noteBookBelongingToNote = "";
   let noteOrListType = "";
   let dateOfCreatedNote = "";
   let noteTosave = []
   const endOfSavedNoteSymbol = "//"
+
   if (getLocalStorageListsToArray("notes") != null) {
     getLocalStorageListsToArray("notes").forEach((element) => { // creates notes
       
@@ -361,24 +363,21 @@ function makeNotesFromLocalStorage() {
         
         noteOrListType = noteTosave[0];
         noteBookBelongingToNote = noteTosave[1]
+        
         allNotes.push(new Note(noteOrListType, noteBookBelongingToNote));//when fixed sent the rest of array into notes
         noteTosave = []
         
         }
       if (element != "//"){noteTosave.push(element)}
       
-     
-        
-      
-     
-      
-    });
-  }
-  globalUpdate();
+     });
+  }globalUpdate();
 }
 
 function getLocalStorageListsToArray(key) {
+ 
   if (localStorage.getItem(key) != null) {
+    
     let arrayToHoldkeyList = localStorage.getItem(key);
     arrayToHoldkeyList = arrayToHoldkeyList.split(",");
 
@@ -621,6 +620,7 @@ function addBooksToDropDown(obj, dropDownContent) {
         if (element.checkBox.checked == true) {
           element.titleOfNoteBook = existingNoteBooks[i].getTitle();
           element.checkBox.checked = false;
+          saveNotesToLocalStorage()
           globalUpdate();
         }
       });
