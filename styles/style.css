@@ -100,9 +100,11 @@ footer {
   transition: all 0.3s ease;
   padding: 0rem 0.5rem;
   overflow: hidden;
+  height: 100%;
 }
 .note:hover {
   height:fit-content;
+  
   
   
   transition: all 0.3s ease;
@@ -115,6 +117,7 @@ footer {
 .note:hover .content {
   transition: all 0.3s ease;
   overflow: initial;
+  min-height: 115px;
 }
 
 .note-list {
@@ -156,6 +159,7 @@ footer {
 .note-button-bottom {
   margin-left: auto;
   margin-top: auto;
+  
 }
 
 .note-button:hover {
@@ -426,7 +430,7 @@ footer {
   }
 
   .note:hover {
-    
+    min-height: 225px;
     margin-top: 0rem;
     margin-bottom: 2rem;
 }
