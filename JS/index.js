@@ -269,7 +269,7 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
 
   this.checkBox = document.createElement("input");
   this.checkBox.type = "checkbox";
-  this.checkBox.style.visibility = "hidden";
+  this.checkBox.style.display = "none";
   this.checkBox.className = "checkbox";
   this.noteElement.appendChild(this.checkBox);
   if (savedNoteBookPlacment != null) {
@@ -304,9 +304,9 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
 
   this.checkBoxVisible = function (choise) {
     if (choise == true) {
-      return (this.checkBox.style.visibility = "visible");
+      return (this.checkBox.style.display = "block");
     } else if (choise == false) {
-      return (this.checkBox.style.visibility = "hidden");
+      return (this.checkBox.style.display = "none");
     }
   };
 
@@ -517,7 +517,6 @@ function createDiv2(type, article) {
  function createBtnConfirm() {
 
   let btnConfirm = document.createElement("button");
-  btnConfirm.id = "confirm-button";
   btnConfirm.className = "note-button note-button-bottom";
   btnConfirm.addEventListener("click", function () {
     saveNotesToLocalStorage()
@@ -530,7 +529,6 @@ function createDiv2(type, article) {
 //Bilden till confirm-knappen.
 function createImgConfirm() {
   let imgConfirm = document.createElement("img");
-  imgConfirm.id = "img-confirm";
   imgConfirm.src = "media/check.svg";
   imgConfirm.alt = "confirm button";
   imgConfirm.width = "32";
@@ -555,7 +553,7 @@ function addDate() {
   return `${noteDate.getFullYear()}-${month}-${day}`;
 }
 
-//Skapar en knapp med en "drop down" som ska skriva ut innehållet i listobjectet. Finns det inget innehåll syns inte knappen. Behöver funktionalitet för att koppla vald notebook till antecknigsobjektet..
+//Skapar en knapp med en "drop down" som ska skriva ut innehållet i listobjectet.
 function addBooksToNote(obj) {
   let noteDropDown = document.createElement("div");
   let button = document.createElement("button");
@@ -614,7 +612,7 @@ function addBooksToDropDown(obj, dropDownContent) {
     option.textContent = existingNoteBooks[i].getTitle();
 
     option.addEventListener("click", (element) => {
-      if (obj.checked == true || obj.checkBox.style.visibility == "hidden") {
+      if (obj.checked == true || obj.checkBox.style.display == "none") {
         obj.setTitleOfNoteBook(element.target.innerText);
         saveNotesToLocalStorage();
         globalUpdate();
