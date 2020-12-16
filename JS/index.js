@@ -217,13 +217,13 @@ function displayCurrentNoteBook() {
 
 function newNoteBookIntro(notebookHeading) {
   notebookHeading.style.color = "#f7faeb";
-  notebookHeading.style.transition = "all 0.2s ease";
+  notebookHeading.style.transition = "all 0.1s ease-in-out";
   notebookHeading.style.transform = "scale(1.1)";
   
   setTimeout(() => {
     notebookHeading.style.color = "#32292f";
     notebookHeading.style.transform = "scale(1)";
-  },150);
+  },100);
   
 }
 

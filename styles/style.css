@@ -83,10 +83,10 @@ footer {
 .note {
   padding: 0.7rem 1rem 1rem;
   width: 100%;
-  max-width: 450px;
-  height: 203px;
-  min-height: 203px;
-  transition: all 0.3s ease;
+  max-width: 400px;
+  height: 207px;
+  min-height: 207px;
+  transition: all 0.3s ease-out;
   display: flex;
   flex-direction: column;
   background-color: #feff9c;
@@ -94,14 +94,14 @@ footer {
 }
 
 .content {
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-out;
   padding: 0rem 0.5rem;
   overflow: hidden;
   height: 100%;
 }
 
 .note:hover .content {
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-out;
   overflow: initial;
   min-height: 115px;
 }
@@ -109,7 +109,7 @@ footer {
 .note:hover {
   height: fit-content;
 
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-out;
   transform: scale(1.02);
 }
 
@@ -188,7 +188,7 @@ footer {
   border-radius: 0.3rem;
 }
 
-.note-list:hover, .input-container {
+.note-list:hover .input-container {
   display: flex;
   justify-content: space-between;
 }
@@ -356,9 +356,11 @@ footer {
 }
 .noteBookTitle {
   position: relative;
-  left: 10%;
+  left: 1.1rem;
   width: 80% !important;
   padding-left: 0.3rem;
+  background-color: #FFFFFA;
+  border: none;
 }
 
 .noteBookFlex {
@@ -376,7 +378,7 @@ footer {
   width: 80%;
 }
 .Dashboard {
-  left: 4%;
+  left: 0.9rem;
 }
 
 @media (min-width: 430px) {
