@@ -258,13 +258,13 @@ function buttonContains() {
 Konstruktor för notes-objekt 
 */
 
-function Note(type, savedNoteBookPlacment) {
+function Note(type, savedNoteBookPlacment,savedTextarea) {
   this.noteType = type;
-
+  console.log(savedTextarea)
   this.noteElement = createNote(this, type);
   main.appendChild(this.noteElement);
   this.date = addDate();
-
+  
   this.checkBox = document.createElement("input");
   this.checkBox.type = "checkbox";
   this.checkBox.style.visibility = "hidden";
@@ -278,11 +278,22 @@ function Note(type, savedNoteBookPlacment) {
 
   this.delete = false;
 
+  if (savedTextarea != "" && type ==1){
+    console.log("in save te xt")
+    this.noteElement.getElementsByClassName('textArea')[0].textContent = savedTextarea;
+  }
+
   this.getNoteText = function(){
     if(this.noteType == 1){
+     
+      console.log( this.noteElement.getElementsByClassName('textArea')[0].textContent)
       return this.noteElement.getElementsByClassName('textArea')[0].textContent;
+
+      
     }else if(this.noteType == 2){
-      return this.noteElement.getElementsByClassName('list')[0].innerText;
+     
+     // return this.noteElement.getElementsByClassName('list')[0].innerText;
+      
     }
   }
   this.setTitleOfNoteBook = (title) => {
@@ -306,12 +317,18 @@ function Note(type, savedNoteBookPlacment) {
 }
 
 function saveNotesToLocalStorage() {
-  console.log(getLocalStorageListsToArray("notes"));
+  
 
   let holdsLocalStorageNotes = [];
   allNotes.forEach((element) => {
-    console.log(element.getNoteTex);
-    holdsLocalStorageNotes.push(element.titleOfNoteBook, element.noteType);
+    element.getNoteText();
+    console.log(element.textAreaContent);
+    let temporaryVarForTextContent = ""
+    if(element.getNoteText() != ""){
+      temporaryVarForTextContent = element.getNoteText();
+   }
+    holdsLocalStorageNotes.push(element.noteType,element.titleOfNoteBook,temporaryVarForTextContent,"//");
+    console.log(holdsLocalStorageNotes)
   });
   toString(holdsLocalStorageNotes);
   localStorage.setItem("notes", holdsLocalStorageNotes);
@@ -320,26 +337,37 @@ function saveNotesToLocalStorage() {
 }
 
 function makeNotesFromLocalStorage() {
-  const numberOfPlacesEachNoteDataHave = 3;
-  let counter = 1;
   let noteBookBelongingToNote = "";
   let noteOrListType = "";
+  let noteTosave = []
+  const endOfSavedNoteSymbol = "//"
   if (getLocalStorageListsToArray("notes") != null) {
-    getLocalStorageListsToArray("notes").forEach((element) => {
-      if (counter < numberOfPlacesEachNoteDataHave) {
-        if (counter == 1) {
-          noteBookBelongingToNote = element;
-        } else {
-          noteOrListType = element;
-        }
-      }
+    getLocalStorageListsToArray("notes").forEach((element) => { // creates notes
+      
+      if (element == endOfSavedNoteSymbol && noteTosave[0] ==1){
+      
+        noteOrListType = noteTosave[0];
+        noteBookBelongingToNote = noteTosave[1]
+        let noteTextarea = noteTosave[2]
 
-      if (counter == 2) {
-        allNotes.push(new Note(noteOrListType, noteBookBelongingToNote));
-        counter = 1;
-      } else {
-        counter++;
+        allNotes.push(new Note(noteOrListType, noteBookBelongingToNote,noteTextarea));
+        noteTosave = []
       }
+      if (element == endOfSavedNoteSymbol && noteTosave[0] == 2){ // creates note lists
+        
+        noteOrListType = noteTosave[0];
+        noteBookBelongingToNote = noteTosave[1]
+        allNotes.push(new Note(noteOrListType, noteBookBelongingToNote));
+        noteTosave = []
+        
+        }
+      if (element != "//"){noteTosave.push(element)}
+      
+     
+        
+      
+     
+      
     });
   }
   globalUpdate();
@@ -632,7 +660,7 @@ function clearNoteDropDown() {
   document.querySelectorAll(".dropdown-btn").forEach((e) => e.remove());
 }
 
-function saveNote() {
+function saveNote() {//ska nog tas bort
   let inputValue = document.getElementById("input-text").value;
 }
 
