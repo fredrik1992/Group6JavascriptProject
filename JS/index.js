@@ -345,7 +345,7 @@ function makeNotesFromLocalStorage() {
   let dateOfCreatedNote = "";
   let noteTosave = []
   const endOfSavedNoteSymbol = "//"
-
+  openNotebook =localStorage.getItem("lastVisitedNoteBook")
   if (getLocalStorageListsToArray("notes") != null) {
     getLocalStorageListsToArray("notes").forEach((element) => { // creates notes
       
