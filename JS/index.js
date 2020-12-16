@@ -256,11 +256,12 @@ function buttonContains() {
 Konstruktor för notes-objekt 
 */
 
-function Note(type, savedNoteBookPlacment,savedTextarea) {
+function Note(type, savedNoteBookPlacment,date,savedTextarea) {
   this.noteType = type;
-
-  console.log(savedTextarea)
   this.date = addDate();
+  if (date != null){
+    this.date = date
+  }
   this.noteElement = createNote(this, type);
   main.prepend(this.noteElement);
   
@@ -280,14 +281,14 @@ function Note(type, savedNoteBookPlacment,savedTextarea) {
   this.delete = false;
 
   if (savedTextarea != "" && type ==1){
-    console.log("in save te xt")
+   
     this.noteElement.getElementsByClassName('textArea')[0].textContent = savedTextarea;
   }
 
   this.getNoteText = function(){
     if(this.noteType == 1){
      
-      console.log( this.noteElement.getElementsByClassName('textArea')[0].textContent)
+      
       return this.noteElement.getElementsByClassName('textArea')[0].textContent;
 
       
@@ -323,13 +324,13 @@ function saveNotesToLocalStorage() {
   let holdsLocalStorageNotes = [];
   allNotes.forEach((element) => {
     element.getNoteText();
-    console.log(element.textAreaContent);
+  
     let temporaryVarForTextContent = ""
     if(element.getNoteText() != ""){temporaryVarForTextContent = element.getNoteText();}
 
     
-    holdsLocalStorageNotes.push(element.noteType,element.titleOfNoteBook,temporaryVarForTextContent,"//");
-    console.log(holdsLocalStorageNotes)
+    holdsLocalStorageNotes.push(element.noteType,element.titleOfNoteBook,element.date,temporaryVarForTextContent,"//");
+    
   });
   toString(holdsLocalStorageNotes);
   localStorage.setItem("notes", holdsLocalStorageNotes);
@@ -340,6 +341,7 @@ function saveNotesToLocalStorage() {
 function makeNotesFromLocalStorage() {
   let noteBookBelongingToNote = "";
   let noteOrListType = "";
+  let dateOfCreatedNote = "";
   let noteTosave = []
   const endOfSavedNoteSymbol = "//"
   if (getLocalStorageListsToArray("notes") != null) {
@@ -349,9 +351,10 @@ function makeNotesFromLocalStorage() {
       
         noteOrListType = noteTosave[0];
         noteBookBelongingToNote = noteTosave[1]
-        let noteTextarea = noteTosave[2]
+        dateOfCreatedNote = noteTosave[2]
+        let noteTextarea = noteTosave[3]
 
-        allNotes.push(new Note(noteOrListType, noteBookBelongingToNote,noteTextarea));
+        allNotes.push(new Note(noteOrListType, noteBookBelongingToNote,dateOfCreatedNote,noteTextarea));
         noteTosave = []
       }
       if (element == endOfSavedNoteSymbol && noteTosave[0] == 2){ // creates note lists
