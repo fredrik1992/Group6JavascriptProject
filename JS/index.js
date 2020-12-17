@@ -402,7 +402,9 @@ function saveNotesToLocalStorage() {
   
   localStorage.setItem("notes", holdsLocalStorageNotes);
 
- }
+ 
+
+}
 
 function makeNotesFromLocalStorage() {
 
