@@ -348,6 +348,15 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
       let textNode = document.createTextNode(newText);
       listNode.appendChild(textNode)
       listNode.className = "itemOfList";
+      let span = document.createElement("SPAN");
+      let txt = document.createTextNode("\u00D7");
+      span.className = "close";
+      span.addEventListener("click", () => {
+        listNode.remove()
+        saveNotesToLocalStorage()
+      });
+      span.appendChild(txt);
+      listNode.appendChild(span);
       listNode.appendChild(textNode);
       node[0].appendChild(listNode);
       return node;
@@ -580,14 +589,24 @@ function createDiv2(type, article) {
 
     input.addEventListener("keypress", function (event) {
       let e = event;
-      if (e.keyCode === 13) {
+      if (e.keyCode === 13 && document.getElementsByClassName("list-input")[0].value != "") {
         let node_li = document.createElement("li");
         node_li.contentEditable = "true";
         node_li.className = "itemOfList";
-
         let textnode = document.createTextNode(input.value);
+        let span = document.createElement("SPAN");
+        let txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.addEventListener("click", () => {
+          node_li.remove();
+          saveNotesToLocalStorage();
+        });
+        span.appendChild(txt);
+        node_li.appendChild(span);
         node_li.appendChild(textnode);
         node.appendChild(node_li);
+        document.getElementsByClassName("list-input")[0].value = ""
+        saveNotesToLocalStorage()
       }
     });
 
@@ -598,12 +617,23 @@ function createDiv2(type, article) {
         node_li.contentEditable = "true";
         node_li.className = "itemOfList"
         let textnode = document.createTextNode(input.value);
+        let span = document.createElement("SPAN");
+        let txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.addEventListener("click", () => {
+          node_li.remove()
+          saveNotesToLocalStorage();
+        });
+        span.appendChild(txt);
+        node_li.appendChild(span);
         node_li.appendChild(textnode);
         node.appendChild(node_li);
+        
         
 
         div2.appendChild(node);
         document.getElementsByClassName("list-input")[0].value = ""
+        saveNotesToLocalStorage()
 
       }
     }
