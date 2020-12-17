@@ -354,7 +354,7 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
       for (let i = 0; i < elements.length; i++) {
         //kanske kan spara direkt till local? 
         listTextArray.push(elements[i])
-        console.log(elements[i].innerText)
+       
 
       }
      return listTextArray.toString();
@@ -382,7 +382,7 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
 
 function saveNotesToLocalStorage() {
   
-  console.log("in save")
+  
   let holdsLocalStorageNotes = [];
   allNotes.forEach((element) => {
     
@@ -390,13 +390,15 @@ function saveNotesToLocalStorage() {
   
     let temporaryVarForTextContent = ""
     if(element.getNoteText() != ""){temporaryVarForTextContent = element.getNoteText();}
-
-    console.log(element.getNoteLi())
+    
+    
     let test = element.getNoteLi();
-    holdsLocalStorageNotes.push(element.noteType,element.titleOfNoteBook,element.date,temporaryVarForTextContent);
+    console.log(element.getNoteLi())
+    holdsLocalStorageNotes.push(element.noteType,element.titleOfNoteBook,element.date,temporaryVarForTextContent);//fix here
+    console.log(localStorage)
     if (element.noteType == 2){
       test.forEach(element => {
-        console.log(element)
+        console.log(holdsLocalStorageNotes)
         holdsLocalStorageNotes.push(element)
       });
 
@@ -405,15 +407,18 @@ function saveNotesToLocalStorage() {
     holdsLocalStorageNotes.push("//")
     
   });
+  
   toString(holdsLocalStorageNotes);
   console.log(holdsLocalStorageNotes)
   localStorage.setItem("notes", holdsLocalStorageNotes);
+
+  console.log(localStorage)
 
   // maby add a call in remove notes to jsut to keep in current
 }
 
 function makeNotesFromLocalStorage() {
-  console.log("in create")
+ console.log("in make note")
   let listToHoldListItems = [];
   let noteBookBelongingToNote = "";
   let noteOrListType = "";
@@ -445,6 +450,7 @@ function makeNotesFromLocalStorage() {
         
         let temporaryHolderOfNoteObj =new Note(noteOrListType, noteBookBelongingToNote,dateOfCreatedNote,"")
         for (let index = 4; index < noteTosave.length; index++) {
+          console.log(noteTosave[index])
           temporaryHolderOfNoteObj.setNewLi(noteTosave[index])
           
         }
@@ -610,6 +616,8 @@ function createDiv2(type, article) {
   btnConfirm.className = "note-button note-button-bottom";
   btnConfirm.addEventListener("click", function () {
     saveNotesToLocalStorage()
+    
+    
     
   });
   btnConfirm.appendChild(createImgConfirm());
