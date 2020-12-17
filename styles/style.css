@@ -176,16 +176,21 @@ footer {
 }
 
 .list {
-  padding: 1rem 2rem;
+  
+  list-style: none;
+  border-radius: 0.3rem;
 }
+
+
 
 .input-container {
   max-width: 100%;
-  margin: 0rem 1rem;
+  margin-bottom: .5rem;
   background-color: #e0ecf5;
   display: none;
   padding: 0.3rem 0.7rem;
-  border-radius: 0.3rem;
+  border-radius: .2rem;
+  
 }
 
 .note-list:hover .input-container {
@@ -203,9 +208,50 @@ footer {
   color: inherit;
 }
 
-.list-item {
-  word-wrap: break-word;
+.itemOfList {
+  width: 85%;
 }
+
+.itemOfList:focus {
+  outline: none;
+}
+
+.list-item {
+ 
+}
+
+.list-item-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: .4rem .7rem;
+  border-radius: .2rem;
+  margin-bottom: .5rem;
+  
+  
+}
+
+.list-item-container:nth-child(even) {
+  background-color: #e0ecf5;
+}
+
+.list-item-container:nth-child(odd) {
+  background-color: #F0F5FA;
+}
+
+
+.remove-list-item {
+  width: 10%;
+  height: 100%;
+  font-size: 1.3rem;
+  text-align: right;
+}
+
+.remove-list-item:hover {
+  cursor: pointer;
+}
+
+
 
 .list-input:focus {
   outline: none;

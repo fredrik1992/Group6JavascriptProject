@@ -13,7 +13,7 @@ function init() {
   createNoteBok("Dashboard");
   createNoteBooksFromLocalStorage();
   makeNotesFromLocalStorage();
-  if(openNotebook == null){
+  if (openNotebook == null) {
     openNotebook = "Dashboard";
   }
   displayCurrentNoteBook();
@@ -127,8 +127,8 @@ function removeNoteBooks(titleToRemove) {
   for (let i = 0; i < existingNoteBooks.length; i++) {
     if (existingNoteBooks[i].titleOfObject == titleToRemove.titleOfObject) {
       existingNoteBooks.splice(i, 1);
-      if(existingNoteBooks.length == 1){
-        localStorage.removeItem('books');
+      if (existingNoteBooks.length == 1) {
+        localStorage.removeItem("books");
         //Testar om bara dashboard är kvar och tar bort nyckeln helt.
       }
       saveNotesToLocalStorage();
@@ -183,7 +183,7 @@ function updateCurrentNoteBooks() {
 
     removeNoteBookButton.addEventListener("click", function () {
       moveToDashboard(element);
-      if(element.titleOfObject == openNotebook){
+      if (element.titleOfObject == openNotebook) {
         openNotebook = "Dashboard";
         localStorage.setItem("lastVisitedNoteBook", "Dashboard");
       }
@@ -194,14 +194,14 @@ function updateCurrentNoteBooks() {
   });
 }
 
-function moveToDashboard(obj){
+function moveToDashboard(obj) {
   for (let i = 0; i < allNotes.length; i++) {
-                   if(allNotes[i].titleOfNoteBook == obj.titleOfObject){
-                   allNotes[i].titleOfNoteBook = "Dashboard";
-          } 
-       }
+    if (allNotes[i].titleOfNoteBook == obj.titleOfObject) {
+      allNotes[i].titleOfNoteBook = "Dashboard";
+    }
   }
-  
+}
+
 function globalUpdate() {
   document.querySelectorAll(".note").forEach((e) => e.remove()); //cleares window
   moveSelected(false);
@@ -231,12 +231,11 @@ function newNoteBookIntro(notebookHeading) {
   notebookHeading.style.color = "#f7faeb";
   notebookHeading.style.transition = "all 0.1s ease-in-out";
   notebookHeading.style.transform = "scale(1.1)";
-  
+
   setTimeout(() => {
     notebookHeading.style.color = "#32292f";
     notebookHeading.style.transform = "scale(1)";
-  },100);
-  
+  }, 100);
 }
 
 //--
@@ -290,16 +289,16 @@ function buttonContains() {
 Konstruktor för notes-objekt 
 */
 
-function Note(type, savedNoteBookPlacment,date,savedTextarea) {
+function Note(type, savedNoteBookPlacment, date, savedTextarea) {
   this.noteType = type;
   this.date = addDate();
-  if (date != null){
-    this.date = date
+  if (date != null) {
+    this.date = date;
   }
 
   this.noteElement = createNote(this, type);
   main.prepend(this.noteElement);
-  
+
   this.checkBox = document.createElement("input");
   this.checkBox.type = "checkbox";
   this.checkBox.style.display = "none";
@@ -314,60 +313,57 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
 
   this.delete = false;
 
-  if (savedTextarea != "" && type ==1){
-   
-    this.noteElement.getElementsByClassName('textArea')[0].textContent = savedTextarea;
+  if (savedTextarea != "" && type == 1) {
+    this.noteElement.getElementsByClassName(
+      "textArea"
+    )[0].textContent = savedTextarea;
   }
-  
-  this.getNoteLi = function (){
-    if (this.noteType ==2){
-      
-      let arrayOfInnerText = []
-      let listItemsArray = this.noteElement.getElementsByClassName("itemOfList")
 
-      
-      
+  this.getNoteLi = function () {
+    if (this.noteType == 2) {
+      let arrayOfInnerText = [];
+      let listItemsArray = this.noteElement.getElementsByClassName(
+        "itemOfList"
+      );
+
       for (let index = 0; index < listItemsArray.length; index++) {
-       
-        arrayOfInnerText.push(listItemsArray[index].innerText)
+        arrayOfInnerText.push(listItemsArray[index].innerText);
       }
       arrayOfInnerText.toString();
-      return(arrayOfInnerText)
-      
-
+      return arrayOfInnerText;
     }
-  }
+  };
 
   //om du kan mata varje string som newNext från local sätter denna dit dom en i taget
-  this.setNewLi = function(newText){
-    if(this.noteType == 2){   
-
-      let node = this.noteElement.getElementsByClassName('list');
-      let listNode = document.createElement('li');
-      listNode.contentEditable = "true";
-      let textNode = document.createTextNode(newText);
-      listNode.appendChild(textNode)
-      listNode.className = "itemOfList";
+  this.setNewLi = function (newText) {
+    if (this.noteType == 2) {
+      let node = this.noteElement.getElementsByClassName("list");
+      let listItemContainer = document.createElement("div");
+      listItemContainer.className = "list-item-container";
+      let node_li = document.createElement("li");
+      node_li.contentEditable = "true";
+      node_li.className = "itemOfList";
+      let textnode = document.createTextNode(newText);
       let span = document.createElement("SPAN");
       let txt = document.createTextNode("\u00D7");
-      span.className = "close";
+      span.className = "remove-list-item";
       span.addEventListener("click", () => {
-        listNode.remove()
-        saveNotesToLocalStorage()
+        listItemContainer.remove();
+        saveNotesToLocalStorage();
       });
       span.appendChild(txt);
-      listNode.appendChild(span);
-      listNode.appendChild(textNode);
-      node[0].appendChild(listNode);
+      node_li.appendChild(textnode);
+      listItemContainer.appendChild(node_li);
+      listItemContainer.appendChild(span);
+      node[0].appendChild(listItemContainer);
       return node;
-  }
-}
-  this.getNoteText = function(){
-    if(this.noteType == 1){
-     return this.noteElement.getElementsByClassName('textArea')[0].textContent;
-
     }
-  }
+  };
+  this.getNoteText = function () {
+    if (this.noteType == 1) {
+      return this.noteElement.getElementsByClassName("textArea")[0].textContent;
+    }
+  };
   this.setTitleOfNoteBook = (title) => {
     this.titleOfNoteBook = title;
   };
@@ -389,96 +385,99 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
 }
 
 function saveNotesToLocalStorage() {
-  
-  
   let holdsLocalStorageNotes = [];
   allNotes.forEach((element) => {
-    
     element.getNoteText();
-  
-    let temporaryVarForTextContent = ""
-    if(element.getNoteText() != ""){temporaryVarForTextContent = element.getNoteText();}
-    
-    
-    let test = element.getNoteLi();
-   
-    holdsLocalStorageNotes.push(element.noteType,element.titleOfNoteBook,element.date,temporaryVarForTextContent);//fix here
-    
-    if (element.noteType == 2){
-      test.forEach(element => {
-        
-        holdsLocalStorageNotes.push(element)
-      });
 
+    let temporaryVarForTextContent = "";
+    if (element.getNoteText() != "") {
+      temporaryVarForTextContent = element.getNoteText();
     }
-    
-    holdsLocalStorageNotes.push("//")
-    
-  });
-  
-  toString(holdsLocalStorageNotes);
-  
-  localStorage.setItem("notes", holdsLocalStorageNotes);
 
- 
+    let test = element.getNoteLi();
+
+    holdsLocalStorageNotes.push(
+      element.noteType,
+      element.titleOfNoteBook,
+      element.date,
+      temporaryVarForTextContent
+    ); //fix here
+
+    if (element.noteType == 2) {
+      test.forEach((element) => {
+        holdsLocalStorageNotes.push(element);
+      });
+    }
+
+    holdsLocalStorageNotes.push("//");
+  });
+
+  toString(holdsLocalStorageNotes);
+
+  localStorage.setItem("notes", holdsLocalStorageNotes);
 
   // maby add a call in remove notes to jsut to keep in current
 }
 
 function makeNotesFromLocalStorage() {
-
   let listToHoldListItems = [];
   let noteBookBelongingToNote = "";
   let noteOrListType = "";
   let dateOfCreatedNote = "";
-  let noteTosave = []
-  const endOfSavedNoteSymbol = "//"
-  openNotebook =localStorage.getItem("lastVisitedNoteBook")
+  let noteTosave = [];
+  const endOfSavedNoteSymbol = "//";
+  openNotebook = localStorage.getItem("lastVisitedNoteBook");
   if (getLocalStorageListsToArray("notes") != null) {
-    getLocalStorageListsToArray("notes").forEach((element) => { // creates notes
-      
-      if (element == endOfSavedNoteSymbol && noteTosave[0] ==1){
-      
-        noteOrListType = noteTosave[0];
-        noteBookBelongingToNote = noteTosave[1]
-        dateOfCreatedNote = noteTosave[2]
-        let noteTextarea = noteTosave[3]
+    getLocalStorageListsToArray("notes").forEach((element) => {
+      // creates notes
 
-        allNotes.push(new Note(noteOrListType, noteBookBelongingToNote,dateOfCreatedNote,noteTextarea));
-        noteTosave = []
+      if (element == endOfSavedNoteSymbol && noteTosave[0] == 1) {
+        noteOrListType = noteTosave[0];
+        noteBookBelongingToNote = noteTosave[1];
+        dateOfCreatedNote = noteTosave[2];
+        let noteTextarea = noteTosave[3];
+
+        allNotes.push(
+          new Note(
+            noteOrListType,
+            noteBookBelongingToNote,
+            dateOfCreatedNote,
+            noteTextarea
+          )
+        );
+        noteTosave = [];
       }
-      
-     
-      if (element == endOfSavedNoteSymbol && noteTosave[0] == 2){ // creates note lists
-        
+
+      if (element == endOfSavedNoteSymbol && noteTosave[0] == 2) {
+        // creates note lists
+
         noteOrListType = noteTosave[0];
-        noteBookBelongingToNote = noteTosave[1]
-        dateOfCreatedNote = noteTosave[2]
+        noteBookBelongingToNote = noteTosave[1];
+        dateOfCreatedNote = noteTosave[2];
 
-        
-        let temporaryHolderOfNoteObj =new Note(noteOrListType, noteBookBelongingToNote,dateOfCreatedNote,"")
+        let temporaryHolderOfNoteObj = new Note(
+          noteOrListType,
+          noteBookBelongingToNote,
+          dateOfCreatedNote,
+          ""
+        );
         for (let index = 4; index < noteTosave.length; index++) {
-         
-          temporaryHolderOfNoteObj.setNewLi(noteTosave[index])
-          
+          temporaryHolderOfNoteObj.setNewLi(noteTosave[index]);
         }
 
-        allNotes.push(temporaryHolderOfNoteObj)            //when fixed sent the rest of array into notes
-        noteTosave = []
-        
-        }
-        
-      if (element != "//"){noteTosave.push(element)}
-      
-     });
+        allNotes.push(temporaryHolderOfNoteObj); //when fixed sent the rest of array into notes
+        noteTosave = [];
+      }
+
+      if (element != "//") {
+        noteTosave.push(element);
+      }
+    });
   }
-  
 }
 
 function getLocalStorageListsToArray(key) {
- 
   if (localStorage.getItem(key) != null) {
-    
     let arrayToHoldkeyList = localStorage.getItem(key);
     arrayToHoldkeyList = arrayToHoldkeyList.split(",");
 
@@ -589,65 +588,50 @@ function createDiv2(type, article) {
 
     input.addEventListener("keypress", function (event) {
       let e = event;
-      if (e.keyCode === 13 && document.getElementsByClassName("list-input")[0].value != "") {
+      if (
+        e.code === "Enter" &&
+        document.getElementsByClassName("list-input")[0].value != ""
+      ) {
+        addListItemOnClick();
+      }
+    });
+
+    function addListItemOnClick() {
+      if (input.value.length > 0) {
+        let listItemContainer = document.createElement("div");
+        listItemContainer.className = "list-item-container";
         let node_li = document.createElement("li");
         node_li.contentEditable = "true";
         node_li.className = "itemOfList";
         let textnode = document.createTextNode(input.value);
         let span = document.createElement("SPAN");
         let txt = document.createTextNode("\u00D7");
-        span.className = "close";
+        span.className = "remove-list-item";
         span.addEventListener("click", () => {
-          node_li.remove();
+          listItemContainer.remove();
           saveNotesToLocalStorage();
         });
         span.appendChild(txt);
-        node_li.appendChild(span);
         node_li.appendChild(textnode);
-        node.appendChild(node_li);
-        document.getElementsByClassName("list-input")[0].value = ""
-        saveNotesToLocalStorage()
-      }
-    });
-
-    function addListItemOnClick() {
-      if (input.value.length > 0) {
-        
-        let node_li = document.createElement("li");
-        node_li.contentEditable = "true";
-        node_li.className = "itemOfList"
-        let textnode = document.createTextNode(input.value);
-        let span = document.createElement("SPAN");
-        let txt = document.createTextNode("\u00D7");
-        span.className = "close";
-        span.addEventListener("click", () => {
-          node_li.remove()
-          saveNotesToLocalStorage();
-        });
-        span.appendChild(txt);
-        node_li.appendChild(span);
-        node_li.appendChild(textnode);
-        node.appendChild(node_li);
-        
-        
+        listItemContainer.appendChild(node_li);
+        listItemContainer.appendChild(span);
+        node.prepend(listItemContainer);
 
         div2.appendChild(node);
-        document.getElementsByClassName("list-input")[0].value = ""
-        saveNotesToLocalStorage()
-
+        document.getElementsByClassName("list-input")[0].value = "";
+        saveNotesToLocalStorage();
       }
     }
     button.addEventListener("click", addListItemOnClick);
-  }  
+  }
   return div2;
 }
 
- function createBtnConfirm() {
-
+function createBtnConfirm() {
   let btnConfirm = document.createElement("button");
   btnConfirm.className = "note-button note-button-bottom";
   btnConfirm.addEventListener("click", function () {
-    saveNotesToLocalStorage() 
+    saveNotesToLocalStorage();
   });
   btnConfirm.appendChild(createImgConfirm());
   return btnConfirm;
@@ -662,9 +646,7 @@ function createImgConfirm() {
   imgConfirm.height = "32";
   imgConfirm.title = "Confirm";
   return imgConfirm;
-
-} 
-
+}
 
 //Skapar ett nytt datum-objekt och lägger till dagens datum till en ny anteckning i formatet yyyy-mm-dd
 function addDate() {
@@ -749,7 +731,7 @@ function addBooksToDropDown(obj, dropDownContent) {
         if (element.checkBox.checked == true) {
           element.titleOfNoteBook = existingNoteBooks[i].getTitle();
           element.checkBox.checked = false;
-          saveNotesToLocalStorage()
+          saveNotesToLocalStorage();
           globalUpdate();
         }
       });
@@ -794,7 +776,7 @@ function clearNoteDropDown() {
 }
 
 //function saveNote() {//ska nog tas bort
-  //let inputValue = document.getElementById("input-text").value;
+//let inputValue = document.getElementById("input-text").value;
 //}
 
 function closeNote() {
