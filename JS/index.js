@@ -14,6 +14,7 @@ function init() {
   createNoteBooksFromLocalStorage();
   makeNotesFromLocalStorage();
   displayCurrentNoteBook();
+  
 }
 //---create noteBookStarts
 
@@ -306,6 +307,25 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
    
     this.noteElement.getElementsByClassName('textArea')[0].textContent = savedTextarea;
   }
+  
+  this.getNoteLi = function (){
+    if (this.noteType ==2){
+      
+      let arrayOfInnerText = []
+      let listItemsArray = this.noteElement.getElementsByClassName("itemOfList")
+
+      
+      
+      for (let index = 0; index < listItemsArray.length; index++) {
+       
+        arrayOfInnerText.push(listItemsArray[index].innerText)
+      }
+      arrayOfInnerText.toString();
+      return(arrayOfInnerText)
+      
+
+    }
+  }
 
   //om du kan mata varje string som newNext från local sätter denna dit dom en i taget
   this.setNewLi = function(newText){
@@ -329,11 +349,15 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
      return this.noteElement.getElementsByClassName('textArea')[0].textContent;
 
     }else if(this.noteType == 2){
-      let elements = this.noteElement.getElementsByClassName('list-item');
+      let elements = this.noteElement.getElementsByClassName('list');
+      let listTextArray = []
       for (let i = 0; i < elements.length; i++) {
         //kanske kan spara direkt till local? 
+        listTextArray.push(elements[i])
         console.log(elements[i].innerText)
+
       }
+     return listTextArray.toString();
     }
   }
   this.setTitleOfNoteBook = (title) => {
@@ -358,26 +382,39 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
 
 function saveNotesToLocalStorage() {
   
-
+  console.log("in save")
   let holdsLocalStorageNotes = [];
   allNotes.forEach((element) => {
+    
     element.getNoteText();
   
     let temporaryVarForTextContent = ""
     if(element.getNoteText() != ""){temporaryVarForTextContent = element.getNoteText();}
 
+    console.log(element.getNoteLi())
+    let test = element.getNoteLi();
+    holdsLocalStorageNotes.push(element.noteType,element.titleOfNoteBook,element.date,temporaryVarForTextContent);
+    if (element.noteType == 2){
+      test.forEach(element => {
+        console.log(element)
+        holdsLocalStorageNotes.push(element)
+      });
+
+    }
     
-    holdsLocalStorageNotes.push(element.noteType,element.titleOfNoteBook,element.date,temporaryVarForTextContent,"//");
+    holdsLocalStorageNotes.push("//")
     
   });
   toString(holdsLocalStorageNotes);
+  console.log(holdsLocalStorageNotes)
   localStorage.setItem("notes", holdsLocalStorageNotes);
 
   // maby add a call in remove notes to jsut to keep in current
 }
 
 function makeNotesFromLocalStorage() {
-
+  console.log("in create")
+  let listToHoldListItems = [];
   let noteBookBelongingToNote = "";
   let noteOrListType = "";
   let dateOfCreatedNote = "";
@@ -397,19 +434,32 @@ function makeNotesFromLocalStorage() {
         allNotes.push(new Note(noteOrListType, noteBookBelongingToNote,dateOfCreatedNote,noteTextarea));
         noteTosave = []
       }
+      
+     
       if (element == endOfSavedNoteSymbol && noteTosave[0] == 2){ // creates note lists
         
         noteOrListType = noteTosave[0];
         noteBookBelongingToNote = noteTosave[1]
+        dateOfCreatedNote = noteTosave[2]
+
         
-        allNotes.push(new Note(noteOrListType, noteBookBelongingToNote));//when fixed sent the rest of array into notes
+        let temporaryHolderOfNoteObj =new Note(noteOrListType, noteBookBelongingToNote,dateOfCreatedNote,"")
+        for (let index = 4; index < noteTosave.length; index++) {
+          temporaryHolderOfNoteObj.setNewLi(noteTosave[index])
+          
+        }
+
+        
+        
+        allNotes.push(temporaryHolderOfNoteObj)            //when fixed sent the rest of array into notes
         noteTosave = []
         
         }
       if (element != "//"){noteTosave.push(element)}
       
      });
-  }globalUpdate();
+  }
+  globalUpdate();
 }
 
 function getLocalStorageListsToArray(key) {
@@ -529,6 +579,7 @@ function createDiv2(type, article) {
       if (e.keyCode === 13) {
         let node_li = document.createElement("li");
         node_li.className = "list-item";
+
         let textnode = document.createTextNode(input.value);
         node_li.appendChild(textnode);
         node.appendChild(node_li);
@@ -539,6 +590,7 @@ function createDiv2(type, article) {
     function addListItemOnClick() {
       if (input.value.length > 0) {
         let node_li = document.createElement("li");
+        node_li.className = "itemOfList"
         let textnode = document.createTextNode(input.value);
         node_li.appendChild(textnode);
         node.appendChild(node_li);
