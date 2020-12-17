@@ -541,14 +541,14 @@ function createDiv2(type, article) {
   }
 
   if (type == 2) {
-    article.className = "note note-list shadow-sm";
+    article.className = "note note-list";
     let inputContainer = document.createElement("div");
     inputContainer.className = "input-container";
     let input = document.createElement("input");
     input.type = "text";
     input.className = "list-input";
-    input.placeholder = "Add to list";
-
+    input.placeholder = "Type here..."
+    
     let button = document.createElement("button");
     button.className = "list-btn note-button";
     let imgAddList = document.createElement("img");
@@ -560,46 +560,93 @@ function createDiv2(type, article) {
     button.appendChild(imgAddList);
     let node = document.createElement("ul");
     node.className = "list";
+    
 
     inputContainer.appendChild(input);
     inputContainer.appendChild(button);
 
     div2.appendChild(inputContainer);
-    div2.appendChild(node);
-
-    input.addEventListener("keypress", function (event) {
-      let e = event;
-      if (e.keyCode === 13) {
-        let node_li = document.createElement("li");
-        node_li.contentEditable = "true";
-        node_li.className = "itemOfList";
-
-        let textnode = document.createTextNode(input.value);
-        node_li.appendChild(textnode);
-        node.appendChild(node_li);
-      }
-    });
 
     function addListItemOnClick() {
       if (input.value.length > 0) {
-        
         let node_li = document.createElement("li");
-        node_li.className = "itemOfList"
         let textnode = document.createTextNode(input.value);
+        let checkbox = document.createElement('input');
+        node_li.contentEditable = "true";
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        node_li.appendChild(span);
+      
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+          }
+        }
         node_li.appendChild(textnode);
         node.appendChild(node_li);
-        
-
         div2.appendChild(node);
-        document.getElementsByClassName("list-input")[0].value = ""
 
       }
+      input.value = "";
     }
     button.addEventListener("click", addListItemOnClick);
+
+    input.addEventListener("keydown", function(e) {
+      if (e.which === 13) {
+        let node_li = document.createElement("li");
+        node_li.className = "list-item";
+        let textnode = document.createTextNode(input.value);
+        node_li.contentEditable = "true";
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        node_li.appendChild(span);
+      
+        for (i = 1; i < close.length; i++) {
+          close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+          }
+        }
+
+        node_li.appendChild(textnode);
+        node.appendChild(node_li);
+        div2.appendChild(node);
+        input.value = "";
+      }
+    });
+    
+
+    
+    var myNodelist = document.getElementsByTagName("li");
+    var i;
+    for (i = 0; i < myNodelist.length; i++) {
+      var span = document.createElement("SPAN");
+      var txt = document.createTextNode("\u00D7");
+      span.className = "close";
+      span.appendChild(txt);
+      myNodelist[i].appendChild(span);
+    }
+    
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+      close[i].onclick = function() {
+        var div = this.parentElement;
+        div.style.display = "none";
+      }
+    }
+
+
+
   }
+  
   return div2;
 }
-
 
  function createBtnConfirm() {
 
