@@ -337,7 +337,7 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
       let test = document.createElement('li');
       let textNode = document.createTextNode(newText);
       test.appendChild(textNode)
-      test.className = "list-item";
+      test.className = "itemOfList";
       test.appendChild(textNode);
       //ulNode.appendChild(test);
       node[0].appendChild(test);
@@ -348,16 +348,6 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
     if(this.noteType == 1){
      return this.noteElement.getElementsByClassName('textArea')[0].textContent;
 
-    }else if(this.noteType == 2){
-      let elements = this.noteElement.getElementsByClassName('list');
-      let listTextArray = []
-      for (let i = 0; i < elements.length; i++) {
-        //kanske kan spara direkt till local? 
-        listTextArray.push(elements[i])
-       
-
-      }
-     return listTextArray.toString();
     }
   }
   this.setTitleOfNoteBook = (title) => {
@@ -393,12 +383,12 @@ function saveNotesToLocalStorage() {
     
     
     let test = element.getNoteLi();
-    console.log(element.getNoteLi())
+   
     holdsLocalStorageNotes.push(element.noteType,element.titleOfNoteBook,element.date,temporaryVarForTextContent);//fix here
-    console.log(localStorage)
+    
     if (element.noteType == 2){
       test.forEach(element => {
-        console.log(holdsLocalStorageNotes)
+        
         holdsLocalStorageNotes.push(element)
       });
 
@@ -409,16 +399,13 @@ function saveNotesToLocalStorage() {
   });
   
   toString(holdsLocalStorageNotes);
-  console.log(holdsLocalStorageNotes)
+  
   localStorage.setItem("notes", holdsLocalStorageNotes);
 
-  console.log(localStorage)
-
-  // maby add a call in remove notes to jsut to keep in current
-}
+ }
 
 function makeNotesFromLocalStorage() {
- console.log("in make note")
+
   let listToHoldListItems = [];
   let noteBookBelongingToNote = "";
   let noteOrListType = "";
@@ -450,22 +437,21 @@ function makeNotesFromLocalStorage() {
         
         let temporaryHolderOfNoteObj =new Note(noteOrListType, noteBookBelongingToNote,dateOfCreatedNote,"")
         for (let index = 4; index < noteTosave.length; index++) {
-          console.log(noteTosave[index])
+         
           temporaryHolderOfNoteObj.setNewLi(noteTosave[index])
           
         }
 
-        
-        
         allNotes.push(temporaryHolderOfNoteObj)            //when fixed sent the rest of array into notes
         noteTosave = []
         
         }
+        
       if (element != "//"){noteTosave.push(element)}
       
      });
   }
-  globalUpdate();
+  
 }
 
 function getLocalStorageListsToArray(key) {
@@ -589,19 +575,25 @@ function createDiv2(type, article) {
         let textnode = document.createTextNode(input.value);
         node_li.appendChild(textnode);
         node.appendChild(node_li);
+        
+
 
       }
     });
 
     function addListItemOnClick() {
       if (input.value.length > 0) {
+        
         let node_li = document.createElement("li");
         node_li.className = "itemOfList"
         let textnode = document.createTextNode(input.value);
         node_li.appendChild(textnode);
         node.appendChild(node_li);
+        
 
         div2.appendChild(node);
+        document.getElementsByClassName("list-input")[0].value = ""
+
       }
     }
     button.addEventListener("click", addListItemOnClick);
@@ -616,6 +608,7 @@ function createDiv2(type, article) {
   btnConfirm.className = "note-button note-button-bottom";
   btnConfirm.addEventListener("click", function () {
     saveNotesToLocalStorage()
+    
     
     
     
