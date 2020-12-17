@@ -175,8 +175,9 @@ function updateCurrentNoteBooks() {
 
     removeNoteBookButton.addEventListener("click", function () {
       moveToDashboard(element);
+      openNotebook = "Dashboard";
       removeNoteBooks(element);
-      openNotebook = element.getTitle();
+      
       displayCurrentNoteBook();
       globalUpdate();
     });
