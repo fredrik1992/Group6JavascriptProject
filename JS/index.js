@@ -336,7 +336,7 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
       listNode.contentEditable = "true";
       let textNode = document.createTextNode(newText);
       listNode.appendChild(textNode)
-      listNode.className = "list-item";
+      listNode.className = "itemOfList";
       listNode.appendChild(textNode);
       node[0].appendChild(listNode);
       return node;
@@ -572,7 +572,7 @@ function createDiv2(type, article) {
       if (e.keyCode === 13) {
         let node_li = document.createElement("li");
         node_li.contentEditable = "true";
-        node_li.className = "list-item";
+        node_li.className = "itemOfList";
 
         let textnode = document.createTextNode(input.value);
         node_li.appendChild(textnode);
