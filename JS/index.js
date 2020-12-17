@@ -175,9 +175,8 @@ function updateCurrentNoteBooks() {
 
     removeNoteBookButton.addEventListener("click", function () {
       moveToDashboard(element);
-      openNotebook = "Dashboard";
       removeNoteBooks(element);
-      
+      openNotebook = element.getTitle();
       displayCurrentNoteBook();
       globalUpdate();
     });
@@ -405,6 +404,7 @@ function saveNotesToLocalStorage() {
 
  
 
+  // maby add a call in remove notes to jsut to keep in current
 }
 
 function makeNotesFromLocalStorage() {
