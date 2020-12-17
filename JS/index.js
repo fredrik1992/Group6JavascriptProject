@@ -348,6 +348,15 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
       let textNode = document.createTextNode(newText);
       listNode.appendChild(textNode)
       listNode.className = "itemOfList";
+      let span = document.createElement("SPAN");
+      let txt = document.createTextNode("\u00D7");
+      span.className = "close";
+      span.addEventListener("click", () => {
+        listNode.remove()
+        saveNotesToLocalStorage()
+      });
+      span.appendChild(txt);
+      listNode.appendChild(span);
       listNode.appendChild(textNode);
       node[0].appendChild(listNode);
       return node;
@@ -552,14 +561,14 @@ function createDiv2(type, article) {
   }
 
   if (type == 2) {
-    article.className = "note note-list";
+    article.className = "note note-list shadow-sm";
     let inputContainer = document.createElement("div");
     inputContainer.className = "input-container";
     let input = document.createElement("input");
     input.type = "text";
     input.className = "list-input";
-    input.placeholder = "Type here..."
-    
+    input.placeholder = "Add to list";
+
     let button = document.createElement("button");
     button.className = "list-btn note-button";
     let imgAddList = document.createElement("img");
@@ -571,91 +580,65 @@ function createDiv2(type, article) {
     button.appendChild(imgAddList);
     let node = document.createElement("ul");
     node.className = "list";
-    
 
     inputContainer.appendChild(input);
     inputContainer.appendChild(button);
 
     div2.appendChild(inputContainer);
+    div2.appendChild(node);
+
+    input.addEventListener("keypress", function (event) {
+      let e = event;
+      if (e.keyCode === 13 && document.getElementsByClassName("list-input")[0].value != "") {
+        let node_li = document.createElement("li");
+        node_li.contentEditable = "true";
+        node_li.className = "itemOfList";
+        let textnode = document.createTextNode(input.value);
+        let span = document.createElement("SPAN");
+        let txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.addEventListener("click", () => {
+          node_li.remove();
+          saveNotesToLocalStorage();
+        });
+        span.appendChild(txt);
+        node_li.appendChild(span);
+        node_li.appendChild(textnode);
+        node.appendChild(node_li);
+        document.getElementsByClassName("list-input")[0].value = ""
+        saveNotesToLocalStorage()
+      }
+    });
 
     function addListItemOnClick() {
       if (input.value.length > 0) {
+        
         let node_li = document.createElement("li");
-        let textnode = document.createTextNode(input.value);
-        let checkbox = document.createElement('input');
         node_li.contentEditable = "true";
-        var span = document.createElement("SPAN");
-        var txt = document.createTextNode("\u00D7");
-        span.className = "close";
-        span.appendChild(txt);
-        node_li.appendChild(span);
-      
-        for (i = 0; i < close.length; i++) {
-          close[i].onclick = function() {
-            var div = this.parentElement;
-            div.style.display = "none";
-          }
-        }
-        node_li.appendChild(textnode);
-        node.appendChild(node_li);
-        div2.appendChild(node);
-
-      }
-      input.value = "";
-    }
-    button.addEventListener("click", addListItemOnClick);
-
-    input.addEventListener("keydown", function(e) {
-      if (e.which === 13) {
-        let node_li = document.createElement("li");
         node_li.className = "itemOfList"
         let textnode = document.createTextNode(input.value);
-        node_li.contentEditable = "true";
-        var span = document.createElement("SPAN");
-        var txt = document.createTextNode("\u00D7");
+        let span = document.createElement("SPAN");
+        let txt = document.createTextNode("\u00D7");
         span.className = "close";
+        span.addEventListener("click", () => {
+          node_li.remove()
+          saveNotesToLocalStorage();
+        });
         span.appendChild(txt);
         node_li.appendChild(span);
-      
-        for (i = 1; i < close.length; i++) {
-          close[i].onclick = function() {
-            var div = this.parentElement;
-            div.style.display = "none";
-          }
-        }
-
         node_li.appendChild(textnode);
         node.appendChild(node_li);
+        
+        
+
         div2.appendChild(node);
-        input.value = "";
-      }
-    });
-    
+        document.getElementsByClassName("list-input")[0].value = ""
+        saveNotesToLocalStorage()
 
-    
-    var myNodelist = document.getElementsByTagName("li");
-    var i;
-    for (i = 0; i < myNodelist.length; i++) {
-      var span = document.createElement("SPAN");
-      var txt = document.createTextNode("\u00D7");
-      span.className = "close";
-      span.appendChild(txt);
-      myNodelist[i].appendChild(span);
-    }
-    
-    var close = document.getElementsByClassName("close");
-    var i;
-    for (i = 0; i < close.length; i++) {
-      close[i].onclick = function() {
-        var div = this.parentElement;
-        div.style.display = "none";
       }
     }
-
-
-
-  }
-  
+    button.addEventListener("click", addListItemOnClick);
+  }  
   return div2;
 }
 
