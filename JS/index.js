@@ -13,8 +13,11 @@ function init() {
   createNoteBok("Dashboard");
   createNoteBooksFromLocalStorage();
   makeNotesFromLocalStorage();
+  if(openNotebook == null){
+    openNotebook = "Dashboard";
+  }
   displayCurrentNoteBook();
-  
+  globalUpdate();
 }
 //---create noteBookStarts
 
@@ -124,6 +127,13 @@ function removeNoteBooks(titleToRemove) {
   for (let i = 0; i < existingNoteBooks.length; i++) {
     if (existingNoteBooks[i].titleOfObject == titleToRemove.titleOfObject) {
       existingNoteBooks.splice(i, 1);
+      localStorage.setItem("lastVisitedNoteBook", "Dashboard");
+      console.log("i removeNoteBooks behövs något som uppdaterar alla som tillhörde mig i local")
+      if(existingNoteBooks.length == 1){
+        localStorage.removeItem('books');
+        //Testar om bara dashboard är kvar och tar bort nyckeln helt.
+      }
+      saveNotesToLocalStorage();
       saveNoteBooksToLocalStorage();
       break;
     }
@@ -584,6 +594,7 @@ function createDiv2(type, article) {
       if (input.value.length > 0) {
         
         let node_li = document.createElement("li");
+        node_li.contentEditable = "true";
         node_li.className = "itemOfList"
         let textnode = document.createTextNode(input.value);
         node_li.appendChild(textnode);
@@ -606,11 +617,7 @@ function createDiv2(type, article) {
   let btnConfirm = document.createElement("button");
   btnConfirm.className = "note-button note-button-bottom";
   btnConfirm.addEventListener("click", function () {
-    saveNotesToLocalStorage()
-    
-    
-    
-    
+    saveNotesToLocalStorage() 
   });
   btnConfirm.appendChild(createImgConfirm());
   return btnConfirm;
