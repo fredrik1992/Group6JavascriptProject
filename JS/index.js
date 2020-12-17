@@ -638,10 +638,9 @@ function createDiv2(type, article) {
       }
     }
     button.addEventListener("click", addListItemOnClick);
-  }
+  }  
   return div2;
 }
-
 
  function createBtnConfirm() {
 
