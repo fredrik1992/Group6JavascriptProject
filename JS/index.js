@@ -175,8 +175,8 @@ function updateCurrentNoteBooks() {
 
     removeNoteBookButton.addEventListener("click", function () {
       moveToDashboard(element);
+      openNotebook = "Dashboard";
       removeNoteBooks(element);
-      openNotebook = element.getTitle();
       displayCurrentNoteBook();
       globalUpdate();
     });
@@ -332,15 +332,13 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
     if(this.noteType == 2){   
 
       let node = this.noteElement.getElementsByClassName('list');
-      //let ulNode = document.createElement('ul');
-      //ulNode.className ="list-item"
-      let test = document.createElement('li');
+      let listNode = document.createElement('li');
+      listNode.contentEditable = "true";
       let textNode = document.createTextNode(newText);
-      test.appendChild(textNode)
-      test.className = "itemOfList";
-      test.appendChild(textNode);
-      //ulNode.appendChild(test);
-      node[0].appendChild(test);
+      listNode.appendChild(textNode)
+      listNode.className = "list-item";
+      listNode.appendChild(textNode);
+      node[0].appendChild(listNode);
       return node;
   }
 }
@@ -573,14 +571,12 @@ function createDiv2(type, article) {
       let e = event;
       if (e.keyCode === 13) {
         let node_li = document.createElement("li");
+        node_li.contentEditable = "true";
         node_li.className = "list-item";
 
         let textnode = document.createTextNode(input.value);
         node_li.appendChild(textnode);
         node.appendChild(node_li);
-        
-
-
       }
     });
 
