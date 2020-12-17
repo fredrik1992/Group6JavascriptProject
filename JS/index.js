@@ -127,8 +127,6 @@ function removeNoteBooks(titleToRemove) {
   for (let i = 0; i < existingNoteBooks.length; i++) {
     if (existingNoteBooks[i].titleOfObject == titleToRemove.titleOfObject) {
       existingNoteBooks.splice(i, 1);
-      localStorage.setItem("lastVisitedNoteBook", "Dashboard");
-      console.log("i removeNoteBooks behövs något som uppdaterar alla som tillhörde mig i local")
       if(existingNoteBooks.length == 1){
         localStorage.removeItem('books');
         //Testar om bara dashboard är kvar och tar bort nyckeln helt.
@@ -185,7 +183,10 @@ function updateCurrentNoteBooks() {
 
     removeNoteBookButton.addEventListener("click", function () {
       moveToDashboard(element);
-      openNotebook = "Dashboard";
+      if(element.titleOfObject == openNotebook){
+        openNotebook = "Dashboard";
+        localStorage.setItem("lastVisitedNoteBook", "Dashboard");
+      }
       removeNoteBooks(element);
       displayCurrentNoteBook();
       globalUpdate();
