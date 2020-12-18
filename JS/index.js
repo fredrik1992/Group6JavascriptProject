@@ -344,25 +344,26 @@ function Note(type,) {
 
   //om du kan mata varje string som newNext från local sätter denna dit dom en i taget
   this.setNewLi = function(newText){
-    if(this.noteType == 2){   
-
-      let node = this.noteElement.getElementsByClassName('list');
-      let listNode = document.createElement('li');
-      listNode.contentEditable = "true";
-      let textNode = document.createTextNode(newText);
-      listNode.appendChild(textNode)
-      listNode.className = "itemOfList";
+    if (this.noteType == 2) {
+      let node = this.noteElement.getElementsByClassName("list");
+      let listItemContainer = document.createElement("div");
+      listItemContainer.className = "list-item-container";
+      let node_li = document.createElement("li");
+      node_li.contentEditable = "true";
+      node_li.className = "itemOfList";
+      let textnode = document.createTextNode(newText);
       let span = document.createElement("SPAN");
       let txt = document.createTextNode("\u00D7");
-      span.className = "close";
+      span.className = "remove-list-item";
       span.addEventListener("click", () => {
-        listNode.remove()
-        saveNotesToLocalStorage()
+        listItemContainer.remove();
+        saveNotesToLocalStorage();
       });
       span.appendChild(txt);
-      listNode.appendChild(span);
-      listNode.appendChild(textNode);
-      node[0].appendChild(listNode);
+      node_li.appendChild(textnode);
+      listItemContainer.appendChild(node_li);
+      listItemContainer.appendChild(span);
+      node[0].appendChild(listItemContainer);
       return node;
   }
 }
@@ -599,56 +600,42 @@ function createDiv2(type, article) {
 
     input.addEventListener("keypress", function (event) {
       let e = event;
-      if (e.keyCode === 13 && document.getElementsByClassName("list-input")[0].value != "") {
+      if (
+        e.code === "Enter" &&
+        document.getElementsByClassName("list-input")[0].value != ""
+      ) {
+        addListItemOnClick();
+      }
+    });
+
+    function addListItemOnClick() {
+      if (input.value.length > 0) {
+        let listItemContainer = document.createElement("div");
+        listItemContainer.className = "list-item-container";
         let node_li = document.createElement("li");
         node_li.contentEditable = "true";
         node_li.className = "itemOfList";
         let textnode = document.createTextNode(input.value);
         let span = document.createElement("SPAN");
         let txt = document.createTextNode("\u00D7");
-        span.className = "close";
+        span.className = "remove-list-item";
         span.addEventListener("click", () => {
-          node_li.remove();
+          listItemContainer.remove();
           saveNotesToLocalStorage();
         });
         span.appendChild(txt);
-        node_li.appendChild(span);
         node_li.appendChild(textnode);
-        node.appendChild(node_li);
-        document.getElementsByClassName("list-input")[0].value = ""
-        saveNotesToLocalStorage()
-      }
-    });
-
-    function addListItemOnClick() {
-      if (input.value.length > 0) {
-        
-        let node_li = document.createElement("li");
-        node_li.contentEditable = "true";
-        node_li.className = "itemOfList"
-        let textnode = document.createTextNode(input.value);
-        let span = document.createElement("SPAN");
-        let txt = document.createTextNode("\u00D7");
-        span.className = "close";
-        span.addEventListener("click", () => {
-          node_li.remove()
-          saveNotesToLocalStorage();
-        });
-        span.appendChild(txt);
-        node_li.appendChild(span);
-        node_li.appendChild(textnode);
-        node.appendChild(node_li);
-        
-        
+        listItemContainer.appendChild(node_li);
+        listItemContainer.appendChild(span);
+        node.prepend(listItemContainer);
 
         div2.appendChild(node);
-        document.getElementsByClassName("list-input")[0].value = ""
-        saveNotesToLocalStorage()
-
+        document.getElementsByClassName("list-input")[0].value = "";
+        saveNotesToLocalStorage();
       }
     }
     button.addEventListener("click", addListItemOnClick);
-  }  
+  }
   return div2;
 }
 
