@@ -1,5 +1,3 @@
-"use strict";
-
 let noteButton;
 let main = document.getElementById("main");
 let existingNoteBooks = [];
