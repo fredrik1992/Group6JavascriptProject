@@ -290,11 +290,27 @@ function buttonContains() {
 Konstruktor för notes-objekt 
 */
 
-function Note(type, savedNoteBookPlacment,date,savedTextarea) {
+function Note(type,) {
   this.noteType = type;
   this.date = addDate();
-  if (date != null){
-    this.date = date
+  this.titleOfNoteBook = openNotebook;
+  this.addingFromLocalStorage = function(date,savedNoteBookPlacment,savedTextarea){
+
+    if (date != null){
+      this.date = date
+      
+    }
+    if (savedNoteBookPlacment != null) {
+      
+      this.titleOfNoteBook = savedNoteBookPlacment;
+      
+    } else {
+      this.titleOfNoteBook = openNotebook;
+    }
+    if (savedTextarea != "" && type ==1){
+   
+      this.noteElement.getElementsByClassName('textArea')[0].textContent = savedTextarea;
+    }
   }
 
   this.noteElement = createNote(this, type);
@@ -305,20 +321,8 @@ function Note(type, savedNoteBookPlacment,date,savedTextarea) {
   this.checkBox.style.display = "none";
   this.checkBox.className = "checkbox";
   this.noteElement.appendChild(this.checkBox);
-
-  if (savedNoteBookPlacment != null) {
-    this.titleOfNoteBook = savedNoteBookPlacment;
-  } else {
-    this.titleOfNoteBook = openNotebook;
-  }
-
   this.delete = false;
 
-  if (savedTextarea != "" && type ==1){
-   
-    this.noteElement.getElementsByClassName('textArea')[0].textContent = savedTextarea;
-  }
-  
   this.getNoteLi = function (){
     if (this.noteType ==2){
       
@@ -400,12 +404,12 @@ function saveNotesToLocalStorage() {
     if(element.getNoteText() != ""){temporaryVarForTextContent = element.getNoteText();}
     
     
-    let test = element.getNoteLi();
-   
+    let liFromObjArray = element.getNoteLi();
+   console.log(element.titleOfNoteBook)
     holdsLocalStorageNotes.push(element.noteType,element.titleOfNoteBook,element.date,temporaryVarForTextContent);//fix here
     
     if (element.noteType == 2){
-      test.forEach(element => {
+      liFromObjArray.forEach(element => {
         
         holdsLocalStorageNotes.push(element)
       });
@@ -433,7 +437,9 @@ function makeNotesFromLocalStorage() {
   let dateOfCreatedNote = "";
   let noteTosave = []
   const endOfSavedNoteSymbol = "//"
+ 
   openNotebook =localStorage.getItem("lastVisitedNoteBook")
+  
   if (getLocalStorageListsToArray("notes") != null) {
     getLocalStorageListsToArray("notes").forEach((element) => { // creates notes
       
@@ -441,10 +447,13 @@ function makeNotesFromLocalStorage() {
       
         noteOrListType = noteTosave[0];
         noteBookBelongingToNote = noteTosave[1]
+        console.log(noteTosave[1])
         dateOfCreatedNote = noteTosave[2]
         let noteTextarea = noteTosave[3]
-
-        allNotes.push(new Note(noteOrListType, noteBookBelongingToNote,dateOfCreatedNote,noteTextarea));
+        let temporaryHolderOfNoteObj =new Note(noteOrListType);
+        console.log(temporaryHolderOfNoteObj)
+        temporaryHolderOfNoteObj.addingFromLocalStorage(dateOfCreatedNote,noteBookBelongingToNote,noteTextarea)
+        allNotes.push(temporaryHolderOfNoteObj);
         noteTosave = []
       }
       
@@ -455,15 +464,16 @@ function makeNotesFromLocalStorage() {
         noteBookBelongingToNote = noteTosave[1]
         dateOfCreatedNote = noteTosave[2]
 
-        
-        let temporaryHolderOfNoteObj =new Note(noteOrListType, noteBookBelongingToNote,dateOfCreatedNote,"")
+       
+        let temporaryHolderOfListObj =new Note(noteOrListType, )
+        temporaryHolderOfListObj.addingFromLocalStorage(dateOfCreatedNote,noteBookBelongingToNote,"")
         for (let index = 4; index < noteTosave.length; index++) {
          
-          temporaryHolderOfNoteObj.setNewLi(noteTosave[index])
+          temporaryHolderOfListObj.setNewLi(noteTosave[index])
           
         }
 
-        allNotes.push(temporaryHolderOfNoteObj)            //when fixed sent the rest of array into notes
+        allNotes.push(temporaryHolderOfListObj)            //when fixed sent the rest of array into notes
         noteTosave = []
         
         }
