@@ -14,11 +14,22 @@ img {
 
 .navbar {
   background-color: #f4afab !important;
+  width: 100%;
 }
 
 .navbar-brand {
   width: 20%;
   margin: 0;
+}
+
+.navbar-toggler {
+  float: right;
+
+}
+
+.navbar-toggler-container {
+  width: 20%;
+
 }
 
 .navbar-collapse {
@@ -45,10 +56,11 @@ img {
 }
 
 h6 {
-  max-width: 60%;
-
+  
+ max-width: 100%;
   text-align: center;
   font-size: 1rem;
+  display: inline-block;
 
   font-weight: 200;
   margin: 0 auto;
@@ -90,7 +102,7 @@ footer {
   display: flex;
   flex-direction: column;
   background-color: #feff9c;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .content {
@@ -108,9 +120,9 @@ footer {
 
 .note:hover {
   height: fit-content;
-
-  transition: all 0.3s ease-out;
   transform: scale(1.02);
+  transition: all 0.3s ease-out;
+  margin: 3rem auto 5rem;
 }
 
 
@@ -176,16 +188,21 @@ footer {
 }
 
 .list {
-  padding: 1rem 2rem;
+  
+  list-style: none;
+  border-radius: 0.3rem;
 }
+
+
 
 .input-container {
   max-width: 100%;
-  margin: 0rem 1rem;
+  margin-bottom: .5rem;
   background-color: #e0ecf5;
   display: none;
   padding: 0.3rem 0.7rem;
-  border-radius: 0.3rem;
+  border-radius: .2rem;
+  
 }
 
 .note-list:hover .input-container {
@@ -203,9 +220,50 @@ footer {
   color: inherit;
 }
 
-.list-item {
-  word-wrap: break-word;
+.itemOfList {
+  width: 85%;
 }
+
+.itemOfList:focus {
+  outline: none;
+}
+
+.list-item {
+ 
+}
+
+.list-item-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: .4rem .7rem;
+  border-radius: .2rem;
+  margin-bottom: .5rem;
+  
+  
+}
+
+.list-item-container:nth-child(even) {
+  background-color: #e0ecf5;
+}
+
+.list-item-container:nth-child(odd) {
+  background-color: #F0F5FA;
+}
+
+
+.remove-list-item {
+  width: 10%;
+  height: 100%;
+  font-size: 1.3rem;
+  text-align: right;
+}
+
+.remove-list-item:hover {
+  cursor: pointer;
+}
+
+
 
 .list-input:focus {
   outline: none;
@@ -409,15 +467,20 @@ footer {
     width: 100%;
     text-align: center;
     font-size: 1.2rem;
+    margin: 0;
+  }
+  .navbar-toggler-container {
+    display: none
+  
   }
 
   .dropdown-menu {
     min-width: 15rem;
   }
 
-  .navbar-brand {
+  /* .navbar-brand {
     width: 20%;
-  }
+  } */
 
   .note {
     max-width: 47%;
