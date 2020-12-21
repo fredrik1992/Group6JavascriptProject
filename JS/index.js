@@ -5,10 +5,10 @@ let allNotes = [];
 let openNotebook = "Dashboard";
 
 function init() {
-  createButton();
-  buttonContains();
+  createNewNoteButton();
+  buttonContent();
   createAddNoteBookButton();
-  createNoteBok("Dashboard");
+  createNoteBook("Dashboard");
   createNoteBooksFromLocalStorage();
   makeNotesFromLocalStorage();
   if (openNotebook == null) {
@@ -17,16 +17,15 @@ function init() {
   displayCurrentNoteBook();
   globalUpdate();
 }
-//---create noteBookStarts
+//---create noteBookStarts this function adds a button with calls to add new note books
 
 function createAddNoteBookButton() {
-  //skapa div element med flex  som en dropdown item
-  // lägga till knapp samt input
+
   let getDropdownMenu = document.getElementsByClassName("dropdown-menu")[0];
   let flexBoxForContent = document.createElement("div");
   let buttonToAddBooks = document.createElement("button");
   let buttonImage = document.createElement("img");
-  let formToInput = document.createElement("form"); // want to add required
+  let formToInput = document.createElement("form"); 
   let noteBookNameInput = document.createElement("input");
 
   flexBoxForContent.className = " addNoteBookFlexBox";
@@ -38,7 +37,7 @@ function createAddNoteBookButton() {
   noteBookNameInput.addEventListener("keypress", function (event) {
     let e = event;
     if (e.code === "Enter") {
-      createNoteBok();
+      createNoteBook();
     }
   });
 
@@ -49,43 +48,45 @@ function createAddNoteBookButton() {
   formToInput.appendChild(noteBookNameInput);
 
   buttonToAddBooks.addEventListener("click", function () {
-    //starts the creation of note books
+  
 
-    createNoteBok(); //sends value of input
+    createNoteBook(); 
   });
 }
 
-function createNoteBok(inputFromLocalStorage) {
-  //calls all functions necesary to add a new booZ
+//Calls all functions necessary for creating a new notebook
+function createNoteBook(inputFromLocalStorage) {
 
-  let inputTitle = document.getElementsByClassName("noteBookTitle")[0].value; //input value
+
+  let inputTitle = document.getElementsByClassName("noteBookTitle")[0].value;
   if (inputFromLocalStorage != null) {
-    //checks if it should use input from local storage or input field
-
-    inputTitle = inputFromLocalStorage;
+ 
+     inputTitle = inputFromLocalStorage;
   }
 
   let changeInputBoxApparance = document.getElementsByClassName(
     "noteBookTitle"
-  )[0]; //to change apparance
+  )[0]; 
 
   if (inputTitle === "") {
-    //checks that input isent empty
+    
     changeInputBoxApparance.style.border = "solid red 3px";
   } else {
     changeInputBoxApparance.style.border = "solid 1px";
 
-    existingNoteBooks.push(new NoteBookObject(inputTitle)); //adds a new notebook to the list
+    existingNoteBooks.push(new NoteBookObject(inputTitle));
     document.getElementsByClassName("noteBookTitle")[0].value = "";
-  } //clears input field
+  } 
 
-  updateCurrentNoteBooks(); //updates the note book list with added book
+  updateCurrentNoteBooks(); 
   saveNoteBooksToLocalStorage();
 }
 
+// function to take all current Notebooks and save to local storage
 function saveNoteBooksToLocalStorage() {
+ 
   if (existingNoteBooks.length > 1) {
-    let arrayToHoldAllCurrentNotebooks = []; // holds the exisiting notebooks titles
+    let arrayToHoldAllCurrentNotebooks = []; 
     existingNoteBooks.forEach((element) => {
       if (element.titleOfObject != "Dashboard") {
         arrayToHoldAllCurrentNotebooks.push(element.titleOfObject);
@@ -96,23 +97,23 @@ function saveNoteBooksToLocalStorage() {
     localStorage.setItem("books", arrayToHoldAllCurrentNotebooks);
   }
 }
-
+//Creates Notebooks from local storage
 function createNoteBooksFromLocalStorage() {
   if (localStorage.getItem("lastVisitedNoteBook" != null)) {
     openNotebook = localStorage.getItem("lastVisitedNoteBook");
   }
   if (getLocalStorageListsToArray("books") != null) {
     getLocalStorageListsToArray("books").forEach((element) => {
-      createNoteBok(element);
+      createNoteBook(element);
     });
   }
 }
-
+// saves which note book was last opened to local storage
 function lastVisitedNoteBook(lastNoteBookClick) {
   //at sstart
   localStorage.setItem("lastVisitedNoteBook", lastNoteBookClick);
 }
-
+//constructor for creating noteBooks
 function NoteBookObject(title) {
   this.titleOfObject = title;
 
@@ -124,7 +125,7 @@ function NoteBookObject(title) {
     this.titleOfObject = newTitle;
   };
 }
-
+//Removes note books from local storage 
 function removeNoteBooks(titleToRemove) {
   //titleToRemove is a button event bound to the object when created
 
@@ -143,7 +144,7 @@ function removeNoteBooks(titleToRemove) {
 
   updateCurrentNoteBooks();
 }
-
+//updates notebooks when somthing is changed
 function updateCurrentNoteBooks() {
   document.querySelectorAll(".dropdown-item").forEach((e) => e.remove()); //cleares window
   document.querySelectorAll(".noteBookFlex").forEach((e) => e.remove()); //cleares window
@@ -197,7 +198,7 @@ function updateCurrentNoteBooks() {
     });
   });
 }
-
+//Changes title of object to Dashboard if notebook is deleted
 function moveToDashboard(obj) {
   for (let i = 0; i < allNotes.length; i++) {
     if (allNotes[i].titleOfNoteBook == obj.titleOfObject) {
@@ -206,6 +207,7 @@ function moveToDashboard(obj) {
   }
 }
 
+//updates the window to show the correct notes 
 function globalUpdate() {
   document.querySelectorAll(".note").forEach((e) => e.remove()); //cleares window
   moveSelected(false);
@@ -216,7 +218,7 @@ function globalUpdate() {
     }
   });
 }
-
+//removes the noteobject from allnotes that is marked for deletion
 function clearDeleted() {
   for (let i = 0; i < allNotes.length; i++) {
     if (allNotes[i].delete == true) {
@@ -224,13 +226,13 @@ function clearDeleted() {
     }
   }
 }
-
+///Gets the current open notebook and displays it in the header of the page
 function displayCurrentNoteBook() {
   let currentNotebookHeading = document.getElementById("current-notebook");
   currentNotebookHeading.innerText = openNotebook.toUpperCase();
   newNoteBookIntro(currentNotebookHeading);
 }
-
+//flashes the new notebook name when changing noteBook
 function newNoteBookIntro(notebookHeading) {
   notebookHeading.style.color = "#f7faeb";
   notebookHeading.style.transition = "all 0.1s ease-in-out";
@@ -242,9 +244,8 @@ function newNoteBookIntro(notebookHeading) {
   }, 100);
 }
 
-//--
-
-function createButton() {
+//Creates a button that lets the user choose which type of note to create.
+function createNewNoteButton() {
   noteButton = document.createElement("div");
   noteButton.className = "menuIcon";
   document.body.appendChild(noteButton);
@@ -260,8 +261,8 @@ function createButton() {
     menu.classList.toggle("active");
   });
 }
-
-function buttonContains() {
+//what the createNewNoteButton contains
+function buttonContent() {
   let listButtons = document.createElement("ul");
   noteButton.appendChild(listButtons);
   let b1 = document.createElement("li");
@@ -289,10 +290,8 @@ function buttonContains() {
   });
 }
 
-/*
-Konstruktor för notes-objekt 
-*/
 
+//constructor of note object 
 function Note(type) {
   this.noteType = type;
   this.date = addDate();
@@ -391,7 +390,7 @@ function Note(type) {
     saveNotesToLocalStorage();
   };
 }
-
+// save notes data to local storage
 function saveNotesToLocalStorage() {
   let holdsLocalStorageNotes = [];
   allNotes.forEach((element) => {
@@ -403,7 +402,7 @@ function saveNotesToLocalStorage() {
     }
 
     let liFromObjArray = element.getNoteLi();
-    console.log(element.titleOfNoteBook);
+
     holdsLocalStorageNotes.push(
       element.noteType,
       element.titleOfNoteBook,
@@ -427,8 +426,9 @@ function saveNotesToLocalStorage() {
   // maby add a call in remove notes to jsut to keep in current
 }
 
+//Creates notes when page is loaded from local storage
 function makeNotesFromLocalStorage() {
-  let listToHoldListItems = [];
+  
   let noteBookBelongingToNote = "";
   let noteOrListType = "";
   let dateOfCreatedNote = "";
@@ -444,11 +444,11 @@ function makeNotesFromLocalStorage() {
       if (element == endOfSavedNoteSymbol && noteTosave[0] == 1) {
         noteOrListType = noteTosave[0];
         noteBookBelongingToNote = noteTosave[1];
-        console.log(noteTosave[1]);
         dateOfCreatedNote = noteTosave[2];
+
         let noteTextarea = noteTosave[3];
         let temporaryHolderOfNoteObj = new Note(noteOrListType);
-        console.log(temporaryHolderOfNoteObj);
+
         temporaryHolderOfNoteObj.addingFromLocalStorage(
           dateOfCreatedNote,
           noteBookBelongingToNote,
@@ -485,7 +485,7 @@ function makeNotesFromLocalStorage() {
     });
   }
 }
-
+//used to get any key values from local storage and converts them to a array
 function getLocalStorageListsToArray(key) {
   if (localStorage.getItem(key) != null) {
     let arrayToHoldkeyList = localStorage.getItem(key);
@@ -495,10 +495,8 @@ function getLocalStorageListsToArray(key) {
   }
 }
 
-//////////////////////////////////////// FUNCTIONS FOR CREATING NEW NOTE ////////////////////////////////////////
-
-//Skapar anteckningens container-div (<article>) och kallar på funktioner som ger styling och skapar de adnra elementen i anteckningen innan den fästs i <main>
-function createNote(obj, type /*  1 for note 2 for list*/) {
+//creates article element and calls all functions needed to create a note
+function createNote(obj, type ) {
   let article = document.createElement("article");
   article = articleAttributes(article);
   article.appendChild(createDiv1(obj));
@@ -507,14 +505,14 @@ function createNote(obj, type /*  1 for note 2 for list*/) {
   return article;
 }
 
-//Ger <article> klass och id
+//set attributes to article 
 function articleAttributes(article) {
   article.className = "note shadow-sm";
   article.id = "note-article";
   return article;
 }
 
-//Skapar en div som innehåller delete-btn och datumet
+//creates a div that holds date , delete and change note book  buttons
 function createDiv1(obj) {
   let div1 = document.createElement("div");
   div1.className = "note-buttons-top";
@@ -524,15 +522,15 @@ function createDiv1(obj) {
   return div1;
 }
 
-//Datumet
+//creates p element that displays the date
 function createP(obj) {
   let p = document.createElement("p");
   p.className = "date";
-  p.innerText = obj.date; //Sätter texten i <p>-taggen till det datum addDate() retunerar
+  p.innerText = obj.date;
   return p;
 }
 
-//Delete-knappen
+//Button for deleting  note
 function createBtnDelete(obj) {
   let btnDelete = document.createElement("button");
   btnDelete.id = "delete-button";
@@ -545,7 +543,7 @@ function createBtnDelete(obj) {
   return btnDelete;
 }
 
-//Bilden till delete-knappen
+//The image for createBtnDelete button
 function createImgDelete() {
   let imgDelete = document.createElement("img");
   imgDelete.id = "img-delete";
@@ -557,7 +555,7 @@ function createImgDelete() {
   return imgDelete;
 }
 
-//Skapar en div som innehåller en text-anteckning eller en list-anteckning beroende på användarens val
+//Create div that holds the content for the note
 function createDiv2(type, article) {
   let div2 = document.createElement("div");
   div2.className = "content";
@@ -636,7 +634,7 @@ function createDiv2(type, article) {
   }
   return div2;
 }
-
+//Creates a button to confirm note changes
 function createBtnConfirm() {
   let btnConfirm = document.createElement("button");
   btnConfirm.className = "note-button note-button-bottom";
@@ -647,7 +645,7 @@ function createBtnConfirm() {
   return btnConfirm;
 }
 
-//Bilden till confirm-knappen.
+//Image for createBtnConfirm function
 function createImgConfirm() {
   let imgConfirm = document.createElement("img");
   imgConfirm.src = "media/check.svg";
@@ -658,7 +656,7 @@ function createImgConfirm() {
   return imgConfirm;
 }
 
-//Skapar ett nytt datum-objekt och lägger till dagens datum till en ny anteckning i formatet yyyy-mm-dd
+//creates dateobj from current date and binds it to the note obj
 function addDate() {
   const noteDate = new Date();
   let month = noteDate.getMonth() + 1;
@@ -672,7 +670,7 @@ function addDate() {
   return `${noteDate.getFullYear()}-${month}-${day}`;
 }
 
-//Skapar en knapp med en "drop down" som ska skriva ut innehållet i listobjectet.
+//Creates a drop-down menu for the note 
 function addBooksToNote(obj) {
   let noteDropDown = document.createElement("div");
   let button = document.createElement("button");
@@ -702,7 +700,7 @@ function addBooksToNote(obj) {
 
   return noteDropDown;
 }
-
+//Adds a list of note books to dropdown of addBooksToNote and a checkbox to move multiple notes.
 function addBooksToDropDown(obj, dropDownContent) {
   let closeButton = document.createElement("button");
   let closeButtonIcon = document.createElement("img");
@@ -765,7 +763,7 @@ function addBooksToDropDown(obj, dropDownContent) {
   dropDownContent.appendChild(selectToMove);
   closeOnClickOutside(obj, dropDownContent);
 }
-
+//Functions that closes note drop down from addBooksToNote when clicked outside 
 function closeOnClickOutside(obj, dropDownContent) {
   document.addEventListener("click", (event) => {
     let target = event.target;
@@ -778,26 +776,13 @@ function closeOnClickOutside(obj, dropDownContent) {
     dropDownContent.style.display = "none";
   });
 }
-
+//Clears list of notebooks in dropdwon menue
 function clearNoteDropDown() {
   document.querySelectorAll(".close-btn-dropdown").forEach((e) => e.remove());
   document.querySelectorAll(".dropdown-li").forEach((e) => e.remove());
   document.querySelectorAll(".dropdown-btn").forEach((e) => e.remove());
 }
-
-//function saveNote() {//ska nog tas bort
-//let inputValue = document.getElementById("input-text").value;
-//}
-
-function closeNote() {
-  let x = document.getElementById("note-article");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-
+//moves selected element to new notebook
 function moveSelected(bool) {
   allNotes.forEach((element) => {
     element.checkBoxVisible(bool);
